@@ -22,6 +22,22 @@
           </div>
    </section>
          
+
+   <section id="catalog" class="py-16 bg-gray-100">
+      <div class="container mx-auto px-4">
+          <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Course Catalog</h2>
+          <div id="course-container" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          </div>
+          <!-- Pagination -->
+          <div class="flex justify-center mt-8">
+              <button id="prev-btn" class="px-4 py-2 bg-fuchsia-500 text-white rounded-l hover:bg-fuchsia-600 disabled:opacity-50" disabled>Previous</button>
+              <div id="page-numbers" class="flex items-center bg-white border border-gray-300 px-4 py-2">
+                  Page 1
+              </div>
+              <button id="next-btn" class="px-4 py-2 bg-fuchsia-500 text-white rounded-r hover:bg-fuchsia-600">Next</button>
+          </div>
+      </div>
+  </section>  
          
     
 
