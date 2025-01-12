@@ -1,0 +1,16 @@
+{
+  "name": "udemy-online-course-platform",
+  "version": "1.0.0",
+  "description": "The project is based on Object-Oriented Programming (OOP) concepts in native PHP to ensure a modular, clear and extensible architecture.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "npx tailwindcss -i ./app/Views/input.css -o ./app/Views/output.css --watch"
+
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  }
+}
