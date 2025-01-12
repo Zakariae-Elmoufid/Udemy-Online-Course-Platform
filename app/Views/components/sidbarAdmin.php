@@ -11,19 +11,19 @@
                     </a>
                 </li>
                     <li class="p-4 hover:bg-blue-700">
-                        <a href="teacherAcountValidation.php" class="flex items-center space-x-2">
+                        <a href="userManagment/teacherValidation.php" class="flex items-center space-x-2">
                             <span>📝</span>
                             <span>Teacher Account Validation</span>
                         </a>
                     </li>
                     <li class="p-4 hover:bg-blue-700">
-                        <a href="userManagment.php" class="flex items-center space-x-2">
+                        <a href="userManagment/userValidation.php" class="flex items-center space-x-2">
                             <span>👤</span>
                             <span>User Management</span>
                         </a>
                     </li>
                     <li class="p-4 hover:bg-blue-700">
-                        <a href="#" class="flex items-center space-x-2">
+                        <a href="contentManagment/index.php" class="flex items-center space-x-2">
                             <span>📚</span>
                             <span>Content Management</span>
                         </a>

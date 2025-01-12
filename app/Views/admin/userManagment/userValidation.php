@@ -9,7 +9,7 @@
 </head>
 <body class="bg-gray-100">
 <div class="flex flex-col md:flex-row min-h-screen">
-    <?php include "../components/sidbarAdmin.php"?>
+    <?php include "../../components/sidbarAdmin.php"?>
 
     <main class="flex-grow p-6">
     <section class="bg-white shadow p-6 rounded-lg mb-6">
