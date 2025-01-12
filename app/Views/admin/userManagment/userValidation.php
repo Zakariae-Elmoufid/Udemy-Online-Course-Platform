@@ -30,7 +30,7 @@
                       <td class="p-4 border border-gray-300">John Doe</td>
                       <td class="p-4 border border-gray-300">john.doe@example.com</td>
                       <td class="p-4 border border-gray-300">Teacher</td>
-                      <td class="p-4 border border-gray-300">Pending</td>
+                      <td class="p-4 border border-gray-300">suspension</td>
                       <td class="p-4 border border-gray-300 flex space-x-2">
                           <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
                               Approve
