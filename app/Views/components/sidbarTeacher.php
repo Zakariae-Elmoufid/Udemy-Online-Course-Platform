@@ -2,8 +2,9 @@
 
             <!-- Logo Section -->
 
-            <div class="text-center my-20">
-                <img src="https://via.placeholder.com/150" alt="Youdemy Logo" class="w-24 mx-auto">
+            <div class="text-center my-10">
+                <img src="../public/images/profil.jpg"
+                 alt="Youdemy Logo" class="w-20 mx-auto rounded-full">
             </div>
             <nav class="flex-grow">
             <ul>
