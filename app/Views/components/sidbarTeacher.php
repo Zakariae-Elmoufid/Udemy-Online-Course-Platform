@@ -9,27 +9,27 @@
             <nav class="flex-grow">
             <ul>
                   <li class="p-4 hover:bg-blue-700">
-                    <a href="teacher/index.php"class="flex items-center space-x-2">
+                    <a href="../teacher/index.php"class="flex items-center space-x-2">
                         <span>🏠</span>
                         <span>Home</span>
                     </a>
                 </li>
                 <li class="p-4 hover:bg-blue-700">
-                    <a href="teacher/course.php" class="flex items-center space-x-2">
+                    <a href="../teacher/courses.php" class="flex items-center space-x-2">
                         <span>📚</span>
                         <span>My Courses</span>
                     </a>
                 </li>
                     <li class="p-4 hover:bg-blue-700">
-                        <a href="teacher/add.php" class="flex items-center space-x-2">
+                        <a href="../teacher/add.php" class="flex items-center space-x-2">
                             <span>📝</span>
                             <span>Add New Course</span>
                         </a>
                     </li>
                     <li class="p-4 hover:bg-blue-700">
                         <a href="userManagment/userValidation.php" class="flex items-center space-x-2">
-                            <span>👤</span>
-                            <span>User Management</span>
+                            <span>⚙️</span>
+                            <span>sitenge</span>
                         </a>
                     </li>
                     

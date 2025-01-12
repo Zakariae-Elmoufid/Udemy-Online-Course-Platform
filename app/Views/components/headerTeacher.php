@@ -93,7 +93,7 @@
     </div>
 
     <!-- Mobile Sidebar -->
-    <div id="mobile-menu" class="lg:hidden absolute top-0 left-0 w-full h-screen bg-green-700 text-white transform -translate-x-full transition-transform">
+    <div id="mobile-menu" class="lg:hidden absolute top-0 left-0 w-full h-screen bg-fuchia-700 text-white transform -translate-x-full transition-transform">
         <div class="flex justify-between items-center py-4 px-6">
             <a href="#" class="text-2xl font-bold">CareerLink</a>
             <button id="close-mobile-menu" class="text-white">
