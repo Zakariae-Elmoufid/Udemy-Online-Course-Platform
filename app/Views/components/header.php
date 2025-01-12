@@ -6,7 +6,7 @@
                 <a href="#" class="hover:underline py-2">Courses</a>
                 <a href="#" class="hover:underline py-2">About Us</a>
                 <a href="#" class="hover:underline py-2">Contact</a>
-                <a href="#login" class="bg-fuchsia-800 text-white py-2  px-4 rounded hover:bg-fuchsia-600 hover:fuchsia-800">Login</a>
+                <a href="auth/login.php" class="bg-fuchsia-800 text-white py-2  px-4 rounded hover:bg-fuchsia-600 hover:fuchsia-800">Login</a>
             </nav>
             <button class="md:hidden bg-white text-fuchsia-800 p-2 rounded focus:outline-none" onclick="toggleMenu()">
                 <span>Menu</span>
