@@ -8,7 +8,7 @@
 
     <title>Admin</title>
 </head>
-<body>
+<body class="bg-gray-100">
 <div class="flex flex-col md:flex-row min-h-screen">
     <?php include "../components/sidbarAdmin.php"?>
 

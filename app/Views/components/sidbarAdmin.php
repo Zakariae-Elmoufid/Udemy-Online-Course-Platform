@@ -17,7 +17,7 @@
                         </a>
                     </li>
                     <li class="p-4 hover:bg-blue-700">
-                        <a href="#" class="flex items-center space-x-2">
+                        <a href="userManagment.php" class="flex items-center space-x-2">
                             <span>👤</span>
                             <span>User Management</span>
                         </a>
