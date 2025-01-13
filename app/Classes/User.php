@@ -30,8 +30,15 @@ class User {
    
      
 
-    public function getRole() {
+    
+    public function getId() {
+         return $this->id; 
+        }
+    public function getUsername() {
          return $this->username; 
+        }
+    public function getRole() {
+         return $this->role; 
         }
 
     public function getEmail() {

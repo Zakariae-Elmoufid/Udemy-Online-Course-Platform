@@ -6,6 +6,7 @@ use udemy;
 CREATE TABLE `Users` (
     id int PRIMARY KEY AUTO_INCREMENT,
     email varchar(100) unique,
+     username varchar(50),
     `password` varchar(200),
     created_at Date not null DEFAULT (CURRENT_DATE),
     deleted_at Date default NULL,
@@ -13,7 +14,6 @@ CREATE TABLE `Users` (
 
 CREATE TABLE Students (
     id int PRIMARY KEY AUTO_INCREMENT,
-    username varchar(100),
     field varchar(100),
     status ENUM('Activation', 'suspension', 'suppression') DEFAULT 'Activation',
     user_id int,
@@ -22,7 +22,6 @@ CREATE TABLE Students (
 
 CREATE TABLE Teachers (
     id int PRIMARY KEY AUTO_INCREMENT,
-    username varchar(50),
     speciality varchar(50),
     status ENUM('Activation', 'suspension', 'suppression') DEFAULT 'suspension',
     user_id int,

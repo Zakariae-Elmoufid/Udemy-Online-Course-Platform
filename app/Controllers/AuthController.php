@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controllers;
+use App\Models\UserModel;
 
 class   Authcontroller{
 
@@ -21,7 +22,7 @@ class   Authcontroller{
                   $_SESSION['role'] = $user->getrole();
 
                 
-                  header("Location:../Views/admin/index.php");
+                  header("Location:../admin/index.php");
             }
             
             else if($user->getrole() == "Student")
@@ -33,7 +34,7 @@ class   Authcontroller{
                 $_SESSION['role'] = $user->getrole();
 
 
-              header("Location:../Views/student/index.php");
+              header("Location:../student/index.php");
             }
             else if($user->getrole() == "Teacher")
             {
@@ -44,7 +45,7 @@ class   Authcontroller{
                 $_SESSION['role'] = $user->getrole();
 
 
-              header("Location:../Views/teacher/index.php");
+              header("Location:../teacher/index.php");
             }
             
         }
