@@ -9,8 +9,7 @@ CREATE TABLE `Users` (
     `password` varchar(200),
     created_at Date not null DEFAULT (CURRENT_DATE),
     deleted_at Date default NULL,
-    role ENUM('Admin', 'Recruiter', 'Candidate')
-);
+    role ENUM('Admin', 'Teacher', 'Student')
 
 CREATE TABLE Students (
     id int PRIMARY KEY AUTO_INCREMENT,
