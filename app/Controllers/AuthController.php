@@ -51,6 +51,18 @@ class   Authcontroller{
         }
     }
 
+    public function register($username,$email,$password,$role,$field){
+        $userModel = new UserModel();
+         return $user  = $userModel->saveUser($username,$email,$password,$role,$field);
+
+         
+            // if(!$user){
+            //     header("Location:../teacher/index.php");
+            // }
+            
+         
+    }
+
        
 }
 
