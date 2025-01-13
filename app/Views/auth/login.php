@@ -1,3 +1,32 @@
+<?php
+require_once __DIR__ . '/../../vendor/autoload.php';
+use App\Controllers\AuthController;
+
+
+if(isset($_POST["submit"]))
+{
+
+
+        $email = $_POST["email"];
+        $password = $_POST["password"];
+        $authController = new AuthController();
+        $authController->login($email,$password);
+        
+
+
+}
+
+
+  
+
+
+
+
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
