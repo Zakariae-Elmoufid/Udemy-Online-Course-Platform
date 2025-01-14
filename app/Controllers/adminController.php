@@ -1,0 +1,25 @@
+<?php
+namespace App\Controllers;
+
+use App\Models\AdminModel;
+class AdminController {
+
+    private $adminModel;
+
+    public function __construct()
+    {
+        $this->adminModel = new AdminModel();
+    }
+
+public function getAllTeacher(){
+     $theacher = $this->adminModel->fechAllTeacher();
+}    
+public function userManager(){
+
+}
+
+    
+}
+
+
+?>
