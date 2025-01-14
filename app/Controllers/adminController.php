@@ -12,7 +12,7 @@ class AdminController {
     }
 
 public function getAllTeacher(){
-     $theacher = $this->adminModel->fechAllTeacher();
+    return  $this->adminModel->fechAllTeacher();
 }    
 public function userManager(){
 

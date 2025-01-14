@@ -1,12 +1,13 @@
 <?php 
+require_once __DIR__ . '/../../../../vendor/autoload.php';
+
 
 use App\Controllers\AdminController;
 
 
-$admin = new AdminController;
+$admin = new AdminController();
 
-$teacher = $admin->getAllTeacher();
-
+$teachers = $admin->getAllTeacher();
 
 
 ?>
@@ -38,10 +39,11 @@ $teacher = $admin->getAllTeacher();
                             </tr>
                         </thead>
                         <tbody>
+                            <?php foreach ($teachers as $teacher): ?>
                             <tr>
-                                <td class="p-4 border border-gray-300">Jane Smith</td>
-                                <td class="p-4 border border-gray-300">jane.smith@example.com</td>
-                                <td class="p-4 border border-gray-300">Pending</td>
+                                <td class="p-4 border border-gray-300"><?= $teacher['username']?></td>
+                                <td class="p-4 border border-gray-300"><?= $teacher['email'] ?></td>
+                                <td class="p-4 border border-gray-300"><?= $teacher['status'] ?></td>
                                 <td class="p-4 border border-gray-300 flex space-x-2">
                                     <form action="" method="" >
                                     <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 "name="Activation">
@@ -56,6 +58,7 @@ $teacher = $admin->getAllTeacher();
                                     </form>
                                 </td>
                             </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
