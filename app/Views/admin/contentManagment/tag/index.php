@@ -1,3 +1,15 @@
+<?php 
+
+require_once __DIR__ . '/../../../../vendor/autoload.php';
+use App\Controllers\AdminController;
+
+
+$admin = new AdminController();
+$teachers = $admin->getAllTeacher();
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
