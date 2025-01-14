@@ -14,35 +14,35 @@ class   Authcontroller{
             echo "user not found please check ..." . $user;
         }
         else{
-            if($user->getrole()== "Admin"){ 
+            if($user->getRole()== "Admin"){ 
                 session_start();
                
                   $_SESSION['id'] = $user->getId();
                   $_SESSION['username'] =  $user->getUsername();
-                  $_SESSION['role'] = $user->getrole();
+                  $_SESSION['role'] = $user->getRole();
 
                 
                   header("Location:../admin/index.php");
             }
             
-            else if($user->getrole() == "Student")
+            else if($user->getRole() == "Student")
             {
                 session_start();
                
                 $_SESSION['id'] = $user->getId();
                 $_SESSION['username'] =  $user->getUsername();
-                $_SESSION['role'] = $user->getrole();
+                $_SESSION['role'] = $user->getRole();
 
 
               header("Location:../student/index.php");
             }
-            else if($user->getrole() == "Teacher")
+            else if($user->getRole() == "Teacher")
             {
                 session_start();
                
                 $_SESSION['id'] = $user->getId();
                 $_SESSION['username'] =  $user->getUsername();
-                $_SESSION['role'] = $user->getrole();
+                $_SESSION['role'] = $user->getRole();
 
 
               header("Location:../teacher/index.php");
@@ -53,12 +53,28 @@ class   Authcontroller{
 
     public function register($username,$email,$password,$role,$field){
         $userModel = new UserModel();
-         return $user  = $userModel->saveUser($username,$email,$password,$role,$field);
+        $user  = $userModel->saveUser($username,$email,$password,$role,$field);
 
          
-            // if(!$user){
-            //     header("Location:../teacher/index.php");
-            // }
+        if($user->getRole() == "Student"){
+            session_start();
+           
+            $_SESSION['id'] = $user->getId();
+            $_SESSION['username'] =  $user->getUsername();
+            $_SESSION['role'] = $user->getRole();
+
+
+          header("Location:../student/index.php");
+        }else if($user->getRole() == "Teacher"){
+            session_start();
+               
+                $_SESSION['id'] = $user->getId();
+                $_SESSION['username'] =  $user->getUsername();
+                $_SESSION['role'] = $user->getRole();
+
+
+              header("Location:../teacher/index.php");
+        }
             
          
     }

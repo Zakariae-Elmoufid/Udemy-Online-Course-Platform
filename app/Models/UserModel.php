@@ -25,7 +25,7 @@ class UserModel {
         
         $row = $stmt->fetch(mode: PDO::FETCH_ASSOC);
 
-        if ($row && !password_verify($password , $row['password'])){
+        if ($row && password_verify($password , $row['password'])){
         
             return new User($row['id'], $row['username'], $row["email"], $row["password"],$row['role']);
 
@@ -66,7 +66,7 @@ class UserModel {
                         $stmt->execute();
                         return new User($id, username: $username, email: $email, password: $password,role: $role ,field: '',speciality: $field); 
                     }else {
-                        return $role;
+                        return $id;
                     }
                     
            

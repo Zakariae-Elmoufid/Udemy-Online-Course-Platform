@@ -9,7 +9,7 @@ class Validation{
 
     public function validateInput($data, $key) {
         switch ($key) {
-            case 'title':
+            case 'username':
                 return preg_match("/^[a-zA-Z0-9_\s]{3,20}$/",  $data);
             case 'email':
                 return filter_var($data, FILTER_VALIDATE_EMAIL); 
@@ -23,7 +23,7 @@ class Validation{
 
 
 
-    public function setTitle($username){
+    public function setUsername($username){
         if ($this->validateInput($username, 'username')) {
             $this->username = $username;
         }else{

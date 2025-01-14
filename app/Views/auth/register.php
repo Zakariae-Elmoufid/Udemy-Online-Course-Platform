@@ -18,13 +18,14 @@ if(isset($_POST["submit"])) {
      
     $validation = new Validation();
     $validation->setEmail( $email);
-    $validation->setTitle( $username);
+    $validation->setUsername( $username);
     $validation->setPassword( $password);
     $errors = $validation->getErrors();
 
 
-    //  print_r($errors);   
-    //  print_r($_POST);
+     print_r($errors);   
+     echo '<br>***<br>';
+     print_r($_POST);
 
         if(empty($errors)){
             $authController = new AuthController();
