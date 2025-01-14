@@ -6,8 +6,18 @@ use App\Controllers\AdminController;
 
 
 $admin = new AdminController();
-
 $teachers = $admin->getAllTeacher();
+
+if (isset($_POST['submit'])) {
+   
+       
+        $action = $_POST["action"];
+        $userId = $_POST["user_id"];
+
+
+       $admin->teacherManager($userId,$action);
+      
+}        
 
 
 ?>
@@ -45,17 +55,25 @@ $teachers = $admin->getAllTeacher();
                                 <td class="p-4 border border-gray-300"><?= $teacher['email'] ?></td>
                                 <td class="p-4 border border-gray-300"><?= $teacher['status'] ?></td>
                                 <td class="p-4 border border-gray-300 flex space-x-2">
-                                    <form action="" method="" >
-                                    <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 "name="Activation">
-                                        Approve
-                                    </button>
-                                    <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600" name="suppression">
-                                        Reject
-                                    </button>
-                                    <button class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600"name="suspension">
-                                        suspention 
-                                    </button>
+
+                                    <form method="POST" action="">
+                                        <input type="hidden" name="action" value="Activation">
+                                        <input type="hidden" name="user_id" value="<?= $teacher['user_id']?>">
+                                        <button type="submit" name="submit" class="text-white bg-green-600 hover:bg-green-700 px-4 py-2 rounded">Active</button>
                                     </form>
+
+                                    <form method="POST" action="">
+                                        <input type="hidden" name="action" value="suspension">
+                                        <input type="hidden" name="user_id" value="<?= $teacher['user_id']?>">
+                                        <button type="submit" name="submit" class="text-white bg-orange-600 hover:bg-orange-700 px-4 py-2 rounded">Suspended</button>
+                                    </form>
+
+                                    <form method="POST" action="">
+                                        <input type="hidden" name="action" value="suppression">
+                                        <input type="hidden" name="user_id" value="<?= $teacher['user_id']?>">
+                                        <button type="submit" name="submit" class="text-white bg-red-600 hover:bg-red-700 px-4 py-2 rounded">Delete</button>
+                                    </form>
+
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -67,5 +85,10 @@ $teachers = $admin->getAllTeacher();
   </main>
 
   </div>
+
+  <script>
+  
+  </script>
+
 </body>
 </html>

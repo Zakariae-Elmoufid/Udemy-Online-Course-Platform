@@ -14,8 +14,8 @@ class AdminController {
 public function getAllTeacher(){
     return  $this->adminModel->fechAllTeacher();
 }    
-public function userManager(){
-
+public function teacherManager($userId,$action){
+    $this->adminModel->editStatusTeacher($userId,$action);
 }
 
     

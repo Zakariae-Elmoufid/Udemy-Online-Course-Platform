@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Config\Database;
 use PDO;
+use PDOException;
+use RuntimeException;
 class AdminModel{
     
     private $conn;
@@ -18,6 +20,24 @@ class AdminModel{
       $stmt = $this->conn->prepare($query);
       $stmt->execute();
       return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function editStatusTeacher($userId,$action){
+        if ($action === 'suspension') {
+            $query = "UPDATE teachers SET `status` = 'suspension'  WHERE user_id = :id";
+        } elseif ($action === 'suppression') {
+            $query = "UPDATE users SET deleted_at = CURRENT_DATE WHERE id = :id";
+        } elseif ($action === 'Activation') {
+            $query = "UPDATE teachers SET `status` = 'Activation' WHERE user_id = :id";
+        } 
+
+        $stmt = $this->conn->prepare( query: $query);
+        $stmt->bindParam(param: ":id" ,var: $userId);
+        
+        $stmt->execute();
+        header("Location: ./teacherValidation.php");
+
+      
     }
 
 }
