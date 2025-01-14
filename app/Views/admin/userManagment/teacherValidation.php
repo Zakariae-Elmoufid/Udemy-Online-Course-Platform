@@ -1,3 +1,16 @@
+<?php 
+
+use App\Controllers\AdminController;
+
+
+$admin = new AdminController;
+
+$teacher = $admin->getAllTeacher();
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,12 +43,17 @@
                                 <td class="p-4 border border-gray-300">jane.smith@example.com</td>
                                 <td class="p-4 border border-gray-300">Pending</td>
                                 <td class="p-4 border border-gray-300 flex space-x-2">
-                                    <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                                    <form action="" method="" >
+                                    <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 "name="Activation">
                                         Approve
                                     </button>
-                                    <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                                    <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600" name="suppression">
                                         Reject
                                     </button>
+                                    <button class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600"name="suspension">
+                                        suspention 
+                                    </button>
+                                    </form>
                                 </td>
                             </tr>
                         </tbody>

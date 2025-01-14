@@ -11,21 +11,20 @@ class User {
     private $email;
     private $password;
     private $role;
+    private $status;
     private $created_at;
     private $deleted_at;
 
 
 
-    public function __construct($id, $username, $email,$password, $role,   $field=null ,  $speciality=null , $created_at=null, $deleted_at=null) {
+    public function __construct($id, $username, $email,$password, $role, $status=null , $field=null ) {
         $this->id = $id;
         $this->username = $username;
         $this->email = $email;
         $this->password = $password;
         $this->role = $role;
+        $this->status = $status;
         $this->field = $field;
-        $this->speciality = $speciality;
-        $this->created_at = $created_at;
-        $this->deleted_at = $deleted_at;
     }
    
      
@@ -34,6 +33,9 @@ class User {
     public function getId() {
          return $this->id; 
         }
+    public function getStatus(){
+        return $this->status;
+    }    
     public function getUsername() {
          return $this->username; 
         }

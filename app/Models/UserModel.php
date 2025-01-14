@@ -15,7 +15,6 @@ class UserModel {
 
 
     public function findUserByEmailAndPassword($email, $password){
-   
         $query = "SELECT * FROM Users 
         WHERE email = :email ";
 
@@ -25,14 +24,51 @@ class UserModel {
         
         $row = $stmt->fetch(mode: PDO::FETCH_ASSOC);
 
-        if ($row && !password_verify($password , $row['password'])){
+        if ($row && password_verify($password , $row['password'])){
+                // Fetch the status and additional information for the user based on role
+                $status = $this->getUserStatus($row['id'], $row['role']);
         
-            return new User($row['id'], $row['username'], $row["email"], $row["password"],$row['role']);
+                    $user = new User(
+                        $row['id'],
+                        $row['username'],
+                        $row['email'],
+                        $row['password'],
+                        $row['role'],
+                        $status
+                    );
+                    return $user;
+                
+            
+    
+        } 
+            }  
 
-        } else {
-             return  null;
-         }
-        }  
+
+        private function getUserStatus($userId, $role)
+{
+    if ($role == 'Teacher') {
+        $query = "SELECT * FROM teachers WHERE user_id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":id", $userId);
+        $stmt->execute();
+        $teacher = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        
+            return $teacher['status'];
+        
+    } elseif ($role == 'Student') {
+        $query = "SELECT * FROM Students WHERE user_id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":id", $userId);
+        $stmt->execute();
+        $student = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            return $student['status'];
+        
+    }
+
+    
+}
     
         public function saveUser($username,$email,$password,$role,$field){
            
@@ -57,16 +93,14 @@ class UserModel {
                         $stmt->bindParam(':id', $id);
                         $stmt->bindParam(':field', $field);
                         $stmt->execute();
-                        return new User(id: $id, username: $username, email: $email, password: $password,role: $role ,field: $field); 
+                        return new User($id,  $username,  $email,  $password, $role ,'Activation' ,$field); 
                     }else if ($role === 'teacher'){
                         $queryTeacher = "INSERT INTO  teachers (user_id , speciality) values (:id, :speciality)";
                         $stmt = $this->conn->prepare($queryTeacher); 
                         $stmt->bindParam(':id', $id);
                         $stmt->bindParam(':speciality', $field);
                         $stmt->execute();
-                        return new User($id, username: $username, email: $email, password: $password,role: $role ,field: '',speciality: $field); 
-                    }else {
-                        return $role;
+                        return new User($id,  $username,  $email,  $password, $role ,'suspension' ,$field); 
                     }
                     
            
