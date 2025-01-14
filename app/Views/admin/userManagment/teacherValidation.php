@@ -50,6 +50,7 @@ if (isset($_POST['submit'])) {
                         </thead>
                         <tbody>
                             <?php foreach ($teachers as $teacher): ?>
+                             <?php if($teacher['deleted_at'] == null): ?>  
                             <tr>
                                 <td class="p-4 border border-gray-300"><?= $teacher['username']?></td>
                                 <td class="p-4 border border-gray-300"><?= $teacher['email'] ?></td>
@@ -76,6 +77,7 @@ if (isset($_POST['submit'])) {
 
                                 </td>
                             </tr>
+                            <?php endif ?>
                             <?php endforeach; ?>
                         </tbody>
                     </table>
