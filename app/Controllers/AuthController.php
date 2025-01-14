@@ -15,11 +15,11 @@ class   Authcontroller{
         }
         else{
             if($user->getRole()== "Admin"){ 
-                session_start();
+                // session_start();
                
-                  $_SESSION['id'] = $user->getId();
-                  $_SESSION['username'] =  $user->getUsername();
-                  $_SESSION['role'] = $user->getRole();
+                //   $_SESSION['id'] = $user->getId();
+                //   $_SESSION['username'] =  $user->getUsername();
+                //   $_SESSION['role'] = $user->getRole();
 
                 
                   header("Location:../admin/index.php");
@@ -27,53 +27,58 @@ class   Authcontroller{
             
             else if($user->getRole() == "Student")
             {
-                session_start();
+                // session_start();
                
-                $_SESSION['id'] = $user->getId();
-                $_SESSION['username'] =  $user->getUsername();
-                $_SESSION['role'] = $user->getRole();
+                // $_SESSION['id'] = $user->getId();
+                // $_SESSION['username'] =  $user->getUsername();
+                // $_SESSION['role'] = $user->getRole();
 
-
+                
               header("Location:../student/index.php");
             }
             else if($user->getRole() == "Teacher")
             {
-                session_start();
-               
-                $_SESSION['id'] = $user->getId();
-                $_SESSION['username'] =  $user->getUsername();
-                $_SESSION['role'] = $user->getRole();
+            
+                // session_start();
+                
+                // $_SESSION['id'] = $user->getId();
+                // $_SESSION['username'] =  $user->getUsername();
+                // $_SESSION['role'] = $user->getRole();
 
-
-              header("Location:../teacher/index.php");
+                if($user->getStatus() == 'suspension'){
+                    header("Location:../teacher/pending.php");
+                }else if ($user->getStatus() == 'Activation'){
+                    header("location:../teacher/index.php");
+                }else if ($user->getStatus() == 'suppression'){
+                    header("location:../teacher/suppression.php");
+                }
             }
             
-        }
     }
-
+    }
     public function register($username,$email,$password,$role,$field){
         $userModel = new UserModel();
         $user  = $userModel->saveUser($username,$email,$password,$role,$field);
 
          
         if($user->getRole() == "Student"){
-            session_start();
+            // session_start();
            
-            $_SESSION['id'] = $user->getId();
-            $_SESSION['username'] =  $user->getUsername();
-            $_SESSION['role'] = $user->getRole();
+            // $_SESSION['id'] = $user->getId();
+            // $_SESSION['username'] =  $user->getUsername();
+            // $_SESSION['role'] = $user->getRole();
 
 
           header("Location:../student/index.php");
         }else if($user->getRole() == "Teacher"){
-            session_start();
+            // session_start();
                
-                $_SESSION['id'] = $user->getId();
-                $_SESSION['username'] =  $user->getUsername();
-                $_SESSION['role'] = $user->getRole();
-
-
-              header("Location:../teacher/index.php");
+            //     $_SESSION['id'] = $user->getId();
+            //     $_SESSION['username'] =  $user->getUsername();
+            //     $_SESSION['role'] = $user->getRole();
+            
+            header("Location:../teacher/pending.php");
+            
         }
             
          

@@ -17,8 +17,9 @@ if(isset($_POST["submit"]))
 
         if(empty($errors)){
         $authController = new AuthController();
-       $authController->login($email,$password);
-        }
+         $authController->login($email,$password);
+    }
+    
         
         
 
