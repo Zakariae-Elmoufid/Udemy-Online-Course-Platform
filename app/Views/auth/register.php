@@ -1,3 +1,53 @@
+<?php
+require_once __DIR__ . '/../../../vendor/autoload.php';
+use App\Controllers\AuthController;
+use App\Classes\Validation;
+
+
+
+
+
+if(isset($_POST["submit"])) {
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $role = $_POST['role']; 
+    $specialty = $_POST['specialty'];
+    $field = $_POST['field'];
+
+     
+    $validation = new Validation();
+    $validation->setEmail( $email);
+    $validation->setTitle( $username);
+    $validation->setPassword( $password);
+    $errors = $validation->getErrors();
+
+
+    //  print_r($errors);   
+    //  print_r($_POST);
+
+        if(empty($errors)){
+            $authController = new AuthController();
+            if($role === 'student'){
+            $authController->register( $username,$email,$password , $role,$field);
+            }else if ($role === 'teacher'){
+             $authController->register($username,$email,$password,$role,$specialty);
+            }
+
+        }
+   
+    }
+
+
+?>
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,7 +98,7 @@
      
                          <div class="flex justify-center gap-8">
                              <div class="relative">
-                                 <input type="radio" class="hidden" id="teacher" name="role" value="teacher" required>
+                                 <input type="radio" class="hidden" id="teacher" name="role" value="teacher" >
                                  <label for="teacher"class="cursor-pointer" >
                                      <img src="https://i.pinimg.com/474x/ea/0c/ca/ea0cca6a099dd0dbd03e1ce427699355.jpg"
                                      alt="Teacher"
@@ -87,25 +137,26 @@
                 <label class="block text-gray-700 mb-2">Fields of Study</label>
                     <div class="flex flex-wrap gap-4">
                         <label class="flex items-center space-x-2">
-                            <input type="checkbox" name="fields" value="science" class="h-4 w-4">
+                            <input type="checkbox" name="field" value="science" class="h-4 w-4">
                             <span>Science</span>
                         </label>
-                        <label class="flex items-center space-x-2">
-                            <input type="checkbox" name="fields" value="engineering" class="h-4 w-4">
+                        <!-- <label class="flex items-center space-x-2">
+                            <input type="checkbox" name="field" value="engineering" class="h-4 w-4">
                             <span>Engineering</span>
                         </label>
                         <label class="flex items-center space-x-2">
-                            <input type="checkbox" name="fields" value="business" class="h-4 w-4">
+                            <input type="checkbox" name="field" value="business" class="h-4 w-4">
                             <span>Business</span>
                         </label>
                         <label class="flex items-center space-x-2">
-                            <input type="checkbox" name="fields" value="arts" class="h-4 w-4">
+                            <input type="checkbox" name="field" value="arts" class="h-4 w-4">
                             <span>Arts</span>
-                        </label>
+                        </label> -->
                      </div>
                 </div>
                 <div>
-                    <button  class="w-full bg-fuchsia-800 text-white py-3 px-6 rounded hover:bg-fuchsia-600 transition" id="next">Register</button>
+                    <button  class="w-full bg-fuchsia-800 text-white py-3 px-6 rounded hover:bg-fuchsia-600 transition" 
+                    id="next"  name="submit" type="submit">Register</button>
                 </div>
             </form>
 
