@@ -31,11 +31,10 @@ CREATE TABLE `Categories` (
     id int PRIMARY KEY AUTO_INCREMENT,
     title varchar(100),
     created_at Date not null DEFAULT (CURRENT_DATE),
-    deleted_at Date default NULL
 );
 
 CREATE TABLE Courses (
-   id int PRIMARY KEY AUTO_INCREMENT,
+    id int PRIMARY KEY AUTO_INCREMENT,
     title varchar(100),
    `description` text,
     content varchar(200),
@@ -50,7 +49,6 @@ CREATE TABLE `Tags` (
     id int PRIMARY KEY AUTO_INCREMENT,
     title varchar(50),
     created_at Date not null DEFAULT (CURRENT_DATE),
-    deleted_at Date default NULL
 );
 
 CREATE TABLE `Course_Tag` (

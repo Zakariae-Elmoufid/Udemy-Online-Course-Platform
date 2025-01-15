@@ -9,7 +9,7 @@ use App\services\Validation;
 if (isset($_GET['update'])) {
     $id = $_GET['id'] ; 
     $category = new Category();
-    $result = $category->getLableById($id);
+    $result = $category->getLabelById($id);
     $nameCategory = $result['title'];
 }
 
@@ -21,7 +21,7 @@ if (isset($_POST['submit'])) {
     $validator->setTitle($title);
     $errors = $validator->getErrors();
     if (empty($errors) ) {
-        $category->updateLable($id, $title);
+        $category->updateLabel($id, $title);
     } 
 
 

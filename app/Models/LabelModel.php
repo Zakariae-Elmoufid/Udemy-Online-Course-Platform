@@ -6,21 +6,21 @@ namespace App\Models;
 use App\Config\Database;
 use PDO;
 
-class LableModel {
+class LabelModel {
      
     private $conn;
 
     public function __construct(){
         $this->conn = Database::getConnection();
     }
-    public function selectAllLable($table){
+    public function selectAllLabel($table){
         $query = "select * from  $table ";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function selectLable($table, $id){
+    public function selectLabel($table, $id){
         $query = "SELECT * FROM $table WHERE id = :id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":id",$id);
@@ -28,7 +28,7 @@ class LableModel {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function editLable($table,$id,$title){
+    public function editLabel($table,$id,$title){
         $query = "UPDATE $table set title = :title WHERE id = :id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":title",$title);

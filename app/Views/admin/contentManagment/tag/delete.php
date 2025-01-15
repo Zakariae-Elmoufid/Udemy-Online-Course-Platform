@@ -9,7 +9,7 @@ if (isset($_POST['submit'])) {
     $id = $_POST['idTag'] ;
 
     $tag = new Tag();
-    $tag->deleteLable($id, $title);
+    $tag->deleteLabel($id, $title);
     echo "id=".$id;
 }
 

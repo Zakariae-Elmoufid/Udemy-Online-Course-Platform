@@ -13,9 +13,10 @@ if (isset($_POST['submit'])) {
     $validator->setTitle($title);
     $errors = $validator->getErrors();
 
+    
     if (empty($errors)) {
         $tags = new Category();
-        $tags->addLable($title);
+        $tags->addLabel($title);
     } 
 
  
