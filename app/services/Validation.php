@@ -18,7 +18,7 @@ class Validation{
             case 'password':
                 return strlen(string: $data) >= 8; 
             case 'content':
-                return pereg_match("^(https?:\/\/)?([\w\-]+\.)+[\w\-]+(\/[\w\-._~:/?#[\]@!$&'()*+,;=]*)?\.(mp4|mov|avi|mkv|pdf|doc|docx|ppt|pptx|xls|xlsx)$", $data);
+                return preg_match("/^(https?:\/\/)?([\w\-]+\.)+[\w\-]+(\/[\w\-._~:\/?#[\]@!$&'()*+,;=]*)?\.(mp4|mov|avi|mkv|pdf|doc|docx|ppt|pptx|xls|xlsx)$/", $data);
             case 'description':
              return strlen(string: $data) >= 50;
             default:
@@ -32,7 +32,7 @@ class Validation{
         if ($this->validateInput($description, 'description')) {
             $this->description = $description;
         }else{
-            $this->errors['description']= "Invalid username. It must be 3-20 characters long .";
+            $this->errors['description']= "Invalid description must be at least 50 characters long .";
         }
     }
     public function setUsername($username){
@@ -42,7 +42,7 @@ class Validation{
             $this->errors['username']= "Invalid username. It must be 3-20 characters long .";
         }
     } 
-    public function setContent($content){
+    public function  setContent($content){
         if($this->validateInput($content,'content')){
             $this->content = $content;
         }else{

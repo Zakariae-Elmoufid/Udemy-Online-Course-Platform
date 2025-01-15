@@ -15,10 +15,10 @@ class Course {
     }
 
      public function getAllCourses(){
-
+        return $this->LabelModel->selectAllCourse();
      }
-     public function addCourse($title,$description,$content,$tags,$category){
-         $this->LabelModel->insertCours($title,$description,$content,$tags,$category);
+     public function addCourse($user_id,$title,$description,$content,$tags,$category){
+         $this->LabelModel->insertCours($user_id,$title,$description,$content,$tags,$category);
      }
      public function updateCourse($id,$title,$description,$content,$tags,$category){
 
