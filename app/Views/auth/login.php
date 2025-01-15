@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../../../vendor/autoload.php';
 use App\Controllers\AuthController;
-use App\Classes\Validation;
+use App\services\Validation;
 
 
 if(isset($_POST["submit"]))

@@ -9,7 +9,6 @@ CREATE TABLE `Users` (
      username varchar(50),
     `password` varchar(200),
     created_at Date not null DEFAULT (CURRENT_DATE),
-    deleted_at Date default NULL,
     role ENUM('Admin', 'Teacher', 'Student')
 
 CREATE TABLE Students (

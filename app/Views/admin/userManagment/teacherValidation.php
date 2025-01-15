@@ -1,12 +1,23 @@
 <?php 
+require_once __DIR__ . '/../../../../vendor/autoload.php';
+
 
 use App\Controllers\AdminController;
 
 
-$admin = new AdminController;
+$admin = new AdminController();
+$teachers = $admin->getAllTeacher();
 
-$teacher = $admin->getAllTeacher();
+if (isset($_POST['submit'])) {
+   
+       
+        $action = $_POST["action"];
+        $userId = $_POST["user_id"];
 
+
+       $admin->teacherManager($userId,$action);
+      
+}        
 
 
 ?>
@@ -38,24 +49,36 @@ $teacher = $admin->getAllTeacher();
                             </tr>
                         </thead>
                         <tbody>
+                            <?php foreach ($teachers as $teacher): ?>
+                             <?php if($teacher['deleted_at'] == null): ?>  
                             <tr>
-                                <td class="p-4 border border-gray-300">Jane Smith</td>
-                                <td class="p-4 border border-gray-300">jane.smith@example.com</td>
-                                <td class="p-4 border border-gray-300">Pending</td>
+                                <td class="p-4 border border-gray-300"><?= $teacher['username']?></td>
+                                <td class="p-4 border border-gray-300"><?= $teacher['email'] ?></td>
+                                <td class="p-4 border border-gray-300"><?= $teacher['status'] ?></td>
                                 <td class="p-4 border border-gray-300 flex space-x-2">
-                                    <form action="" method="" >
-                                    <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 "name="Activation">
-                                        Approve
-                                    </button>
-                                    <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600" name="suppression">
-                                        Reject
-                                    </button>
-                                    <button class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600"name="suspension">
-                                        suspention 
-                                    </button>
+
+                                    <form method="POST" action="">
+                                        <input type="hidden" name="action" value="Activation">
+                                        <input type="hidden" name="user_id" value="<?= $teacher['user_id']?>">
+                                        <button type="submit" name="submit" class="text-white bg-green-600 hover:bg-green-700 px-4 py-2 rounded">Active</button>
                                     </form>
+
+                                    <form method="POST" action="">
+                                        <input type="hidden" name="action" value="suspension">
+                                        <input type="hidden" name="user_id" value="<?= $teacher['user_id']?>">
+                                        <button type="submit" name="submit" class="text-white bg-orange-600 hover:bg-orange-700 px-4 py-2 rounded">Suspended</button>
+                                    </form>
+
+                                    <form method="POST" action="">
+                                        <input type="hidden" name="action" value="suppression">
+                                        <input type="hidden" name="user_id" value="<?= $teacher['user_id']?>">
+                                        <button type="submit" name="submit" class="text-white bg-red-600 hover:bg-red-700 px-4 py-2 rounded">Delete</button>
+                                    </form>
+
                                 </td>
                             </tr>
+                            <?php endif ?>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
@@ -64,5 +87,10 @@ $teacher = $admin->getAllTeacher();
   </main>
 
   </div>
+
+  <script>
+  
+  </script>
+
 </body>
 </html>
