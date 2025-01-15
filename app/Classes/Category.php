@@ -3,11 +3,11 @@ namespace App\Classes;
 
 use App\Models\LableModel;
 
-class Tag extends Lable {
+class Category extends Lable {
 
 
      private $LableModel;
-     public $table ='tags';
+     public $table ='Categorys';
 
     public function __construct(){
         $this->LableModel = new LableModel();
@@ -25,7 +25,7 @@ class Tag extends Lable {
     }
 
     public function addLable($title){
-        $this->LableModel->insertTag($this->table,$title);
+        $this->LableModel->insertCategory($this->table,$title);
     }
     public function deleteLable($id){
         $this->LableModel->deleted($this->table,$id);
