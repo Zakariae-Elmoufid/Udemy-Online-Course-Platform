@@ -39,7 +39,7 @@ class LableModel {
 
     public function insertLable($table,$title){
        
-        $tags = array_map('trim', explode(' ', $title));
+      $tags = array_map('trim', explode(' ', $title));
 
       $query = "INSERT INTO $table (title) VALUES (:title)";
       $stmt = $this->conn->prepare($query);
@@ -49,8 +49,15 @@ class LableModel {
           $stmt->execute();
       }
       header("location:./index.php");
+    }
 
 
+    public function deleted($table,$id){
+        $query = "DELETE  FROM $table  WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":id",$id);
+        $stmt->execute();
+        header("location:./index.php");
     }
 }
 ?>

@@ -51,7 +51,7 @@ $results = $tags->getAllLable();
                   </form>
                   <form method="POST" action="delete.php" onsubmit="return confirm('Are you sure you want to delete this tag?');">
                     <input type="hidden" name="idTag" value="<?=$tag['id'] ?>">
-                    <button type="delete" class="text-red-500 hover:text-red-700">
+                    <button type="delete" name="submit" class="text-red-500 hover:text-red-700">
                     <i class='bx bx-trash-alt text-xl' ></i>
                     </button>
                   </form>

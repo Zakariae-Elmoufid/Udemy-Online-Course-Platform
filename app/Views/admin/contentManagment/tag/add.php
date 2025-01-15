@@ -9,14 +9,14 @@ if (isset($_POST['submit'])) {
 
     $title = $_POST['title'] ;
    
-    // $validator = new Validation();
-    // $validator->setTitle($title);
-    // $errors = $validator->getErrors();
+    $validator = new Validation();
+    $validator->setTitle($title);
+    $errors = $validator->getErrors();
 
-    // if (empty($errors)) {
+    if (empty($errors)) {
         $tags = new Tag();
         $tags->addLable($title);
-    // } 
+    } 
 
  
 }

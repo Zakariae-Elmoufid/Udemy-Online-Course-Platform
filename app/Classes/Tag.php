@@ -27,6 +27,9 @@ class Tag extends Lable {
     public function addLable($title){
         $this->LableModel->insertLable($this->table,$title);
     }
+    public function deleteLable($id){
+        $this->LableModel->deleted($this->table,$id);
+    }
 
 }
 
