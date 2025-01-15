@@ -1,3 +1,43 @@
+<?php
+
+require_once __DIR__ . '/../../../../../vendor/autoload.php';
+use App\classes\Tag;
+use App\services\Validation;
+
+
+
+if (isset($_GET['update'])) {
+    $id = $_GET['idTag'] ; 
+    
+    $tags = new Tag();
+    $result = $tags->getLableById($id);
+}
+
+
+if (isset($_POST['submit'])) {
+
+    $title = $_POST['title'] ;
+
+    // $validator = new Validation();
+    // $validator->setTitle($title);
+    // $errors = $validator->getErrors();
+
+    // if (empty($errors) ) {
+        $tags->updatelable($id, $title);
+        
+    // } 
+
+
+
+}
+
+
+
+
+
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,12 +59,12 @@
             <form action="" method="POST">
                 <div class="mb-4">
                     <label for="tag-name" class="block text-gray-700 font-semibold mb-2">Tag Name</label>
-                    <input type="text" id="tag-name" name="tag-name"
-                    placeholder="Enter tag name"
-                     class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    <input type="text" id="tag-name" name="title"
+                     placeholder="Enter tag name"
+                     value="<?php echo  $result['title'] ?>"
+                     class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" >
                 </div>
-              
-                <button type="submit" class="w-full bg-blue-800 text-white py-3 rounded-lg hover:bg-blue-700 transition">Add Tag</button>
+                <button type="submit" name="submit" class="w-full bg-blue-800 text-white py-3 rounded-lg hover:bg-blue-700 transition">Add Tag</button>
             </form>
         </div>
 

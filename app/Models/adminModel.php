@@ -4,8 +4,7 @@ namespace App\Models;
 
 use App\Config\Database;
 use PDO;
-use PDOException;
-use RuntimeException;
+
 class AdminModel{
     
     private $conn;

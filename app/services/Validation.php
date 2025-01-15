@@ -1,5 +1,5 @@
 <?php
-namespace App\Classes;
+namespace App\services;
 
 class Validation{
  
@@ -11,6 +11,8 @@ class Validation{
         switch ($key) {
             case 'username':
                 return preg_match("/^[a-zA-Z0-9_\s]{3,20}$/",  $data);
+            case 'title':
+               return preg_match("/^[a-zA-Z0-9]{2,20}$/",  $data);    
             case 'email':
                 return filter_var($data, FILTER_VALIDATE_EMAIL); 
             case 'password':
@@ -27,9 +29,17 @@ class Validation{
         if ($this->validateInput($username, 'username')) {
             $this->username = $username;
         }else{
-            $this->errors['username']= "Invalid username. It must be 3-20 characters long and contain only letters, numbers, and underscores.";
+            $this->errors['username']= "Invalid username. It must be 3-20 characters long .";
         }
     } 
+
+    public function setTitle($title){
+        if($this->validateInput($title,"title")){
+            $this->title = $title;
+        }else{
+            $this->errors['title'] = "invalide title . It must be 2 -20 characters long";
+        }
+    }
 
     public function setEmail($email){
         if ($this->validateInput($email, "email")){
