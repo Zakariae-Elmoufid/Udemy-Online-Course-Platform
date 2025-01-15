@@ -37,6 +37,20 @@ class LableModel {
         header("location:./index.php");
     }
 
-    
+    public function insertLable($table,$title){
+       
+        $tags = array_map('trim', explode(' ', $title));
+
+      $query = "INSERT INTO $table (title) VALUES (:title)";
+      $stmt = $this->conn->prepare($query);
+
+      foreach($tags as $tag){
+          $stmt->bindParam(":title",$tag);
+          $stmt->execute();
+      }
+      header("location:./index.php");
+
+
+    }
 }
 ?>

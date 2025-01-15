@@ -12,7 +12,7 @@ class Validation{
             case 'username':
                 return preg_match("/^[a-zA-Z0-9_\s]{3,20}$/",  $data);
             case 'title':
-               return preg_match("/^[a-zA-Z0-9]{2,20}$/",  $data);    
+               return preg_match("/^[a-zA-Z0-9_\s]{2,20}$/",  $data);    
             case 'email':
                 return filter_var($data, FILTER_VALIDATE_EMAIL); 
             case 'password':

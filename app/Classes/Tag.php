@@ -24,6 +24,10 @@ class Tag extends Lable {
         $this->LableModel->editLable($this->table,$id,$title);
     }
 
+    public function addLable($title){
+        $this->LableModel->insertLable($this->table,$title);
+    }
+
 }
 
 

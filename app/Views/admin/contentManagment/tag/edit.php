@@ -11,31 +11,26 @@ if (isset($_GET['update'])) {
     
     $tags = new Tag();
     $result = $tags->getLableById($id);
+    $nameTag = $result['title'];
 }
 
-
+  
 if (isset($_POST['submit'])) {
+    $nameTag = $_POST['title'];
 
     $title = $_POST['title'] ;
 
-    // $validator = new Validation();
-    // $validator->setTitle($title);
-    // $errors = $validator->getErrors();
+    $validator = new Validation();
+    $validator->setTitle($title);
+    $errors = $validator->getErrors();
 
-    // if (empty($errors) ) {
-        $tags->updatelable($id, $title);
+    if (empty($errors) ) {
+        $tags->updateLable($id, $title);
         
-    // } 
-
+    } 
 
 
 }
-
-
-
-
-
-
 
 ?>
 <!DOCTYPE html>
@@ -61,8 +56,10 @@ if (isset($_POST['submit'])) {
                     <label for="tag-name" class="block text-gray-700 font-semibold mb-2">Tag Name</label>
                     <input type="text" id="tag-name" name="title"
                      placeholder="Enter tag name"
-                     value="<?php echo  $result['title'] ?>"
+                     value="<?php echo  $nameTag  ?>"
                      class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" >
+                     <small class="text-red-500"><?php echo $errors['title'] ?? '' ; ?></small>
+
                 </div>
                 <button type="submit" name="submit" class="w-full bg-blue-800 text-white py-3 rounded-lg hover:bg-blue-700 transition">Add Tag</button>
             </form>
