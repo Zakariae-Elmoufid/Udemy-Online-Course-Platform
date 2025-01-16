@@ -15,7 +15,7 @@ if (isset($_POST['submit'])) {
 
     if (empty($errors)) {
         $tags = new Tag();
-        $tags->addLable($title);
+        $tags->addLabel($title);
     } 
 
  

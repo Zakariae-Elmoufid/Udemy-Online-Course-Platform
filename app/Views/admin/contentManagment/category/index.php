@@ -4,7 +4,7 @@ require_once __DIR__ . '/../../../../../vendor/autoload.php';
 use App\classes\Category;
 
 $categorys= new Category();
-$results = $categorys->getAllLable();
+$results = $categorys->getAllLabel();
 
 ?>
 

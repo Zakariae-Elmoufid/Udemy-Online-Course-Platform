@@ -10,7 +10,7 @@ if (isset($_GET['update'])) {
     $id = $_GET['idTag'] ; 
     
     $tags = new Tag();
-    $result = $tags->getLableById($id);
+    $result = $tags->getLabelById($id);
     $nameTag = $result['title'];
 }
 
@@ -25,7 +25,7 @@ if (isset($_POST['submit'])) {
     $errors = $validator->getErrors();
 
     if (empty($errors) ) {
-        $tags->updateLable($id, $title);
+        $tags->updateLabel($id, $title);
         
     } 
 

@@ -5,7 +5,7 @@ use App\classes\Tag;
 
 
 $tags= new Tag();
-$results = $tags->getAllLable();
+$results = $tags->getAllLabel();
 
 ?>
 

@@ -31,17 +31,18 @@ CREATE TABLE `Categories` (
     id int PRIMARY KEY AUTO_INCREMENT,
     title varchar(100),
     created_at Date not null DEFAULT (CURRENT_DATE),
-    deleted_at Date default NULL
 );
 
 CREATE TABLE Courses (
-   id int PRIMARY KEY AUTO_INCREMENT,
+    id int PRIMARY KEY AUTO_INCREMENT,
     title varchar(100),
    `description` text,
     content varchar(200),
     created_at Date not null DEFAULT (CURRENT_DATE),
     deleted_at Date default NULL,
     category_id int ,
+     user_id int,
+    FOREIGN key (user_id) references Users(id),
     FOREIGN KEY (category_id) REFERENCES Categorys(id)
 )
 
@@ -50,14 +51,13 @@ CREATE TABLE `Tags` (
     id int PRIMARY KEY AUTO_INCREMENT,
     title varchar(50),
     created_at Date not null DEFAULT (CURRENT_DATE),
-    deleted_at Date default NULL
 );
 
 CREATE TABLE `Course_Tag` (
     tag_id int,
     course_id int,
     FOREIGN KEY (tag_id) REFERENCES `Tags`(id),
-    FOREIGN KEY (course_id) REFERENCES `Courses`(id)
+    FOREIGN KEY (course_id) REFERENCES `Courses`(id) ON DELETE CASCADE;
 );
 
 CREATE TABLE Enrollment (

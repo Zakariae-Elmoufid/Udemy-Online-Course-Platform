@@ -1,34 +1,34 @@
 <?php
 namespace App\Classes;
 
-use App\Models\LableModel;
+use App\Models\LabelModel;
 
-class Category extends Lable {
+class Category extends Label {
 
 
-     private $LableModel;
+     private $LabelModel;
      public $table ='Categorys';
 
     public function __construct(){
-        $this->LableModel = new LableModel();
+        $this->LabelModel = new LabelModel();
     }
-    public function getAllLable(){
-       return  $this->LableModel->selectAllLable($this->table);
-    }
-
-    public function getLableById($id){
-        return $this->LableModel->selectLable($this->table, $id);
+    public function getAllLabel(){
+       return  $this->LabelModel->selectAllLabel($this->table);
     }
 
-    public  function updateLable($id,$title){
-        $this->LableModel->editLable($this->table,$id,$title);
+    public function getLabelById($id){
+        return $this->LabelModel->selectLabel($this->table, $id);
     }
 
-    public function addLable($title){
-        $this->LableModel->insertCategory($this->table,$title);
+    public  function updateLabel($id,$title){
+        $this->LabelModel->editLabel($this->table,$id,$title);
     }
-    public function deleteLable($id){
-        $this->LableModel->deleted($this->table,$id);
+
+    public function addLabel($title){
+        $this->LabelModel->insertCategory($this->table,$title);
+    }
+    public function deleteLabel($id){
+        $this->LabelModel->deleted($this->table,$id);
     }
 
 }

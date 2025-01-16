@@ -1,3 +1,15 @@
+<?php
+require_once __DIR__ . '/../../../vendor/autoload.php';
+use App\classes\Course;
+use App\classes\Tag;
+use App\classes\Category;
+
+$fechCourse = new Course();
+$courses = $fechCourse->getAllCourses();
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,47 +30,55 @@
        <?php include "../components/headerTeacher.php"?> 
 
        <section class="p-4">
-    <h2 class="text-3xl font-bold text-gray-800 mb-6">Course List</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-        <!-- Course 1 -->
+           <h2 class="text-3xl font-bold text-gray-800 mb-6">Course List</h2>
+           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+        <?php  foreach ($courses as $course):?> 
+        <?php if($course['deleted_at'] == null): ?>  
         <div class="bg-white rounded-lg shadow p-4">
-            <h3 class="text-xl font-semibold text-gray-800">Course Title 1</h3>
-            <p class="text-gray-600 mt-2">This is a brief description of the course. It covers the basics and more.</p>
-            <p class="text-sm text-gray-500 mt-2">Category: <span class="font-medium">Programming</span></p>
-            <p class="text-sm text-gray-500">Tags: <span class="font-medium">HTML, CSS</span></p>
-            <p class="text-sm text-gray-500">Content: <a href="#" class="text-blue-500 underline">View Content</a></p>
-            <div class="flex justify-center gap-5 mt-4">
-                <a href="edit.php?id=1" class="px-4 py-2 text-white bg-yellow-500 rounded hover:bg-yellow-600 mr-2">Edit</a>
-                <a ref="edit.php?id=1"  class="px-4 py-2 text-white bg-blue-500 rounded hover:bg-bleu-600">Suspension</a>
-                <a ref="edit.php?id=1"  class="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600">Delete</a>
-            </div>
-        </div>
-        <!-- Course 2 -->
-        <div class="bg-white rounded-lg shadow p-4">
-            <h3 class="text-xl font-semibold text-gray-800">Course Title 2</h3>
-            <p class="text-gray-600 mt-2">Learn advanced concepts with hands-on examples in this course.</p>
-            <p class="text-sm text-gray-500 mt-2">Category: <span class="font-medium">Design</span></p>
-            <p class="text-sm text-gray-500">Tags: <span class="font-medium">UI/UX, Figma</span></p>
-            <p class="text-sm text-gray-500">Content: <a href="#" class="text-blue-500 underline">View Content</a></p>
-            <div class="flex justify-center gap-5 mt-4">
-                <a href="edit.php?id=1" class="px-4 py-2 text-white bg-yellow-500 rounded hover:bg-yellow-600 mr-2">Edit</a>
-                <a ref="edit.php?id=1"  class="px-4 py-2 text-white bg-blue-500 rounded hover:bg-bleu-600">Suspension</a>
-                <a ref="edit.php?id=1"  class="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600">Delete</a>
-            </div>
-        </div>
-        <!-- Course 3 -->
-        <div class="bg-white rounded-lg shadow p-4">
-            <h3 class="text-xl font-semibold text-gray-800">Course Title 3</h3>
-            <p class="text-gray-600 mt-2">A comprehensive course covering all aspects of web development.</p>
-            <p class="text-sm text-gray-500 mt-2">Category: <span class="font-medium">Web Development</span></p>
-            <p class="text-sm text-gray-500">Tags: <span class="font-medium">JavaScript, React</span></p>
-            <p class="text-sm text-gray-500">Content: <a href="#" class="text-blue-500 underline">View Content</a></p>
-            <div class="flex justify-center gap-5 mt-4">
-                <a href="edit.php?id=1" class="px-4 py-2 text-white bg-yellow-500 rounded hover:bg-yellow-600 mr-2">Edit</a>
-                <a ref="edit.php?id=1"  class="px-4 py-2 text-white bg-blue-500 rounded hover:bg-bleu-600">Suspension</a>
-                <a ref="edit.php?id=1"  class="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600">Delete</a>
-            </div>
-        </div>
+            <h3 class="text-xl font-semibold text-gray-800"><?= $course['title'] ?></h3>
+            <p class="text-gray-600 mt-2"><?= $course['description'] ?></p>
+            <p class="text-sm text-gray-500 mt-2">Category: <span class="font-medium"><?= $course['category_title'] ?></span></p>
+            <p class="text-sm text-gray-500 flex flex-wrap gap-1 ">Tags:
+             <?php   $tags = explode(",", $course["tags"]); ?>
+            <?php foreach ($tags as $tag):?>
+        <span class=" w-fit bg-green-100 text-green-800 text-xs px-2 rounded-full">#<?php echo $tag ?></span>
+        <?php endforeach; ?> 
+    </p>
+    <form action="detailsCourse.php" method="POST">
+                <input type="hidden" name="title" value="<?= $course['title']?>"> 
+                <input type="hidden" name="description" value="<?= $course['description']?>"> 
+                <input type="hidden" name="content" value="<?= $course['content']?>"> 
+                <button type="submit" name="submit"
+                    class="  text-blue-500 rounded ">
+                    Views Content
+                </button>
+            </form>
+    <div class="flex justify-center gap-5 mt-4">
+
+
+            <form action="edit.php" method="GET">
+                <input type="hidden" name="id" value="<?= $course['id']?>"> 
+                <button type="submit" name="submit"
+                    class="px-4 py-2 text-white bg-yellow-500 rounded hover:bg-yellow-600">
+                    Edit
+                </button>
+            </form>
+
+            
+
+            <form action="delete.php" method="POST">
+                <input type="hidden" name="id"  value="<?= $course['id']?>"> 
+                <button type="submit" name="submit"
+                    class="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600">
+                    Soft Delete
+                </button>
+            </form>
+
+    </div>
+</div>
+<?php endif ?>
+<?php endforeach; ?>
+
     </div>
 </section>
 
