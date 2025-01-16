@@ -7,7 +7,6 @@ use App\classes\Category;
 $fechCourse = new Course();
 $courses = $fechCourse->getAllCourses();
 
-print_r($courses);
 
 ?>
 
@@ -56,20 +55,13 @@ print_r($courses);
                 </button>
             </form>
 
-            <!-- Formulaire pour Suspendre -->
-            <form action="suspend.php" method="POST">
-                <input type="hidden" name="id" value="1"> 
-                <button type="submit" 
-                    class="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600">
-                    Suspension
-                </button>
-            </form>
+            
 
             <form action="delete.php" method="POST">
                 <input type="hidden" name="id"  value="<?= $course['id']?>"> 
                 <button type="submit" name="submit"
                     class="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600">
-                    Delete
+                    Soft Delete
                 </button>
             </form>
 

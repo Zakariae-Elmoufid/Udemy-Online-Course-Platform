@@ -154,6 +154,21 @@ class CourseModel{
  
     }
 
+    public function HardDelete($id){
+        $query = "DELETE FROM courses WHERE id = :id ";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id',$id);
+        $stmt->execute();
+        header("location:./delete.php");
+    }
+    
+    public function retrieve($id){
+        $query =  "UPDATE courses SET deleted_at = null WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id',$id);
+        $stmt->execute();
+        header("location:./courses.php");
+    }
     
 
 }

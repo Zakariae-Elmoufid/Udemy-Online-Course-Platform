@@ -27,7 +27,7 @@
                         </a>
                     </li>
                     <li class="p-4 hover:bg-blue-700">
-                        <a href="userManagment/userValidation.php" class="flex items-center space-x-2">
+                        <a href="../teacher/delete.php" class="flex items-center space-x-2">
                             <span>⚙️</span>
                             <span>sitenge</span>
                         </a>

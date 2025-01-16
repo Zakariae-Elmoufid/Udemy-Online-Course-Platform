@@ -29,6 +29,13 @@ class Course {
      public function deleteCourse($id){
        $this->LabelModel->softDelete($id);
      }
+     public function HardDeleteCourse($id){
+        $this->LabelModel->HardDelete($id);
+     }
+
+     public function retrieveCourse($id){
+        $this->LabelModel->retrieve($id);
+     }
 
 
     
