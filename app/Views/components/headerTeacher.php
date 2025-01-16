@@ -103,7 +103,6 @@
             </button>
         </div>
 
-        <!-- Mobile Menu Items -->
         <div class="px-6 py-4">
             <a href="#" class="block py-2">Dashboard</a>
             <a href="#" class="block py-2">Messages</a>
@@ -113,7 +112,6 @@
     </div>
 </header>
 
-<!-- JS for Mobile Menu Toggle -->
 <script>
     document.getElementById('mobile-menu-button').addEventListener('click', function() {
         document.getElementById('mobile-menu').classList.toggle('-translate-x-full');

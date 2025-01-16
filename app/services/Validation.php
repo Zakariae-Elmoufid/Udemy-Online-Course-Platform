@@ -20,7 +20,7 @@ class Validation{
             case 'content':
                 return preg_match("/^(https?:\/\/)?([\w\-]+\.)+[\w\-]+(\/[\w\-._~:\/?#[\]@!$&'()*+,;=]*)?\.(mp4|mov|avi|mkv|pdf|doc|docx|ppt|pptx|xls|xlsx)$/", $data);
             case 'description':
-             return strlen(string: $data) >= 50;
+             return strlen(string: $data) >= 30;
             default:
                 return false;
         }
@@ -32,7 +32,7 @@ class Validation{
         if ($this->validateInput($description, 'description')) {
             $this->description = $description;
         }else{
-            $this->errors['description']= "Invalid description must be at least 50 characters long .";
+            $this->errors['description']= "Invalid description must be at least 30 characters long .";
         }
     }
     public function setUsername($username){

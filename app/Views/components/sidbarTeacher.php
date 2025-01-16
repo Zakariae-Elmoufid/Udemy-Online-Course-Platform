@@ -1,4 +1,4 @@
-<div class="w-full md:w-64 bg-fuchsia-800 text-white flex flex-col">
+<div class="w-full md:min-w-28 md:max-w-72 bg-fuchsia-800 text-white flex flex-col">
 
             <!-- Logo Section -->
 

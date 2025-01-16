@@ -45,6 +45,7 @@ class CourseModel{
 
     public function selectAllCourse(){
         $query = "SELECT 
+                courses.id,
                 courses.title, 
                 courses.description, 
                 courses.content, 
@@ -61,7 +62,9 @@ class CourseModel{
                 Course_Tag ON Course_Tag.course_id = courses.id
             LEFT JOIN 
                 tags ON tags.id = Course_Tag.tag_id
+                
             GROUP BY 
+                courses.id,
                 courses.title, 
                 courses.description, 
                 courses.content, 
@@ -70,6 +73,71 @@ class CourseModel{
          $stmt = $this->conn->prepare($query);
          $stmt->execute();
          return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+    public function selectCourseById($id){
+        $query = "SELECT 
+        courses.title, 
+        courses.description, 
+        courses.content, 
+        users.username, 
+        GROUP_CONCAT(tags.title) AS tags, 
+        categorys.title AS category_title
+            FROM 
+                courses
+            INNER JOIN 
+                users ON users.id = courses.user_id
+            INNER JOIN 
+                categorys ON categorys.id = courses.category_id
+            LEFT JOIN 
+                Course_Tag ON Course_Tag.course_id = courses.id
+            LEFT JOIN 
+                tags ON tags.id = Course_Tag.tag_id
+            where courses.id = :id
+            GROUP BY 
+                courses.title, 
+                courses.description, 
+                courses.content, 
+                users.username, 
+                categorys.title";
+        
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":id",$id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+    }
+
+    public function EditCourse($id,$title,$description,$content,$tags,$category){
+        $query ="UPDATE courses set 
+         title = :title,
+         description = :description,
+         content = :content,
+         category_id = :category
+         WHERE id = :id ";
+         $stmt = $this->conn->prepare($query);
+         $stmt->bindParam(":id",$id);
+         $stmt->bindParam(":title",$title);
+         $stmt->bindParam(":description",$description);
+         $stmt->bindParam(":content",$content);
+         $stmt->bindParam(":category",$category);
+         $stmt->execute();
+
+         $deleteTag = "DELETE FROM Course_Tag WHERE course_id = :id ";
+         $deletestmt = $this->conn->prepare($deleteTag);
+         $deletestmt->bindParam(":id",$id);
+         $deletestmt->execute();
+
+         foreach($tags as $tagId){
+            $insertTag = "INSERT INTO Course_Tag (course_id, tag_id) VALUES (:course_id, :tag_id)";
+            $tagStmt = $this->conn->prepare($insertTag);
+            $tagStmt->bindParam(':course_id',$id);
+            $tagStmt->bindParam(':tag_id', $tagId);
+            $tagStmt->execute();  
+         }
+         header("location:./courses.php");
     }
     
 

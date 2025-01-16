@@ -9,7 +9,6 @@ $courses = $fechCourse->getAllCourses();
 
 
 
-print_r($courses);
 ?>
 
 <!DOCTYPE html>
@@ -32,28 +31,51 @@ print_r($courses);
        <?php include "../components/headerTeacher.php"?> 
 
        <section class="p-4">
-    <h2 class="text-3xl font-bold text-gray-800 mb-6">Course List</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-        <!-- Course 1 -->
+           <h2 class="text-3xl font-bold text-gray-800 mb-6">Course List</h2>
+           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+        <?php  foreach ($courses as $course):?>   
         <div class="bg-white rounded-lg shadow p-4">
-            <h3 class="text-xl font-semibold text-gray-800">Course Title 1</h3>
-            <p class="text-gray-600 mt-2">This is a brief description of the course. It covers the basics and more.</p>
-            <p class="text-sm text-gray-500 mt-2">Category: <span class="font-medium">Programming</span></p>
-            <p class="text-sm text-gray-500">Tags:
-            <?php  foreach ($courses as $course):?>   
+            <h3 class="text-xl font-semibold text-gray-800"><?= $course['title'] ?></h3>
+            <p class="text-gray-600 mt-2"><?= $course['description'] ?></p>
+            <p class="text-sm text-gray-500 mt-2">Category: <span class="font-medium"><?= $course['category_title'] ?></span></p>
+            <p class="text-sm text-gray-500 flex flex-wrap gap-1 ">Tags:
              <?php   $tags = explode(",", $course["tags"]); ?>
             <?php foreach ($tags as $tag):?>
-        <span class="inline-block bg-green-100 text-green-800 text-xs px-2 rounded-full">#<?php echo $tag ?></span>
+        <span class=" w-fit bg-green-100 text-green-800 text-xs px-2 rounded-full">#<?php echo $tag ?></span>
         <?php endforeach; ?> 
-        <?php endforeach; ?>
-         </p>
-            <p class="text-sm text-gray-500">Content: <a href="#" class="text-blue-500 underline">View Content</a></p>
-            <div class="flex justify-center gap-5 mt-4">
-                <a href="edit.php?id=1" class="px-4 py-2 text-white bg-yellow-500 rounded hover:bg-yellow-600 mr-2">Edit</a>
-                <a ref="edit.php?id=1"  class="px-4 py-2 text-white bg-blue-500 rounded hover:bg-bleu-600">Suspension</a>
-                <a ref="edit.php?id=1"  class="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600">Delete</a>
-            </div>
-        </div>
+    </p>
+    <p class="text-sm text-gray-500">Content: <a href="<?=$course['content'] ?>" class="text-blue-500 underline">View Content</a></p>
+    <div class="flex justify-center gap-5 mt-4">
+
+            <form action="edit.php" method="GET">
+                <input type="hidden" name="id" value="<?= $course['id']?>"> 
+                <button type="submit" name="submit"
+                    class="px-4 py-2 text-white bg-yellow-500 rounded hover:bg-yellow-600">
+                    Edit
+                </button>
+            </form>
+
+            <!-- Formulaire pour Suspendre -->
+            <form action="suspend.php" method="POST">
+                <input type="hidden" name="id" value="1"> <!-- Champ caché pour l'ID -->
+                <button type="submit" 
+                    class="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600">
+                    Suspension
+                </button>
+            </form>
+
+            <!-- Formulaire pour Supprimer -->
+            <form action="delete.php" method="POST">
+                <input type="hidden" name="id" value="1"> <!-- Champ caché pour l'ID -->
+                <button type="submit" 
+                    class="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600">
+                    Delete
+                </button>
+            </form>
+
+    </div>
+</div>
+<?php endforeach; ?>
 
     </div>
 </section>

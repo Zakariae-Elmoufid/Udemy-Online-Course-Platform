@@ -21,10 +21,10 @@ class Course {
          $this->LabelModel->insertCours($user_id,$title,$description,$content,$tags,$category);
      }
      public function updateCourse($id,$title,$description,$content,$tags,$category){
-
+        $this->LabelModel->EditCourse($id,$title,$description,$content,$tags,$category);
      }
      public function getCourseById($id){
-        
+        return $this->LabelModel->selectCourseById($id);
      }
      public function deleteCourse($id){
 
