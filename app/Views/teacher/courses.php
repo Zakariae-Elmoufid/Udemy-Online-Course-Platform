@@ -49,8 +49,8 @@ $courses = $fechCourse->getAllCourses();
                 <input type="hidden" name="description" value="<?= $course['description']?>"> 
                 <input type="hidden" name="content" value="<?= $course['content']?>"> 
                 <button type="submit" name="submit"
-                    class="  text-yellow-500 rounded ">
-                    Views Ccntent
+                    class="  text-blue-500 rounded ">
+                    Views Content
                 </button>
             </form>
     <div class="flex justify-center gap-5 mt-4">

@@ -18,7 +18,8 @@ class Validation{
             case 'password':
                 return strlen(string: $data) >= 8; 
             case 'content':
-                return preg_match("/^(https?:\/\/)?([\w\-]+\.)+[\w\-]+(\/[\w\-._~:\/?#[\]@!$&'()*+,;=]*)?\.(mp4|mov|avi|mkv|pdf|doc|docx|ppt|pptx|xls|xlsx)$/", $data);
+                $allowedExtensions = '/\.(mp4|mov|avi|mkv|pdf|doc|docx|ppt|pptx|xls|xlsx)$/i';
+                return preg_match($allowedExtensions, $data);
             case 'description':
              return strlen(string: $data) >= 30;
             default:
@@ -46,7 +47,7 @@ class Validation{
         if($this->validateInput($content,'content')){
             $this->content = $content;
         }else{
-            $this->errors['content'] = "Invalid Content . It must be url with form mp4|mov|avi|mkv|pdf|doc|docx|ppt|pptx|xls|xlsx";
+            $this->errors['content'] = "Seules les extensions vidéo ou document sont acceptées. mp4|mov|avi|mkv|pdf|doc|docx|ppt|pptx|xls|xlsx";
         }
     }
     public function setTitle($title){

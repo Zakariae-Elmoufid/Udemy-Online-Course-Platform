@@ -50,13 +50,13 @@ if(isset($_POST['submit'])){
         <!-- Back to Courses Button -->
         <div class="mt-8 text-center">
             <a href="index.php" 
-               class="px-6 py-3 bg-blue-600 text-white text-lg font-medium rounded-lg shadow hover:bg-blue-700">
+               class="px-6 py-3 bg-fuchsia-600 text-white text-lg font-medium rounded-lg shadow hover:bg-fuchsia-700">
                 Back to Courses
             </a>
         </div>
     </div>
-        </main>    
-            </div>
+    </main>    
+</div>
 </body>
 
 </html>
