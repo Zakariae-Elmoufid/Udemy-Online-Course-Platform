@@ -48,6 +48,8 @@ class CourseModel{
                 courses.id,
                 courses.title, 
                 courses.description, 
+                 courses.deleted_at,
+                 courses.created_at,
                 courses.content, 
                 users.username, 
                 GROUP_CONCAT(tags.title) AS tags, 
@@ -68,7 +70,9 @@ class CourseModel{
                 courses.title, 
                 courses.description, 
                 courses.content, 
-                users.username, 
+                users.username,   
+                 courses.deleted_at,
+                 courses.created_at,
                 categorys.title";
          $stmt = $this->conn->prepare($query);
          $stmt->execute();
@@ -98,6 +102,7 @@ class CourseModel{
             GROUP BY 
                 courses.title, 
                 courses.description, 
+               
                 courses.content, 
                 users.username, 
                 categorys.title";
@@ -140,6 +145,14 @@ class CourseModel{
          header("location:./courses.php");
     }
     
+    public function softDelete($id){
+        $query =  "UPDATE courses SET deleted_at = CURRENT_DATE WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id',$id);
+        $stmt->execute();
+        header("location:./courses.php");
+ 
+    }
 
     
 

@@ -94,7 +94,7 @@ if(isset($_POST['submit'])){
                 <?php $isChecked = in_array($tag['title'], $checkedTags) ? 'checked' : '';?>
                 <label class="flex items-center">
                     <input type="checkbox" name="tags[]" value="<?= $tag['id'] ?>" 
-                           class="form-checkbox text-fuchsia-500 focus:ring-fuchsia-400" <?= $isChecked?>>
+                           class="form-checkbox text-fuchsia-500 focus:ring-fuchsia-400"  <?= $isChecked?>>
                     <span class="ml-2 text-gray-700"><?= $tag['title'] ?></span>
                 </label>
                 <?php endforeach; ?>

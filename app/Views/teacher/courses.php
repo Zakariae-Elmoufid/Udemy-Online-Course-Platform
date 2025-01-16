@@ -7,7 +7,7 @@ use App\classes\Category;
 $fechCourse = new Course();
 $courses = $fechCourse->getAllCourses();
 
-
+print_r($courses);
 
 ?>
 
@@ -33,7 +33,8 @@ $courses = $fechCourse->getAllCourses();
        <section class="p-4">
            <h2 class="text-3xl font-bold text-gray-800 mb-6">Course List</h2>
            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-        <?php  foreach ($courses as $course):?>   
+        <?php  foreach ($courses as $course):?> 
+        <?php if($course['deleted_at'] == null): ?>  
         <div class="bg-white rounded-lg shadow p-4">
             <h3 class="text-xl font-semibold text-gray-800"><?= $course['title'] ?></h3>
             <p class="text-gray-600 mt-2"><?= $course['description'] ?></p>
@@ -57,17 +58,16 @@ $courses = $fechCourse->getAllCourses();
 
             <!-- Formulaire pour Suspendre -->
             <form action="suspend.php" method="POST">
-                <input type="hidden" name="id" value="1"> <!-- Champ caché pour l'ID -->
+                <input type="hidden" name="id" value="1"> 
                 <button type="submit" 
                     class="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600">
                     Suspension
                 </button>
             </form>
 
-            <!-- Formulaire pour Supprimer -->
             <form action="delete.php" method="POST">
-                <input type="hidden" name="id" value="1"> <!-- Champ caché pour l'ID -->
-                <button type="submit" 
+                <input type="hidden" name="id"  value="<?= $course['id']?>"> 
+                <button type="submit" name="submit"
                     class="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600">
                     Delete
                 </button>
@@ -75,6 +75,7 @@ $courses = $fechCourse->getAllCourses();
 
     </div>
 </div>
+<?php endif ?>
 <?php endforeach; ?>
 
     </div>

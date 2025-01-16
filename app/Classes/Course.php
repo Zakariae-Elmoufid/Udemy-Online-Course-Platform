@@ -27,7 +27,7 @@ class Course {
         return $this->LabelModel->selectCourseById($id);
      }
      public function deleteCourse($id){
-
+       $this->LabelModel->softDelete($id);
      }
 
 
