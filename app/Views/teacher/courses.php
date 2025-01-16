@@ -44,8 +44,17 @@ $courses = $fechCourse->getAllCourses();
         <span class=" w-fit bg-green-100 text-green-800 text-xs px-2 rounded-full">#<?php echo $tag ?></span>
         <?php endforeach; ?> 
     </p>
-    <p class="text-sm text-gray-500">Content: <a href="<?=$course['content'] ?>" class="text-blue-500 underline">View Content</a></p>
+    <form action="detailsCourse.php" method="POST">
+                <input type="hidden" name="title" value="<?= $course['title']?>"> 
+                <input type="hidden" name="description" value="<?= $course['description']?>"> 
+                <input type="hidden" name="content" value="<?= $course['content']?>"> 
+                <button type="submit" name="submit"
+                    class="  text-yellow-500 rounded ">
+                    Views Ccntent
+                </button>
+            </form>
     <div class="flex justify-center gap-5 mt-4">
+
 
             <form action="edit.php" method="GET">
                 <input type="hidden" name="id" value="<?= $course['id']?>"> 
