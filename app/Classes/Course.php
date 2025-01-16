@@ -36,7 +36,8 @@ class Course {
      public function retrieveCourse($id){
         $this->LabelModel->retrieve($id);
      }
-
+     
+     
 
     
 }

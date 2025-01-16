@@ -1,3 +1,6 @@
+<?php ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,9 +26,9 @@
                     <th class="p-4 border border-gray-300">Course Title</th>
                     <th class="p-4 border border-gray-300">Category</th>
                     <th class="p-4 border border-gray-300">Tags</th>
+                    <th class="p-4 border border-gray-300">Content</th>
                     <th class="p-4 border border-gray-300">Teacher</th>
                     <th class="p-4 border border-gray-300">Status</th>
-                    <th class="p-4 border border-gray-300">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -35,19 +38,22 @@
                     <td class="p-4 border border-gray-300">HTML, CSS, JavaScript</td>
                     <td class="p-4 border border-gray-300">said</td>
                     <td class="p-4 border border-gray-300">suspension</td>
-                    <td class="p-4 border border-gray-300 flex space-x-2">
-                        <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Approve</button>
-                        <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Reject</button>
+                    <td class="p-4 border border-gray-300"> 
+                        <form action="">
+                            <select name="status" id="status">
+                                <option value="Suspended">Suspended</option>
+                                <option value="Active">Active</option>
+                                <option value="Delete">Delete</option>
+                            </select>
+                        </form>
                     </td>
+                    
                 </tr>
-                <!-- More rows can be added -->
             </tbody>
         </table>
     </div>
 </section>
-        </main>
-
-
+</main>
 </div>
 </body>
 </html>
