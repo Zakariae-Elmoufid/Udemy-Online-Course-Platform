@@ -1,3 +1,15 @@
+<?php
+ require_once __DIR__ .'/../../../vendor/autoload.php';
+
+ session_start();
+ $student_id = $_SESSION['id'];
+ use App\classes\Enrollment;
+
+$Enrollment = new Enrollment();
+$courses =  $Enrollment->getMyCourses($student_id);
+print_r($courses);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,38 +32,42 @@
     </section>
 
     <!-- My Courses Section -->
-    <section class="container mx-auto px-6 py-8">
-        <h2 class="text-2xl font-semibold mb-6">Enrolled Courses</h2>
+                <section class="container mx-auto px-6 py-8">
+                    <h2 class="text-2xl font-semibold mb-6">Enrolled Courses</h2>
 
-        <!-- Course Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Course 1 -->
-            <div class="bg-white rounded-lg shadow p-4">
-                <h3 class="text-xl font-semibold text-gray-800">Course Title 1</h3>
-                <p class="text-gray-600 mt-2">Learn the basics of web development with this course.</p>
-                <p class="text-sm text-gray-500 mt-2">Category: <span class="font-medium">Programming</span></p>
-                <p class="text-sm text-gray-500">Tags: <span class="font-medium">HTML, CSS</span></p>
-                <button class="mt-4 bg-fuchsia-600 text-white px-4 py-2 rounded hover:bg-fuchsia-700">Go to Course</button>
+                    <!-- Course Cards --><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                    <?php  foreach ($courses as $course):?> 
+                    <?php if($course['deleted_at'] == null): ?>  
+                    <div class="bg-white rounded-lg shadow p-4">
+                        <div class="flex justify-between">
+                            <h3 class="text-xl font-semibold text-gray-800"><?= $course['title'] ?></h3>
+                            <p class="text-gray-600 mt-2"><?= $course['created_at'] ?></p>
+                        </div>
+                        <p class="text-sm text-gray-500 mt-2">Category: <span class="font-medium"><?= $course['category_title'] ?></span></p>
+                        <p class="text-sm text-gray-500 flex flex-wrap gap-1 ">Tags:
+                        <?php   $tags = explode(",", $course["tags"]); ?>
+                        <?php foreach ($tags as $tag):?>
+                    <span class=" w-fit bg-green-100 text-green-800 text-xs px-2 rounded-full">#<?php echo $tag ?></span>
+                    <?php endforeach; ?> 
+                </p>
+                <p class="text-sm text-gray-500 mt-2">Teacher: <span class="font-medium"><?= $course['username'] ?></span></p>
+                
+                <div class="mt-4">
+                    <form action="detailsCourse.php" method="POST">
+                                <input type="hidden" name="title" value="<?= $course['title']?>"> 
+                                <input type="hidden" name="description" value="<?= $course['description']?>"> 
+                                <input type="hidden" name="content" value="<?= $course['content']?>"> 
+                                <button type="submit" name="submit"
+                                    class=" px-4 py-2 text-white bg-fuchsia-500 rounded hover:bg-fuchsia-600">
+                                    Views Content
+                                </button>
+                    </form>
+                </div>
             </div>
+            <?php endif ?>
+            <?php endforeach; ?>
 
-            <!-- Course 2 -->
-            <div class="bg-white rounded-lg shadow p-4">
-                <h3 class="text-xl font-semibold text-gray-800">Course Title 2</h3>
-                <p class="text-gray-600 mt-2">Master advanced UI/UX design concepts and tools.</p>
-                <p class="text-sm text-gray-500 mt-2">Category: <span class="font-medium">Design</span></p>
-                <p class="text-sm text-gray-500">Tags: <span class="font-medium">Figma, Prototyping</span></p>
-                <button class="mt-4 bg-fuchsia-600 text-white px-4 py-2 rounded hover:bg-fuchsia-700">Go to Course</button>
-            </div>
-
-            <!-- Course 3 -->
-            <div class="bg-white rounded-lg shadow p-4">
-                <h3 class="text-xl font-semibold text-gray-800">Course Title 3</h3>
-                <p class="text-gray-600 mt-2">Learn how to build scalable web apps with React.</p>
-                <p class="text-sm text-gray-500 mt-2">Category: <span class="font-medium">Web Development</span></p>
-                <p class="text-sm text-gray-500">Tags: <span class="font-medium">React, JavaScript</span></p>
-                <button class="mt-4 bg-fuchsia-600 text-white px-4 py-2 rounded hover:bg-fuchsia-700">Go to Course</button>
-            </div>
-        </div>
+     
     </section>
 
     <?php include "../components/footer.php" ?>

@@ -64,9 +64,9 @@ CREATE TABLE `Course_Tag` (
 CREATE TABLE Enrollment (
     id int PRIMARY KEY AUTO_INCREMENT,
     course_id int,
-    student_id int,
+    user_id int,
     enrolled_date Date default (CURRENT_DATE),
     FOREIGN KEY (course_id) REFERENCES `Courses`(id),
-    FOREIGN KEY (student_id) REFERENCES `Students`(id)
+    FOREIGN KEY (user_id) REFERENCES `users`(id)
 );
 
