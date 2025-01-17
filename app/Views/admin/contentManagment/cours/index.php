@@ -51,7 +51,7 @@ if (isset($_POST['submit'])) {
 
                 <tr>
                     <td class="p-4 border border-gray-300"><?=$course['title']?></td>
-                    <td class="p-4 border border-gray-300"> <form action="../../../teacher/detailsCourse.php" method="POST">
+                    <td class="p-4 border border-gray-300"> <form action="detailsCourse.php" method="POST">
                         <input type="hidden" name="title" value="<?= $course['title']?>"> 
                         <input type="hidden" name="description" value="<?= $course['description']?>"> 
                         <input type="hidden" name="content" value="<?= $course['content']?>"> 

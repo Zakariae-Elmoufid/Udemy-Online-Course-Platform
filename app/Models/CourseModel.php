@@ -43,6 +43,45 @@ class CourseModel{
 
     }
 
+    public function selectAllCourseById($id){
+        $query = "SELECT 
+        courses.id,
+        courses.title, 
+        courses.description, 
+         courses.deleted_at,
+         courses.created_at,
+        courses.content, 
+        courses.status,
+        users.username, 
+        GROUP_CONCAT(tags.title) AS tags, 
+        categorys.title AS category_title
+        FROM 
+            courses
+        INNER JOIN 
+            users ON users.id = courses.user_id
+        INNER JOIN 
+            categorys ON categorys.id = courses.category_id
+        LEFT JOIN 
+            Course_Tag ON Course_Tag.course_id = courses.id
+        LEFT JOIN 
+            tags ON tags.id = Course_Tag.tag_id
+        WHERE user_id = :user_id      
+        GROUP BY 
+        courses.id,
+        courses.title, 
+        courses.description, 
+        courses.content, 
+        courses.status,
+        users.username,   
+         courses.deleted_at,
+         courses.created_at,
+        categorys.title";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":user_id",$id);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function selectAllCourse(){
         $query = "SELECT 
                 courses.id,

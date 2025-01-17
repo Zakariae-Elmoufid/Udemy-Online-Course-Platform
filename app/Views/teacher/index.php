@@ -1,3 +1,19 @@
+<?php
+require_once __DIR__ . '/../../../vendor/autoload.php';
+
+session_start();
+$id = $_SESSION['id'];
+
+use App\classes\Course;
+
+
+$fechCourse = new Course();
+$courses = $fechCourse->getAllCourses();
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -71,33 +87,7 @@
 </section>
 
     <section class="p-4">
-        <h2 class="text-3xl font-bold text-gray-800 mb-6">Course List</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-            <!-- Course 1 -->
-            <div class="bg-white rounded-lg shadow p-4">
-                <h3 class="text-xl font-semibold text-gray-800">Course Title 1</h3>
-                <p class="text-gray-600 mt-2">This is a brief description of the course. It covers the basics and more.</p>
-                <p class="text-sm text-gray-500 mt-2">Category: <span class="font-medium">Programming</span></p>
-                <p class="text-sm text-gray-500">Tags: <span class="font-medium">HTML, CSS</span></p>
-                <p class="text-sm text-gray-500">Content: <a href="#" class="text-blue-500 underline">View Content</a></p>
-            </div>
-            <!-- Course 2 -->
-            <div class="bg-white rounded-lg shadow p-4">
-                <h3 class="text-xl font-semibold text-gray-800">Course Title 2</h3>
-                <p class="text-gray-600 mt-2">Learn advanced concepts with hands-on examples in this course.</p>
-                <p class="text-sm text-gray-500 mt-2">Category: <span class="font-medium">Design</span></p>
-                <p class="text-sm text-gray-500">Tags: <span class="font-medium">UI/UX, Figma</span></p>
-                <p class="text-sm text-gray-500">Content: <a href="#" class="text-blue-500 underline">View Content</a></p>
-            </div>
-            <!-- Course 3 -->
-            <div class="bg-white rounded-lg shadow p-4">
-                <h3 class="text-xl font-semibold text-gray-800">Course Title 3</h3>
-                <p class="text-gray-600 mt-2">A comprehensive course covering all aspects of web development.</p>
-                <p class="text-sm text-gray-500 mt-2">Category: <span class="font-medium">Web Development</span></p>
-                <p class="text-sm text-gray-500">Tags: <span class="font-medium">JavaScript, React</span></p>
-                <p class="text-sm text-gray-500">Content: <a href="#" class="text-blue-500 underline">View Content</a></p>
-            </div>
-        </div>
+      
     </section>
     </main>    
 
