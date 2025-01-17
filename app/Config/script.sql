@@ -57,7 +57,7 @@ CREATE TABLE `Tags` (
 CREATE TABLE `Course_Tag` (
     tag_id int,
     course_id int,
-    FOREIGN KEY (tag_id) REFERENCES `Tags`(id),
+    FOREIGN KEY (tag_id) REFERENCES `Tags`(id) ON DELETE CASCADE
     FOREIGN KEY (course_id) REFERENCES `Courses`(id) ON DELETE CASCADE;
 );
 

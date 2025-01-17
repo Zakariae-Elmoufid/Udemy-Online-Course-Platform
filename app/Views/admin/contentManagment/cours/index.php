@@ -1,6 +1,21 @@
-<?php ?>
+<?php 
+require_once __DIR__ . '/../../../../../vendor/autoload.php';
+use App\classes\Course;
+use App\Controllers\AdminController;
+$fechCourse = new Course();
+$courses = $fechCourse->getAllCourses();
 
+$admin = new AdminController();
 
+if (isset($_POST['submit'])) {
+   
+       
+        $action = $_POST["action"];
+        $courseId = $_POST["id"];
+       $admin->courseManager($courseId,$action);
+      
+}      
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,36 +39,59 @@
             <thead>
                 <tr class="bg-gray-200">
                     <th class="p-4 border border-gray-300">Course Title</th>
-                    <th class="p-4 border border-gray-300">Category</th>
-                    <th class="p-4 border border-gray-300">Tags</th>
                     <th class="p-4 border border-gray-300">Content</th>
                     <th class="p-4 border border-gray-300">Teacher</th>
                     <th class="p-4 border border-gray-300">Status</th>
+                    <th class="p-4 border border-gray-300">Action</th>
                 </tr>
             </thead>
             <tbody>
+                <?php foreach($courses as $course) :?>
+                    <?php if($course['deleted_at'] == null): ?>  
+
                 <tr>
-                    <td class="p-4 border border-gray-300">Web Development Basics</td>
-                    <td class="p-4 border border-gray-300">Programming</td>
-                    <td class="p-4 border border-gray-300">HTML, CSS, JavaScript</td>
-                    <td class="p-4 border border-gray-300">said</td>
-                    <td class="p-4 border border-gray-300">suspension</td>
-                    <td class="p-4 border border-gray-300"> 
-                        <form action="">
-                            <select name="status" id="status">
-                                <option value="Suspended">Suspended</option>
-                                <option value="Active">Active</option>
-                                <option value="Delete">Delete</option>
-                            </select>
-                        </form>
-                    </td>
-                    
-                </tr>
+                    <td class="p-4 border border-gray-300"><?=$course['title']?></td>
+                    <td class="p-4 border border-gray-300"> <form action="../../../teacher/detailsCourse.php" method="POST">
+                        <input type="hidden" name="title" value="<?= $course['title']?>"> 
+                        <input type="hidden" name="description" value="<?= $course['description']?>"> 
+                        <input type="hidden" name="content" value="<?= $course['content']?>"> 
+                        <button type="submit" name="submit"
+                    class="  text-blue-500 rounded ">
+                    Views Content
+                </button>
+            </form></td>
+                    <td class="p-4 border border-gray-300"><?=$course['username']?></td>
+                    <td class="p-4 border border-gray-300"><?=$course['status']?></td>
+                    <td class="p-4 border border-gray-300 flex space-x-2">
+                                     <form method="POST" action="">
+                                        <input type="hidden" name="action" value="Activation">
+                                        <input type="hidden" name="id" value="<?= $course['id']?>">
+                                        <button type="submit" name="submit" class="text-white bg-green-600 hover:bg-green-700 px-4 py-2 rounded">Active</button>
+                                    </form>
+                                   
+
+                                    <form method="POST" action="">
+                                        <input type="hidden" name="action" value="suspension">
+                                        <input type="hidden" name="id" value="<?= $course['id']?>">
+                                        <button type="submit" name="submit" class="text-white bg-orange-600 hover:bg-orange-700 px-4 py-2 rounded">Suspended</button>
+                                    </form>
+
+                                    <form method="POST" action="">
+                                        <input type="hidden" name="action" value="suppression">
+                                        <input type="hidden" name="id" value="<?= $course['id']?>">
+                                        <button type="submit" name="submit" class="text-white bg-red-600 hover:bg-red-700 px-4 py-2 rounded">Delete</button>
+                                    </form>
+
+                                </td>
+                            </tr>
+                            <?php endif ?>  
+                            <?php endforeach?>
             </tbody>
         </table>
     </div>
 </section>
 </main>
 </div>
+
 </body>
 </html>

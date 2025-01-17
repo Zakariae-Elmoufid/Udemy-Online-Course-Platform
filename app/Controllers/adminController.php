@@ -26,8 +26,11 @@ public function usersManager($userId,$action){
     $this->adminModel->editStatusUser($userId,$action);
 }
 
+public function courseManager($courseId,$action){
+    $this->adminModel->editStatusCourse($courseId,$action);
     
 }
 
+}
 
 ?>

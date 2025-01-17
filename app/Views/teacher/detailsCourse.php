@@ -28,7 +28,6 @@ if(isset($_POST['submit'])){
             <p class="text-gray-700 text-lg leading-relaxed"><?= $description ?></p>
         </div>
 
-        <!-- Content Section -->
         <div class="bg-white shadow rounded-lg p-6 mt-6">
             <h2 class="text-2xl font-bold text-gray-800 mb-4">Course Content</h2>
             

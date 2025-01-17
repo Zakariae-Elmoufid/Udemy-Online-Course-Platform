@@ -8,8 +8,9 @@ if (isset($_POST['submit'])) {
 
     $id = $_POST['idTag'] ;
 
+
     $tag = new Tag();
-    $tag->deleteLabel($id, $title);
+    $tag->deleteLabel($id);
     echo "id=".$id;
 }
 

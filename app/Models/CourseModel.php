@@ -51,6 +51,7 @@ class CourseModel{
                  courses.deleted_at,
                  courses.created_at,
                 courses.content, 
+                courses.status,
                 users.username, 
                 GROUP_CONCAT(tags.title) AS tags, 
                 categorys.title AS category_title
@@ -70,6 +71,7 @@ class CourseModel{
                 courses.title, 
                 courses.description, 
                 courses.content, 
+                courses.status,
                 users.username,   
                  courses.deleted_at,
                  courses.created_at,
