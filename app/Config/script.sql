@@ -41,7 +41,8 @@ CREATE TABLE Courses (
     created_at Date not null DEFAULT (CURRENT_DATE),
     deleted_at Date default NULL,
     category_id int ,
-     user_id int,
+    status ENUM('Active', 'Delete', 'Suspended') DEFAULT 'Suspended',
+    user_id int,
     FOREIGN key (user_id) references Users(id),
     FOREIGN KEY (category_id) REFERENCES Categorys(id)
 )
@@ -56,7 +57,7 @@ CREATE TABLE `Tags` (
 CREATE TABLE `Course_Tag` (
     tag_id int,
     course_id int,
-    FOREIGN KEY (tag_id) REFERENCES `Tags`(id),
+    FOREIGN KEY (tag_id) REFERENCES `Tags`(id) ON DELETE CASCADE
     FOREIGN KEY (course_id) REFERENCES `Courses`(id) ON DELETE CASCADE;
 );
 

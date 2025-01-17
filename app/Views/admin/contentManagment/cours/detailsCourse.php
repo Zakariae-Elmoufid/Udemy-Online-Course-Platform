@@ -17,9 +17,9 @@ if(isset($_POST['submit'])){
 <body class="bg-gray-50">
 
 <div class="flex flex-col md:flex-row min-h-screen">
-        <?php include "../components/sidbarTeacher.php"?>
-   <main class="flex-grow ">
-       <?php include "../components/headerTeacher.php"?> 
+    <?php include "../../../components/sidbarAdmin.php"?>
+
+    <main class="flex-grow p-6"> 
 
     <div class="container mx-auto p-6">
         <!-- Title Section -->
@@ -33,7 +33,7 @@ if(isset($_POST['submit'])){
             
             <?php if (preg_match('/\.(pdf|doc|docx|ppt|pptx|xls|xlsx)$/', $content)): ?>
                 <div class="border border-gray-300 rounded-lg overflow-hidden shadow-md p-4 bg-gray-100">
-                    <embed src="<?= $content ?>" type="application/pdf" width="100%" height="600px" class="rounded-lg">
+                    <embed src="<?= $content ?>"  width="100%" height="600px" class="rounded-lg">
                 </div>
             <?php elseif (preg_match('/\.(mp4|mov|avi|mkv)$/', $content)): ?>
                 <div class="aspect-w-16 aspect-h-9">
@@ -49,7 +49,7 @@ if(isset($_POST['submit'])){
         <!-- Back to Courses Button -->
         <div class="mt-8 text-center">
             <a href="index.php" 
-               class="px-6 py-3 bg-fuchsia-600 text-white text-lg font-medium rounded-lg shadow hover:bg-fuchsia-700">
+               class="px-6 py-3 bg-blue-600 text-white text-lg font-medium rounded-lg shadow hover:bg-fuchsia-700">
                 Back to Courses
             </a>
         </div>

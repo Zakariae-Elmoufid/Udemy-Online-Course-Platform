@@ -1,3 +1,11 @@
+<?php
+require_once __DIR__ . '/../../../../vendor/autoload.php';
+
+use App\classes\Course;
+$fechCourse = new Course();
+$courses = $fechCourse->getAllCourses();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,30 +31,38 @@
         <a href="tag/index.php" class="bg-orange-500 text-white px-6 py-2 rounded hover:bg-orange-600">Manage Tags</a>
     </div>
     <div class="overflow-x-auto">
-        <table class="w-full table-auto border-collapse border border-gray-300">
-            <thead>
-                <tr class="bg-gray-200">
-                    <th class="p-4 border border-gray-300">Course Title</th>
-                    <th class="p-4 border border-gray-300">Category</th>
-                    <th class="p-4 border border-gray-300">Tags</th>
-                    <th class="p-4 border border-gray-300">Students Enrolled</th>
-                    <th class="p-4 border border-gray-300">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="p-4 border border-gray-300">Web Development Basics</td>
-                    <td class="p-4 border border-gray-300">Programming</td>
-                    <td class="p-4 border border-gray-300">HTML, CSS, JavaScript</td>
-                    <td class="p-4 border border-gray-300">150</td>
-                    <td class="p-4 border border-gray-300 flex space-x-2">
-                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Edit</button>
-                        <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Delete</button>
-                    </td>
-                </tr>
-                <!-- More rows can be added -->
-            </tbody>
-        </table>
+    <section class="p-4">
+           <h2 class="text-3xl font-bold text-gray-800 mb-6">Course List</h2>
+           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+        <?php  foreach ($courses as $course):?> 
+        <?php if($course['deleted_at'] == null): ?>  
+        <div class="bg-white rounded-lg shadow p-4">
+            <h3 class="text-xl font-semibold text-gray-800"><?= $course['title'] ?></h3>
+            <p class="text-sm text-gray-500 mt-2">Teacher: <span class="font-medium"><?= $course['username'] ?></span></p>
+            <p class="text-gray-600 mt-2"><?= $course['description'] ?></p>
+            <p class="text-sm text-gray-500 mt-2">Category: <span class="font-medium"><?= $course['category_title'] ?></span></p>
+            <p class="text-sm text-gray-500 flex flex-wrap gap-1 ">Tags:
+             <?php   $tags = explode(",", $course["tags"]); ?>
+            <?php foreach ($tags as $tag):?>
+        <span class=" w-fit bg-green-100 text-green-800 text-xs px-2 rounded-full">#<?php echo $tag ?></span>
+        <?php endforeach; ?> 
+    </p>
+    <form action="cours/detailsCourse.php" method="POST">
+                <input type="hidden" name="title" value="<?= $course['title']?>"> 
+                <input type="hidden" name="description" value="<?= $course['description']?>"> 
+                <input type="hidden" name="content" value="<?= $course['content']?>"> 
+                <button type="submit" name="submit"
+                    class=" text-blue-500 rounded ">
+                    Views Content
+                </button>
+            </form>
+   
+</div>
+<?php endif ?>
+<?php endforeach; ?>
+
+    </div>
+</section>
     </div>
 </section>
         </main>

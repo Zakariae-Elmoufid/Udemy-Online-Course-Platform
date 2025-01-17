@@ -1,11 +1,16 @@
 <?php
 require_once __DIR__ . '/../../../vendor/autoload.php';
+
+session_start();
+$id = $_SESSION['id'];
+
 use App\classes\Course;
 use App\classes\Tag;
 use App\classes\Category;
 
 $fechCourse = new Course();
-$courses = $fechCourse->getAllCourses();
+$courses = $fechCourse->getAllCoursesById($id);
+
 
 
 ?>
@@ -31,7 +36,7 @@ $courses = $fechCourse->getAllCourses();
 
        <section class="p-4">
            <h2 class="text-3xl font-bold text-gray-800 mb-6">Course List</h2>
-           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
         <?php  foreach ($courses as $course):?> 
         <?php if($course['deleted_at'] == null): ?>  
         <div class="bg-white rounded-lg shadow p-4">

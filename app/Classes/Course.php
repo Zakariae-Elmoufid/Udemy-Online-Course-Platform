@@ -17,6 +17,9 @@ class Course {
      public function getAllCourses(){
         return $this->LabelModel->selectAllCourse();
      }
+      public function getAllCoursesById($id){
+         return $this->LabelModel->selectAllCourseById($id);
+      }
      public function addCourse($user_id,$title,$description,$content,$tags,$category){
          $this->LabelModel->insertCours($user_id,$title,$description,$content,$tags,$category);
      }
@@ -36,7 +39,8 @@ class Course {
      public function retrieveCourse($id){
         $this->LabelModel->retrieve($id);
      }
-
+     
+     
 
     
 }
