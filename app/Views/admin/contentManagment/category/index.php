@@ -1,9 +1,9 @@
 <?php 
 
 require_once __DIR__ . '/../../../../../vendor/autoload.php';
-use App\classes\Category;
+use App\Controllers\CategoryController;
 
-$categorys= new Category();
+$categorys= new CategoryController("categorys");
 $results = $categorys->getAllLabel();
 
 ?>

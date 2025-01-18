@@ -103,7 +103,7 @@ if (isset($_POST["submit"])) {
 
                         <div class="flex justify-center gap-8">
                             <div class="relative">
-                                <input type="radio" class="hidden" id="teacher" name="role" value="teacher">
+                                <input type="radio" class="hidden" id="teacher" name="role" value="Teacher">
                                 <label for="teacher" class="cursor-pointer">
                                     <img src="https://i.pinimg.com/474x/ea/0c/ca/ea0cca6a099dd0dbd03e1ce427699355.jpg"
                                         alt="Teacher" class="w-24 h-24 rounded-lg transition-transform ">
@@ -112,7 +112,7 @@ if (isset($_POST["submit"])) {
                             </div>
 
                             <div>
-                                <input type="radio" class="hidden" id="student" name="role" value="student">
+                                <input type="radio" class="hidden" id="student" name="role" value="Student">
                                 <label for="student">
                                     <img src="https://i.pinimg.com/474x/22/12/37/221237a92d7420f35b91a275e181d5ea.jpg"
                                         class="w-24 h-24 rounded-lg transition-transform  ">
@@ -192,11 +192,11 @@ if (isset($_POST["submit"])) {
             radio.addEventListener("change", () => {
                 const selectedRole = document.querySelector('input[name="role"]:checked');
 
-                if (selectedRole.value === 'teacher') {
+                if (selectedRole.value === 'Teacher') {
                     teacherSection.classList.remove('hidden');
                     studentSection.classList.add('hidden');
                     document.querySelector('input[value="default"]').checked = true;
-                } else if (selectedRole.value === 'student') {
+                } else if (selectedRole.value === 'Student') {
                     studentSection.classList.remove('hidden');
                     teacherSection.classList.add('hidden');
                 }

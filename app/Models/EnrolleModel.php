@@ -13,7 +13,7 @@ class EnrolleModel{
     }
 
     public function insertCourseAndStudent($student,$course){
-        $query = "INSERT INTO enrollment (user_id,course_id)
+        $query = "INSERT INTO enrollment (student_id,course_id)
         VALUES (:student , :course)";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":student",$student);
@@ -34,15 +34,16 @@ class EnrolleModel{
         categorys.title as category_title,
         GROUP_CONCAT(tags.title) AS tags
         from courses 
-        inner join users on courses.user_id = users.id
         inner join  enrollment on enrollment.course_id = courses.id
+        inner join students on students.id  = enrollment.student_id
+        inner join users on students.user_id = users.id
         INNER JOIN 
                 categorys ON categorys.id = courses.category_id
             LEFT JOIN 
                 Course_Tag ON Course_Tag.course_id = courses.id
             LEFT JOIN 
                 tags ON tags.id = Course_Tag.tag_id
-        WHERE enrollment.user_id = :id
+        WHERE enrollment.student_id = :id
         
         GROUP by courses.title,
         users.username,

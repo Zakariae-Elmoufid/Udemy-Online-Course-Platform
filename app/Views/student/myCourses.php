@@ -3,7 +3,7 @@
 
  use App\services\session;
  session_start();
- if ((!isset($_SESSION["id"]) && $_SESSION["role"] != "student")) {
+ if ((!isset($_SESSION["id"]) && $_SESSION["role"] != "Student")) {
    header("Location: ../auth/login.php");
      exit();
    }

@@ -1,10 +1,10 @@
 <?php 
 
 require_once __DIR__ . '/../../../../../vendor/autoload.php';
-use App\classes\Tag;
+use App\Controllers\TagController;
 
-
-$tags= new Tag();
+$table = "tags";
+$tags = new TagController($table);
 $results = $tags->getAllLabel();
 
 ?>

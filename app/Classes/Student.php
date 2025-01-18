@@ -4,7 +4,7 @@ namespace App\Classes;
 
 class Student extends User {
     private $id ;
-    private $speciality;
+    private $field;
     private $status;
     
     public function __construct( $username, $email,$password, $role,$id,$status,$field=null){

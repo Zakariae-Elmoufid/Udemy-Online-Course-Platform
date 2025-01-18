@@ -30,9 +30,9 @@ public function courseManager($courseId,$action){
     $this->adminModel->editStatusCourse($courseId,$action);  
 }
 
-public function topThreeTeacher(){
-    $this->adminModel->selectThreeTeacher();
-}
+
+
+
 
 }
 

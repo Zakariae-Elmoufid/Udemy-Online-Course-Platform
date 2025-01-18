@@ -4,6 +4,7 @@
 
 namespace App\Models;
 use App\Config\Database;
+use App\Classes\Label;
 use PDO;
 
 class LabelModel {
@@ -34,7 +35,7 @@ class LabelModel {
         $stmt->bindParam(":title",$title);
         $stmt->bindParam(":id",$id);
         $stmt->execute();
-        header("location:./index.php");
+        return new Label($id,$title);
     }
 
     public function insertTag($table,$title){

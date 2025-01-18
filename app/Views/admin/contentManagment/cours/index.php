@@ -1,15 +1,12 @@
 <?php 
 require_once __DIR__ . '/../../../../../vendor/autoload.php';
 use App\classes\Course;
-use App\Controllers\AdminController;
-$fechCourse = new Course();
-$courses = $fechCourse->getAllCourses();
+use App\Controllers\CourseAdminController;
 
-$admin = new AdminController();
 
+$admin = new CourseAdminController();
+$courses = $admin->getAllCourses();
 if (isset($_POST['submit'])) {
-   
-       
         $action = $_POST["action"];
         $courseId = $_POST["id"];
        $admin->courseManager($courseId,$action);

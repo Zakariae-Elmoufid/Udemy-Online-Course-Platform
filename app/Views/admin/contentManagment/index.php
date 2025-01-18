@@ -1,15 +1,16 @@
 <?php
 require_once __DIR__ . '/../../../../vendor/autoload.php';
-use App\classes\Course;
+use App\Controllers\CourseController;
 session_start();
-    if ((!isset($_SESSION["id"]) && $_SESSION["role"] != "admin")) {
+    if ((!isset($_SESSION["id"]) && $_SESSION["role"] != "Admin")) {
       header("Location: ../../auth/login.php");
         exit();
     }
 
-$fechCourse = new Course();
-$courses = $fechCourse->getAllCourses();
-
+$Course = new CourseController();
+$courses = $Course->getAllCourses();
+$topThree = $Course->topThreeTeacher();
+print_r($topThree)
 ?>
 <!DOCTYPE html>
 <html lang="en">

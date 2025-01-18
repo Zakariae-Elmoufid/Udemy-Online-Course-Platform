@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../../../../../vendor/autoload.php';
-use App\classes\Category;
+use App\Controllers\CategoryController;
 use App\services\Validation;
 
 
@@ -15,7 +15,7 @@ if (isset($_POST['submit'])) {
 
     
     if (empty($errors)) {
-        $tags = new Category();
+        $tags = new CategoryController("categorys");
         $tags->addLabel($title);
     } 
 

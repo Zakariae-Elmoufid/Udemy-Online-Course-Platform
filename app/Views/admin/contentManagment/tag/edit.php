@@ -1,15 +1,14 @@
 <?php
 
 require_once __DIR__ . '/../../../../../vendor/autoload.php';
-use App\classes\Tag;
+use App\Controllers\TagController;
 use App\services\Validation;
 
 
 
 if (isset($_GET['update'])) {
     $id = $_GET['idTag'] ; 
-    
-    $tags = new Tag();
+    $tags = new TagController("tags");
     $result = $tags->getLabelById($id);
     $nameTag = $result['title'];
 }

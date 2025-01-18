@@ -1,14 +1,14 @@
 <?php
 
 require_once __DIR__ . '/../../../../../vendor/autoload.php';
-use App\classes\Category;
+use App\Controllers\CategoryController;
 use App\services\Validation;
 
 
 
 if (isset($_GET['update'])) {
     $id = $_GET['id'] ; 
-    $category = new Category();
+    $category = new CategoryController("categorys");
     $result = $category->getLabelById($id);
     $nameCategory = $result['title'];
 }

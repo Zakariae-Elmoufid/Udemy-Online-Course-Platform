@@ -1,8 +1,8 @@
 <?php 
 
 require_once __DIR__ . '/../../../vendor/autoload.php';
-use App\classes\Tag;
-use App\classes\Category;
+use App\Controllers\TagController;
+use App\Controllers\CategoryController;
 use App\classes\Course;
 use App\services\Validation;
 
@@ -95,7 +95,7 @@ if(isset($_POST['submit'])){
         <div class="mb-4">
             <label for="tags" class="block text-gray-700 font-medium mb-2">Tags</label>
             <div class="grid gap-4 grid-cols-3 ">
-                <?php $labelTag= new Tag();
+                <?php $labelTag= new TagController("tags");
                  $tags = $labelTag->getAllLabel();
                 foreach($tags as $tag): ?>
                 <label class="flex items-center">
@@ -114,7 +114,7 @@ if(isset($_POST['submit'])){
             <select id="category" name="category" 
                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-fuchsia-400 focus:outline-none" required>
                 <option value="" disabled selected>Select a category</option>
-                <?php  $labelCategory= new category();
+                <?php  $labelCategory= new CategoryController("categorys");
                   $categorys = $labelCategory->getAllLabel();
                 foreach($categorys as $category): ?>
                 <option value="<?= $category['id']?>"><?= $category['title']?></option>

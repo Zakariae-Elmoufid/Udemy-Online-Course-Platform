@@ -116,11 +116,9 @@ class AdminModel{
     }
 
 
-    public function selectThreeTeacher(){
-        $query = "SELECT  * FROM users 
-        ";
-    }
- 
+   
+    
+   
     
 
 }

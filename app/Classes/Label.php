@@ -2,19 +2,22 @@
 
 namespace App\Classes;
 
-abstract class Label {
-
-    
+class Label {  
     protected $id;
     protected $title;
-  
-  
 
-    abstract public function getAllLabel();
-    abstract public function addLabel($title);
-    abstract public function updateLabel($id,$title);
-    abstract public function getLabelById($id);
-    abstract public function deleteLabel($id);
+    public function __construct($id,$title){
+         $this->id = $id;
+         $this->title = $title;
+    }
+
+    public function getId(){
+        $this->id = $id;
+    }
+    public function getTitle(){
+        $this->title = $title;
+    }
+  
 }
 
 ?>

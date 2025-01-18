@@ -63,7 +63,6 @@ class   Authcontroller{
          
         if($user->getRole() == "Student"){
             session_start();
-           
             $_SESSION['id'] = $user->getId();
             $_SESSION['username'] =  $user->getUsername();
             $_SESSION['role'] = $user->getRole();
@@ -76,9 +75,15 @@ class   Authcontroller{
                 $_SESSION['id'] = $user->getId();
                 $_SESSION['username'] =  $user->getUsername();
                 $_SESSION['role'] = $user->getRole();
-            
-            header("Location:../teacher/pending.php");
-            
+
+                if($user->getStatus() == 'suspension'){
+                    header("Location:../teacher/pending.php");
+                }else if ($user->getStatus() == 'Activation'){
+                    header("location:../teacher/index.php");
+                }else if ($user->getStatus() == 'suppression'){
+                    header("location:../teacher/suppression.php");
+                }
+                        
         }
             
          

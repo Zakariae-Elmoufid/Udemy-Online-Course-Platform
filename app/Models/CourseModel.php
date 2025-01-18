@@ -17,15 +17,14 @@ class CourseModel{
    public function insertCours($user_id,$title,$description,$content,$tags,$category){
         
     $query = "INSERT INTO courses (title, description,  category_id, content,teacher_id) 
-    VALUES (:title, :description, :category_id, :content,:user_id)";
+    VALUES (:title, :description, :category_id, :content, :user_id)";
         $stmt = $this->conn->prepare($query);
 
         $stmt->bindParam(":title", $title);
-        $stmt->bindParam(":description", $description);
+        $stmt->bindParam(":description",$description);
         $stmt->bindParam(":content", $content);
         $stmt->bindParam(":category_id", $category);
         $stmt->bindParam(":user_id", $user_id);
-      
         $stmt->execute();
 
         $CourseId = $this->conn->lastInsertId();
@@ -84,7 +83,7 @@ class CourseModel{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function selectAllCourse(){
+    public function selectAllCourses(){
         $query = "SELECT 
                 courses.id,
                 courses.title, 
@@ -108,7 +107,7 @@ class CourseModel{
                 Course_Tag ON Course_Tag.course_id = courses.id
             LEFT JOIN 
                 tags ON tags.id = Course_Tag.tag_id
-                
+            where courses.status    = 'Active'
             GROUP BY 
                 courses.id,
                 courses.title, 
@@ -216,6 +215,70 @@ class CourseModel{
         header("location:./courses.php");
     }
     
+    public function selectAllCoursesAdmin(){
+        $query = "SELECT 
+                courses.id,
+                courses.title, 
+                courses.description, 
+                 courses.deleted_at,
+                 courses.created_at,
+                courses.content, 
+                courses.status,
+                users.username, 
+                GROUP_CONCAT(tags.title) AS tags, 
+                categorys.title AS category_title
+            FROM 
+                courses
+            INNER JOIN 
+                teachers ON teachers.id = courses.teacher_id
+            inner join 
+                 users on users.id =   teachers.user_id  
+            INNER JOIN 
+                categorys ON categorys.id = courses.category_id
+            LEFT JOIN 
+                Course_Tag ON Course_Tag.course_id = courses.id
+            LEFT JOIN 
+                tags ON tags.id = Course_Tag.tag_id
+            
+            GROUP BY 
+                courses.id,
+                courses.title, 
+                courses.description, 
+                courses.content, 
+                courses.status,
+                users.username,   
+                 courses.deleted_at,
+                 courses.created_at,
+                categorys.title";
+         $stmt = $this->conn->prepare($query);
+         $stmt->execute();
+         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function selectThreeTeacher(){
+        $query = "SELECT 
+            users.username, 
+            users.email,
+            COUNT(DISTINCT enrollment.student_id) AS total_student,
+            COUNT(DISTINCT courses.id) AS total_course
+        FROM 
+            teachers
+        LEFT JOIN 
+            courses ON teachers.id = courses.teacher_id
+        INNER JOIN 
+            users ON teachers.user_id = users.id
+        LEFT JOIN 
+            enrollment ON enrollment.course_id = courses.id
+        GROUP BY 
+            users.username ,users.email
+        ORDER BY 
+            total_course DESC, 
+            total_student DESC
+        LIMIT 3";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
 }
 

@@ -6,10 +6,10 @@ session_start();
         exit();
       }
 
-use App\Controllers\AdminController;
-$Admin = new AdminController();     
-
-$Admin->topThreeTeacher();
+use App\Controllers\CourseController;
+$Course = new CourseController();
+$topThree = $Course->topThreeTeacher();
+print_r($topThree);
 
 
 ?>
@@ -44,32 +44,17 @@ $Admin->topThreeTeacher();
                 </tr>
             </thead>
             <tbody>
+                <?php foreach($topThree as $teacher):?>
                 <tr>
-                    <td class="p-4 border border-gray-300">Alice Johnson</td>
-                    <td class="p-4 border border-gray-300">alice.johnson@example.com</td>
-                    <td class="p-4 border border-gray-300">8</td>
-                    <td class="p-4 border border-gray-300">350</td>
+                    <td class="p-4 border border-gray-300"><?=$teacher['username']?></td>
+                    <td class="p-4 border border-gray-300"><?=$teacher['email']?></td>
+                    <td class="p-4 border border-gray-300"><?=$teacher['total_course']?></td>
+                    <td class="p-4 border border-gray-300"><?=$teacher['total_student']?></td>
                     <td class="p-4 border border-gray-300 flex space-x-2">
                         <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">View Profile</button>
                     </td>
                 </tr>
-                <tr>
-                    <td class="p-4 border border-gray-300">Bob Smith</td>
-                    <td class="p-4 border border-gray-300">bob.smith@example.com</td>
-                    <td class="p-4 border border-gray-300">6</td>
-                    <td class="p-4 border border-gray-300">280</td>
-                    <td class="p-4 border border-gray-300 flex space-x-2">
-                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">View Profile</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="p-4 border border-gray-300">Charlie Brown</td>
-                    <td class="p-4 border border-gray-300">charlie.brown@example.com</td>
-                    <td class="p-4 border border-gray-300">5</td>
-                    <td class="p-4 border border-gray-300">210</td>
-                    <td class="p-4 border border-gray-300 flex space-x-2">
-                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">View Profile</button>
-                    </td>
+               <?php endforeach ?>
                             </tr>
                         </tbody>
                     </table>

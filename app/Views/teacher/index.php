@@ -1,18 +1,18 @@
 <?php
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
-use App\services\session;
 session_start();
-    if ((!isset($_SESSION["id"]) && $_SESSION["role"] != "teacher")) {
+    if ((!isset($_SESSION["id"]) && $_SESSION["role"] != "Teacher")) {
       header("Location: ../auth/login.php");
         exit();
       }
+
 $id = $_SESSION['id'];
 
-use App\classes\Course;
+use App\Controllers\CourseController;
 
 
-$fechCourse = new Course();
+$fechCourse = new CourseController();
 $courses = $fechCourse->getAllCourses();
 
 

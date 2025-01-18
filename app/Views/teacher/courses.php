@@ -40,7 +40,10 @@ $courses = $fechCourse->getAllCoursesById($id);
         <?php  foreach ($courses as $course):?> 
         <?php if($course['deleted_at'] == null): ?>  
         <div class="bg-white rounded-lg shadow p-4">
-            <h3 class="text-xl font-semibold text-gray-800"><?= $course['title'] ?></h3>
+            <div class="flex justify-between">
+                <h3 class="text-xl font-semibold text-gray-800"><?= $course['title'] ?></h3>
+                <p class="text-gray-600 mt-2"><?= $course['status'] ?></p>
+            </div>
             <p class="text-gray-600 mt-2"><?= $course['description'] ?></p>
             <p class="text-sm text-gray-500 mt-2">Category: <span class="font-medium"><?= $course['category_title'] ?></span></p>
             <p class="text-sm text-gray-500 flex flex-wrap gap-1 ">Tags:
