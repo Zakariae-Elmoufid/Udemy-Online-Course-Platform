@@ -38,7 +38,15 @@ class CourseController{
 
      public function topThreeTeacher(){
         return $this->CourseModel->selectThreeTeacher();
-    }
+     }
+
+     public function totalCourses(){
+        return $this->CourseModel->countCourses();
+     }
+
+     public function topCourse(){
+        return $this->CourseModel->top1course();
+     }
 
 }
 

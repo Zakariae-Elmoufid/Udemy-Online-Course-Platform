@@ -1,16 +1,16 @@
 <?php 
 
 require_once __DIR__ . '/../../../vendor/autoload.php';
-use App\classes\Tag;
-use App\classes\Category;
-use App\classes\Course;
+use App\Controllers\TagController;
+use App\Controllers\CategoryController;
+use App\Controllers\CourseController;
 use App\services\Validation;
 
 session_start();
 
 if(isset($_GET['submit'])){
     $id = $_GET['id'];
-    $Course = new Course;
+    $Course = new CourseController();
     $course=  $Course->getCourseById($id);
     $checkedTags = explode(',', $course['tags']);
 
@@ -88,7 +88,7 @@ if(isset($_POST['submit'])){
         <div class="mb-4">
             <label for="tags" class="block text-gray-700 font-medium mb-2">Tags</label>
             <div class="grid gap-4 grid-cols-3 ">
-                <?php $labelTag= new Tag();
+                <?php $labelTag= new TagController("tags");
                  $tags = $labelTag->getAllLabel();
                 foreach($tags as $tag): ?>
                 <?php $isChecked = in_array($tag['title'], $checkedTags) ? 'checked' : '';?>
@@ -107,7 +107,7 @@ if(isset($_POST['submit'])){
             <label for="category" class="block text-gray-700 font-medium mb-2">Category</label>
             <select id="category" name="category" 
                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-fuchsia-400 focus:outline-none" required>
-                <?php  $labelCategory= new category();
+                <?php  $labelCategory= new CategoryController("categorys");
                   $categorys = $labelCategory->getAllLabel();
                   foreach ($categorys as $category) {
                     if ($category['title'] == $course['category_title']) {

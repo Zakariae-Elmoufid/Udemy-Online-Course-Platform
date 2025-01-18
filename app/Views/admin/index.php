@@ -7,10 +7,18 @@ session_start();
       }
 
 use App\Controllers\CourseController;
-$Course = new CourseController();
-$topThree = $Course->topThreeTeacher();
-print_r($topThree);
+use App\Controllers\CategoryController;
+use App\Controllers\TagController;
 
+$Course = new CourseController();
+$Category = new CategoryController("categorys");
+$Tag = new TagController("tags");
+
+$topThree = $Course->topThreeTeacher();
+$totalCourses = $Course->totalCourses();
+$totalTag = $Tag->totalLable();
+$totalCategory = $Category->totalLable();
+$topCourses  = $Course->topCourse();
 
 ?>
 <!DOCTYPE html>
@@ -66,19 +74,19 @@ print_r($topThree);
             <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div class="bg-white shadow p-6 rounded-lg text-center">
                     <h3 class="text-lg font-semibold text-gray-600">Total Courses</h3>
-                    <p class="text-3xl font-bold text-blue-900">123</p>
+                    <p class="text-3xl font-bold text-blue-900"><?= $totalCourses ?></p>
                 </div>
                 <div class="bg-white shadow p-6 rounded-lg text-center">
-                    <h3 class="text-lg font-semibold text-gray-600">Categories</h3>
-                    <p class="text-3xl font-bold text-blue-900">8</p>
+                    <h3 class="text-lg font-semibold text-gray-600">Categorys</h3>
+                    <p class="text-3xl font-bold text-blue-900"><?= $totalCategory ?></p>
                 </div>
                 <div class="bg-white shadow p-6 rounded-lg text-center">
                     <h3 class="text-lg font-semibold text-gray-600">Top Course</h3>
-                    <p class="text-3xl font-bold text-blue-900">40 students</p>
+                    <p class="text-3xl font-bold text-blue-900"><?= $topCourses ?></p>
                 </div>
                 <div class="bg-white shadow p-6 rounded-lg text-center">
-                    <h3 class="text-lg font-semibold text-gray-600">Top 3 Teachers</h3>
-                    <p class="text-xl font-bold text-blue-900">Alice, Bob, Charlie</p>
+                    <h3 class="text-lg font-semibold text-gray-600">Top Teachers</h3>
+                    <p class="text-xl font-bold text-blue-900"><?= $totalTag ?></p>
                 </div>
             </section>
         </main>

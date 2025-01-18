@@ -4,11 +4,10 @@ require_once __DIR__ . '/../../../vendor/autoload.php';
 session_start();
 $id = $_SESSION['id'];
 
-use App\classes\Course;
-use App\classes\Tag;
-use App\classes\Category;
+use App\Controllers\CourseController;
 
-$fechCourse = new Course();
+
+$fechCourse = new CourseController();
 $courses = $fechCourse->getAllCoursesById($id);
 
 

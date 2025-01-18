@@ -280,6 +280,26 @@ class CourseModel{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function countCourses(){
+        $query = "SELECT COUNT(id) FROM  courses";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchColumn();
+    }
+
+    public function top1course(){
+        $query = "SELECT courses.title
+            FROM courses
+            LEFT JOIN enrollment ON courses.id = enrollment.course_id
+            GROUP BY courses.id
+            ORDER BY COUNT(enrollment.course_id) DESC
+            LIMIT 1";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchColumn();
+
+    }
+
 }
 
 

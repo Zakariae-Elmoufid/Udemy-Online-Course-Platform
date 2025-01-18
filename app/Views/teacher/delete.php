@@ -1,7 +1,7 @@
 <?php 
 require_once __DIR__ . '/../../../vendor/autoload.php';
-use App\classes\Course;
-$Course = new Course();
+use App\Controllers\CourseController;
+$Course = new CourseController();
 
 if(isset($_POST['submit'])){
    $id = $_POST['id'];

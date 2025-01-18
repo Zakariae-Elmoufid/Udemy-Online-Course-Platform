@@ -69,7 +69,13 @@ class LabelModel {
         $stmt->execute();
         header("location:./index.php");
     }
-
+    
+    public function countLable($table){
+        $query = "SELECT COUNT(id) FROM  $table";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchColumn();
+    }
 
 }
 ?>

@@ -35,6 +35,10 @@ abstract class LabelController{
      public function deleteLabel($id){
          $this->LabelModel->deleted($this->table,$id);
      }
+
+     public function totalLable(){
+        return $this->LabelModel->countLable($this->table);
+     }
 }
 
 
