@@ -2,7 +2,8 @@
 
 namespace App\Models; 
 use App\Config\Database;
-use App\Classes\User;
+use App\Classes\Student;
+use App\Classes\Teacher;
 use PDO;
 use PDOException;
 
@@ -25,17 +26,29 @@ class UserModel {
         $row = $stmt->fetch(mode: PDO::FETCH_ASSOC);
 
         if ($row && password_verify($password , $row['password'])){
-                // Fetch the status and additional information for the user based on role
-                $status = $this->getUserStatus($row['id'], $row['role']);
-        
-                    $user = new User(
-                        $row['id'],
-                        $row['username'],
-                        $row['email'],
-                        $row['password'],
-                        $row['role'],
-                        $status
+                $role = $this->getUserRole($row['id'], $row['role']);
+                $status = $role['status'];
+                $id = $role['id'];
+                    if($row['role'] == 'Teacher'){
+                       $user = new Teacher( 
+                       $row['username'],
+                       $row['email'],
+                       $row['password'],
+                       $row['role'],
+                       $id,
+                       $status 
                     );
+                    }else if ($row['role'] == 'Student' ){
+
+                        $user = new Student(
+                            $row['username'],
+                            $row['email'],
+                            $row['password'],
+                            $row['role'],
+                            $id,
+                            $status
+                        );
+                    }
                     return $user;
                 
             
@@ -44,7 +57,7 @@ class UserModel {
             }  
 
 
-        private function getUserStatus($userId, $role)
+        private function getUserRole($userId, $role)
 {
     if ($role == 'Teacher') {
         $query = "SELECT * FROM teachers WHERE user_id = :id";
@@ -53,8 +66,7 @@ class UserModel {
         $stmt->execute();
         $teacher = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        
-            return $teacher['status'];
+        return $teacher;
         
     } elseif ($role == 'Student') {
         $query = "SELECT * FROM Students WHERE user_id = :id";
@@ -62,15 +74,14 @@ class UserModel {
         $stmt->bindParam(":id", $userId);
         $stmt->execute();
         $student = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            return $student['status'];
+        return $student;
         
     }
 
     
 }
     
-        public function saveUser($username,$email,$password,$role,$field){
+        public function saveUser($username,$email,$password,$role,$extraInfo){
            
             
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -91,16 +102,16 @@ class UserModel {
                         $queryStudent = "INSERT INTO  students (user_id , field) values (:id, :field)";
                         $stmt = $this->conn->prepare($queryStudent);
                         $stmt->bindParam(':id', $id);
-                        $stmt->bindParam(':field', $field);
+                        $stmt->bindParam(':field', $extraInfo);
                         $stmt->execute();
-                        return new User($id,  $username,  $email,  $password, $role ,'Activation' ,$field); 
+                        return new Student( $username,  $email,  $password, $role ,'Activation' ,$extraInfo); 
                     }else if ($role === 'teacher'){
                         $queryTeacher = "INSERT INTO  teachers (user_id , speciality) values (:id, :speciality)";
                         $stmt = $this->conn->prepare($queryTeacher); 
                         $stmt->bindParam(':id', $id);
-                        $stmt->bindParam(':speciality', $field);
+                        $stmt->bindParam(':speciality', $extraInfo);
                         $stmt->execute();
-                        return new User($id,  $username,  $email,  $password, $role ,'suspension' ,$field); 
+                        return new Teacher($username,  $email,  $password, $role ,'suspension' ,$extraInfo); 
                     }
                     
            

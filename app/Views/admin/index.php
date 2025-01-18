@@ -1,3 +1,18 @@
+<?php
+require_once __DIR__ . '/../../../vendor/autoload.php';
+session_start();
+    if ((!isset($_SESSION["id"]) && $_SESSION["role"] != "admin")) {
+      header("Location: ../auth/login.php");
+        exit();
+      }
+
+use App\Controllers\AdminController;
+$Admin = new AdminController();     
+
+$Admin->topThreeTeacher();
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

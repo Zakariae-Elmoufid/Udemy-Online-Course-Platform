@@ -14,6 +14,7 @@ if (isset($_POST["submit"])) {
     $role = $_POST['role'];
     $specialty = $_POST['specialty'];
     $field = $_POST['field'];
+    $extraInfo = ($role === 'student') ? $_POST['field'] : $_POST['specialty'];
 
 
     $validation = new Validation();
@@ -25,12 +26,7 @@ if (isset($_POST["submit"])) {
 
     if (empty($errors)) {
         $authController = new AuthController();
-        if ($role === 'student') {
-            $authController->register($username, $email, $password, $role, $field);
-        } else if ($role === 'teacher') {
-            $authController->register($username, $email, $password, $role, $specialty);
-        }
-
+        $authController->register($username, $email, $password, $role, $extraInfo);
     }
 
 }

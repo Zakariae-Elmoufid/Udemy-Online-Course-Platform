@@ -25,6 +25,7 @@ CREATE TABLE Teachers (
     status ENUM('Activation', 'suspension', 'suppression') DEFAULT 'suspension',
     user_id int,
     FOREIGN KEY (user_id) REFERENCES `Users`(id)
+    alter table teachers add foreign key (course_id) REFERENCES courses(id) on delete CASCADE on UPDATE CASCADE 
 );
 
 CREATE TABLE `Categories` (
@@ -42,8 +43,8 @@ CREATE TABLE Courses (
     deleted_at Date default NULL,
     category_id int ,
     status ENUM('Active', 'Delete', 'Suspended') DEFAULT 'Suspended',
-    user_id int,
-    FOREIGN key (user_id) references Users(id),
+     teacher_id int,
+     FOREIGN key (teacher_id) references teachers(id),
     FOREIGN KEY (category_id) REFERENCES Categorys(id)
 )
 

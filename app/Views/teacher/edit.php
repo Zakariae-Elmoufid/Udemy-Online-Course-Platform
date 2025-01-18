@@ -78,9 +78,9 @@ if(isset($_POST['submit'])){
 
         <div class="mb-4">
             <label for="content" class="block text-gray-700 font-medium mb-2">Content (Video or Document)</label>
-            <input type="url" id="content" name="content" value=" <?= $course["content"]?>"
+            <input type="file" id="content" name="content" 
                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-fuchsia-400 focus:outline-none"
-                 required placeholder="Choose a video or document url">
+                 required >
                  <small class="text-red-500"><?php echo $errors['content'] ?? '' ; ?></small>
 
         </div>

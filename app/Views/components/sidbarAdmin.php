@@ -31,5 +31,13 @@
                     
                 </ul>
             </nav>
+
+            <div class="p-4 text-center">
+                <form action="../auth/logout.php" method="POST"> 
+                    <button class="w-full bg-fuchsia-700 py-2 rounded hover:bg-fuchsia-800" type="submit" name="submit">
+                        Logout
+                    </button>
+                </form>
+            </div>
             
         </aside>

@@ -1,7 +1,12 @@
 <?php
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
+use App\services\session;
 session_start();
+    if ((!isset($_SESSION["id"]) && $_SESSION["role"] != "teacher")) {
+      header("Location: ../auth/login.php");
+        exit();
+      }
 $id = $_SESSION['id'];
 
 use App\classes\Course;

@@ -115,6 +115,12 @@ class AdminModel{
         header("Location: ./index.php");
     }
 
+
+    public function selectThreeTeacher(){
+        $query = "SELECT  * FROM users 
+        ";
+    }
+ 
     
 
 }

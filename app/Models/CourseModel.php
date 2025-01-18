@@ -16,7 +16,7 @@ class CourseModel{
 
    public function insertCours($user_id,$title,$description,$content,$tags,$category){
         
-    $query = "INSERT INTO courses (title, description,  category_id, content,user_id) 
+    $query = "INSERT INTO courses (title, description,  category_id, content,teacher_id) 
     VALUES (:title, :description, :category_id, :content,:user_id)";
         $stmt = $this->conn->prepare($query);
 
@@ -58,14 +58,16 @@ class CourseModel{
         FROM 
             courses
         INNER JOIN 
-            users ON users.id = courses.user_id
+                teachers ON teachers.id = courses.teacher_id
+        inner join 
+                 users on users.id =   teachers.user_id  
         INNER JOIN 
             categorys ON categorys.id = courses.category_id
         LEFT JOIN 
             Course_Tag ON Course_Tag.course_id = courses.id
         LEFT JOIN 
             tags ON tags.id = Course_Tag.tag_id
-        WHERE user_id = :user_id      
+        WHERE teachers.id = :id      
         GROUP BY 
         courses.id,
         courses.title, 
@@ -77,7 +79,7 @@ class CourseModel{
          courses.created_at,
         categorys.title";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(":user_id",$id);
+        $stmt->bindParam(":id",$id);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -97,7 +99,9 @@ class CourseModel{
             FROM 
                 courses
             INNER JOIN 
-                users ON users.id = courses.user_id
+                teachers ON teachers.id = courses.teacher_id
+            inner join 
+                 users on users.id =   teachers.user_id  
             INNER JOIN 
                 categorys ON categorys.id = courses.category_id
             LEFT JOIN 
@@ -132,7 +136,9 @@ class CourseModel{
             FROM 
                 courses
             INNER JOIN 
-                users ON users.id = courses.user_id
+                teachers ON teachers.id = courses.teacher_id
+            inner join
+                 users on users.id = teachers.user_id
             INNER JOIN 
                 categorys ON categorys.id = courses.category_id
             LEFT JOIN 
@@ -143,7 +149,6 @@ class CourseModel{
             GROUP BY 
                 courses.title, 
                 courses.description, 
-               
                 courses.content, 
                 users.username, 
                 categorys.title";

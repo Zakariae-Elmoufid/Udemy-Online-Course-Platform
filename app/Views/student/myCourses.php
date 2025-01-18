@@ -1,13 +1,19 @@
 <?php
  require_once __DIR__ .'/../../../vendor/autoload.php';
 
+ use App\services\session;
  session_start();
+ if ((!isset($_SESSION["id"]) && $_SESSION["role"] != "student")) {
+   header("Location: ../auth/login.php");
+     exit();
+   }
+
  $student_id = $_SESSION['id'];
+
  use App\classes\Enrollment;
 
 $Enrollment = new Enrollment();
 $courses =  $Enrollment->getMyCourses($student_id);
-print_r($courses);
 
 ?>
 <!DOCTYPE html>

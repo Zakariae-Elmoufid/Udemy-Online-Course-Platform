@@ -4,35 +4,26 @@ namespace App\Classes;
 
 
 class User {
-    private $id;
-    private $username;
-    private $field;
-    private  $speciality;
-    private $email;
-    private $password;
-    private $role;
-    private $status;
-    private $created_at;
-    private $deleted_at;
+    protected $username;
+    protected $email;
+    protected $password;
+    protected $role;
+    protected $created_at;
+    protected $deleted_at;
 
 
 
-    public function __construct($id, $username, $email,$password, $role, $status=null , $field=null ) {
-        $this->id = $id;
+    public function __construct( $username, $email,$password, $role) {
         $this->username = $username;
         $this->email = $email;
         $this->password = $password;
-        $this->role = $role;
-        $this->status = $status;
-        $this->field = $field;
+        $this->role = $role;   
     }
    
      
 
     
-    public function getId() {
-         return $this->id; 
-        }
+    
     public function getStatus(){
         return $this->status;
     }    

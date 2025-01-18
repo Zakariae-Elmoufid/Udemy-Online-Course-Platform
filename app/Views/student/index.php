@@ -1,8 +1,12 @@
 <?php
  require_once __DIR__ .'/../../../vendor/autoload.php';
-session_start();
-$student_id = $_SESSION['id'];
+ session_start();
+ if ((!isset($_SESSION["id"]) && $_SESSION["role"] != "student")) {
+   header("Location: ../auth/login.php");
+     exit();
+   }
 
+$student_id = $_SESSION['id'];
 use App\classes\Course;
 use App\classes\Enrollment;
 
@@ -64,15 +68,7 @@ if(isset($_POST['submit'])){
         <span class=" w-fit bg-green-100 text-green-800 text-xs px-2 rounded-full">#<?php echo $tag ?></span>
         <?php endforeach; ?> 
     </p>
-    <form action="detailsCourse.php" method="POST">
-                <input type="hidden" name="title" value="<?= $course['title']?>"> 
-                <input type="hidden" name="description" value="<?= $course['description']?>"> 
-                <input type="hidden" name="content" value="<?= $course['content']?>"> 
-                <button type="submit" name="submit"
-                    class="  text-blue-500 rounded ">
-                    Views Content
-                </button>
-            </form>
+ 
     <div class="flex justify-center gap-5 mt-4">
 
 

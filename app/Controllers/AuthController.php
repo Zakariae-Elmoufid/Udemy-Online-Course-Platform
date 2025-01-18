@@ -56,9 +56,9 @@ class   Authcontroller{
             
     }
     }
-    public function register($username,$email,$password,$role,$field){
+    public function register($username,$email,$password,$role,$extraInfo){
         $userModel = new UserModel();
-        $user  = $userModel->saveUser($username,$email,$password,$role,$field);
+        $user  = $userModel->saveUser($username,$email,$password,$role,$extraInfo);
 
          
         if($user->getRole() == "Student"){
