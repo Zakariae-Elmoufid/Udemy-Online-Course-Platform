@@ -1,3 +1,13 @@
+<?php 
+
+require_once __DIR__ . '/../../../../../vendor/autoload.php';
+use App\Controllers\CategoryController;
+
+$categorys= new CategoryController("categorys");
+$results = $categorys->getAllLabel();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,6 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../output.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>Category</title>
 </head>
 
@@ -22,29 +33,33 @@
                 </div>
 
 
-            <div class="overflow-x-auto">
-                <table class="w-full  table-auto border-collapse border border-gray-300">
-                    <thead>
-                        <tr class="bg-gray-200">
-                            <th class="p-4 border border-gray-300">#</th>
-                            <th class="p-4 border border-gray-300">Category</th>
-                            <th class="p-4 border border-gray-300">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="p-4 border border-gray-300">1</td>
-                            <td class="p-4 border border-gray-300"> #Web Development </td>
-                            <td class="p-4 border border-gray-300 flex space-x-2">
-                                <a href="edit.php?id=3"
-                                    class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Edit</a>
-                                <a href="delete.php?id=7"
-                                    class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Delete</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <?php if (!empty($results)): ?>
+          <?php foreach ($results as $category): ?>
+            <div class="bg-white p-4 rounded shadow hover:shadow-lg transition">
+              <div class="flex justify-between items-center">
+                <h2 class="text-lg font-semibold text-gray-700"><?=$category['title'] ?></h2>
+                <div class="flex gap-3 space-x-2">
+                  <form method="GET" action="edit.php">
+                    <input type="hidden" name="id" value="<?=$category['id'] ?>">
+                    <button type="submit" name="update" class=" text-blue-500 hover:text-blue-700">
+                    <i class='bx bx-edit text-xl' ></i>
+                    </button>
+                  </form>
+                  <form method="POST" action="delete.php" onsubmit="return confirm('Are you sure you want to delete this category?');">
+                    <input type="hidden" name="id" value="<?=$category['id'] ?>">
+                    <button type="delete" name="submit" class="text-red-500 hover:text-red-700">
+                    <i class='bx bx-trash-alt text-xl' ></i>
+                    </button>
+                  </form>
+                </div>
+              </div>
             </div>
+          <?php endforeach; ?>
+        <?php else: ?>
+          <p class="text-gray-600">No tags found.</p>
+        <?php endif; ?>
+      </div>
         </main>
 
 
