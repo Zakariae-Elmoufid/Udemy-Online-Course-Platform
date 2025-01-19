@@ -300,6 +300,34 @@ class CourseModel{
 
     }
 
+    public function selecSixCourses($page){
+        $itemsPerPage = 6;
+        $offset = ($page - 1) * $itemsPerPage;
+        $query = "SELECT * FROM courses LIMIT :limit OFFSET :offset";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(':limit', $itemsPerPage, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+        return $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function editStatusCourse($courseId,$action){
+        if ($action === 'suspension') {
+            $query = "UPDATE courses SET `status` = 'Suspended'  WHERE id = :id";
+        } elseif ($action === 'suppression') {
+            $query = "UPDATE courses SET deleted_at = CURRENT_DATE WHERE id = :id";
+        } elseif ($action === 'Activation') {
+            $query = "UPDATE courses SET `status` = 'Active' WHERE id = :id";
+        } 
+
+        $stmt = $this->conn->prepare( query: $query);
+        $stmt->bindParam(param: ":id" ,var: $courseId);
+        
+        $stmt->execute();
+        header("Location: ./index.php");
+    }
+
+
 }
 
 

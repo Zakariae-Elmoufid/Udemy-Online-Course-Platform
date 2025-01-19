@@ -1,6 +1,5 @@
 <?php 
 require_once __DIR__ . '/../../../../../vendor/autoload.php';
-use App\classes\Course;
 use App\Controllers\CourseAdminController;
 
 

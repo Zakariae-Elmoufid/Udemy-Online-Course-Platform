@@ -6,6 +6,7 @@ use App\Classes\Student;
 use App\Classes\Teacher;
 use App\Classes\Admin;
 use PDO;
+use Exception;
 use PDOException;
 
 class UserModel {
@@ -72,7 +73,7 @@ class UserModel {
         public function getUserRole($userId, $role){
             $table ;
             switch ($role) {
-                case 'admin':
+                case 'Admin':
                     $table = 'admin';
                     break;
                 case 'Student':
