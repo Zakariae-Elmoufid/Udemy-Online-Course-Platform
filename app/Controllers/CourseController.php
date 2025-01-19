@@ -48,6 +48,10 @@ class CourseController{
         return $this->CourseModel->top1course();
      }
 
+     public function fetchSixCourses($page){
+        return $this->CourseModel->selecSixCourses($page);
+     }
+
 }
 
 

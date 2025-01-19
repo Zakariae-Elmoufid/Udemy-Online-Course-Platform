@@ -11,6 +11,10 @@ class CourseAdminController extends CourseController{
         return $this->CourseModel->selectAllCoursesAdmin();
      }
 
+     public function courseManager($courseId,$action){
+        $this->CourseModel->editStatusCourse($courseId,$action);  
+    }
+
      
 
 }

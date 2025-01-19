@@ -1,3 +1,25 @@
+<?php
+require_once __DIR__."/../../vendor/autoload.php";
+
+use App\Controllers\CourseController;
+
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+$Course = new CourseController();
+
+if (isset($_GET['ajax']) ) {
+    $courses = $Course->fetchSixCourses($page);
+
+    foreach ($courses as $course) {
+        echo "<div class='bg-white p-4 shadow rounded'>";
+        echo "<h3 class='text-lg font-bold'>" . htmlspecialchars($course['title']) . "</h3>";
+        echo "<p class='text-gray-600'>" . htmlspecialchars($course['description']) . "</p>";
+        echo "</div>";
+    }
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,14 +49,16 @@
       <div class="container mx-auto px-4">
           <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Course Catalog</h2>
           <div id="course-container" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <?php
+              ?>
           </div>
           <!-- Pagination -->
           <div class="flex justify-center mt-8">
-              <button id="prev-btn" class="px-4 py-2 bg-fuchsia-500 text-white rounded-l hover:bg-fuchsia-600 disabled:opacity-50" disabled>Previous</button>
+              <button id="previous" class="px-4 py-2 bg-fuchsia-500 text-white rounded-l hover:bg-fuchsia-600 disabled:opacity-50" disabled>Previous</button>
               <div id="page-numbers" class="flex items-center bg-white border border-gray-300 px-4 py-2">
                   Page 1
               </div>
-              <button id="next-btn" class="px-4 py-2 bg-fuchsia-500 text-white rounded-r hover:bg-fuchsia-600">Next</button>
+              <button id="next" class="px-4 py-2 bg-fuchsia-500 text-white rounded-r hover:bg-fuchsia-600">Next</button>
           </div>
       </div>
   </section>  
@@ -42,71 +66,38 @@
     
 
   <?php include "components/footer.php" ?>
+<script>
+  let currentPage = 1;
 
-  <!-- <script>
-        function toggleMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        }
+function loadPage(page) {
+    fetch(`index.php?page=${page}&ajax`) 
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("course-container").innerHTML = data; // Injecte les cours dans le conteneur
+            currentPage = page;
 
-        const courses = [
-    { title: "Course 1", description: "Learn about topic 1." },
-    { title: "Course 2", description: "Learn about topic 2." },
-    { title: "Course 3", description: "Learn about topic 3." },
-    { title: "Course 4", description: "Learn about topic 4." },
-    { title: "Course 5", description: "Learn about topic 5." },
-    { title: "Course 6", description: "Learn about topic 6." },
-    { title: "Course 7", description: "Learn about topic 7." },
-    { title: "Course 8", description: "Learn about topic 8." },
-    { title: "Course 9", description: "Learn about topic 9." },
-]; // Exemple de données
-
-const coursesPerPage = 3;
-let currentPage = 1;
-
-function renderCourses(page) {
-    const start = (page - 1) * coursesPerPage;
-    const end = start + coursesPerPage;
-    const currentCourses = courses.slice(start, end);
-
-    const courseContainer = document.getElementById("course-container");
-    courseContainer.innerHTML = "";
-
-    currentCourses.forEach(course => {
-        const courseCard = `
-            <div class="bg-white shadow rounded-lg overflow-hidden">
-                <div class="p-4">
-                    <h3 class="text-xl font-bold mb-2">${course.title}</h3>
-                    <p class="text-gray-700">${course.description}</p>
-                </div>
-            </div>`;
-        courseContainer.innerHTML += courseCard;
-    });
-
-    // Update pagination info
-    document.getElementById("page-numbers").textContent = `Page ${page}`;
-    document.getElementById("prev-btn").disabled = page === 1;
-    document.getElementById("next-btn").disabled = page === Math.ceil(courses.length / coursesPerPage);
+            // Gérer les boutons Previous/Next
+            document.getElementById("previous").disabled = currentPage === 1;
+            document.getElementById("next").disabled = data.trim() === ""; // Désactiver "Next" si aucune donnée n'est renvoyée
+            document.getElementById("page-numbers").textContent = `Page ${currentPage}`;
+        })
+        .catch(error => console.error("Erreur lors du chargement des cours :", error));
 }
 
-document.getElementById("prev-btn").addEventListener("click", () => {
-    if (currentPage > 1) {
-        currentPage--;
-        renderCourses(currentPage);
-    }
+// Charger la première page au démarrage
+loadPage(currentPage);
+
+// Gestion des boutons Previous et Next
+document.getElementById("previous").addEventListener("click", () => {
+    if (currentPage > 1) loadPage(currentPage - 1);
 });
 
-document.getElementById("next-btn").addEventListener("click", () => {
-    if (currentPage < Math.ceil(courses.length / coursesPerPage)) {
-        currentPage++;
-        renderCourses(currentPage);
-    }
+document.getElementById("next").addEventListener("click", () => {
+    loadPage(currentPage + 1);
 });
 
-// Initial render
-renderCourses(currentPage);
 
-</script> -->
 
+</script>
 </body>
 </html>
