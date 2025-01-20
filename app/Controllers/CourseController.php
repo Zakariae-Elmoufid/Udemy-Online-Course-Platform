@@ -48,6 +48,10 @@ class CourseController{
         return $this->CourseModel->top1course();
      }
 
+     public function courseManager($courseId,$action){
+      $this->CourseModel->editStatusCourse($courseId,$action);  
+  }
+
 }
 
 

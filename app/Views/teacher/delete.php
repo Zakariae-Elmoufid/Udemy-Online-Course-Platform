@@ -1,13 +1,14 @@
 <?php 
 require_once __DIR__ . '/../../../vendor/autoload.php';
 use App\Controllers\CourseController;
+use App\Controllers\CourseAdminController;
 $Course = new CourseController();
-
+$CourseAdmine = new CourseAdminController;
 if(isset($_POST['submit'])){
    $id = $_POST['id'];
    $Course->deleteCourse($id);  
 }
-$courses = $Course->getAllCourses();
+$courses = $CourseAdmine->getAllCourses();
 
 if(isset($_POST['delete'])){
     $delete_id = $_POST['id'];

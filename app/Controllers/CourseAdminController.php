@@ -10,7 +10,7 @@ class CourseAdminController extends CourseController{
     public function getAllCourses(){
         return $this->CourseModel->selectAllCoursesAdmin();
      }
-
+ 
      
 
 }

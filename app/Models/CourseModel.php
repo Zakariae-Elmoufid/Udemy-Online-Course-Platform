@@ -300,6 +300,22 @@ class CourseModel{
 
     }
 
+    public function editStatusCourse($courseId,$action){
+        if ($action === 'suspension') {
+            $query = "UPDATE courses SET `status` = 'Suspended'  WHERE id = :id";
+        } elseif ($action === 'suppression') {
+            $query = "DELETE FROM `courses` WHERE id = :id";
+        } elseif ($action === 'Activation') {
+            $query = "UPDATE courses SET `status` = 'Active' WHERE id = :id";
+        } 
+
+        $stmt = $this->conn->prepare( query: $query);
+        $stmt->bindParam(param: ":id" ,var: $courseId);
+        
+        $stmt->execute();
+        header("Location: ./index.php");
+    }
+
 }
 
 
