@@ -3,20 +3,48 @@ require_once __DIR__."/../../vendor/autoload.php";
 
 use App\Controllers\CourseController;
 
-$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$courseController = new CourseController();
 
-$Course = new CourseController();
-
-if (isset($_GET['ajax']) ) {
-    $courses = $Course->fetchSixCourses($page);
-
-    foreach ($courses as $course) {
-        echo "<div class='bg-white p-4 shadow rounded'>";
-        echo "<h3 class='text-lg font-bold'>" . htmlspecialchars($course['title']) . "</h3>";
-        echo "<p class='text-gray-600'>" . htmlspecialchars($course['description']) . "</p>";
-        echo "</div>";
+if (isset($_GET['query']) && !empty($_GET['query'])) {
+    $query = $_GET['query'];
+    $searchResults = $courseController->searchCourses($query);
+    foreach ($searchResults as $course) {
+        if ($course['deleted_at'] == null) {
+            echo '
+            <div class="bg-white rounded-lg shadow p-4">
+                <h3 class="text-xl font-semibold text-gray-800">' . htmlspecialchars($course['title']) . '</h3>
+                <p class="text-gray-600 mt-2">' . htmlspecialchars($course['description']) . '</p>
+                <p class="text-sm text-gray-500 mt-2">Category: <span class="font-medium">' . htmlspecialchars($course['category_title']) . '</span></p>
+            </div>';
+        }
     }
     exit;
+   
+}
+
+
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+if (isset($_GET['ajax'])) {
+    $courses = $courseController->fetchSixCourses($page);
+    foreach ($courses as $course) {
+        if ($course['deleted_at'] == null) { ?>
+              <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-bold text-gray-800"><?= htmlspecialchars($course['title']) ?></h3>
+                    <p class="text-gray-600 mt-2"><?= htmlspecialchars($course['description']) ?></p>
+                    <p class="text-sm text-gray-500 mt-2">Category: <span class="font-medium"><?= htmlspecialchars($course['category_title']) ?></span></p>
+                    <p class="text-sm text-gray-500 flex flex-wrap gap-1">Tags: 
+                        <?php 
+                            $tags = explode(",", $course["tags"]);
+                            foreach ($tags as $tag): 
+                        ?>
+                            <span class="w-fit bg-green-100 text-green-800 text-xs px-2 rounded-full">#<?= htmlspecialchars($tag) ?></span>
+                        <?php endforeach; ?>
+                    </p>
+                </div>
+        <?php }
+    }
+    exit; 
 }
 ?>
 
@@ -41,18 +69,26 @@ if (isset($_GET['ajax']) ) {
             <p class="text-lg text-gray-700 mb-8">Explore thousands of online courses tailored to your needs.</p>
             <a href="#courses" class="bg-fuchsia-800 text-white py-3 px-6 rounded hover:bg-fuchsia-600">Browse Courses</a>
             <a href="#courses" class="bg-fuchsia-800 text-white py-3 px-6 rounded hover:bg-fuchsia-600">Sing Up</a>
-          </div>
+          <div class="relative mt-5">
+            <input type="text" id="search-input" placeholder="Search courses..." 
+                class="w-full md:w-1/2 px-4 py-2 rounded-md text-gray-800 border border-gray-300 focus:ring-2 focus:ring-fuchsia-400 focus:outline-none">
+           
+         </div>
+        </div>
    </section>
          
 
    <section id="catalog" class="py-16 bg-gray-100">
       <div class="container mx-auto px-4">
           <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Course Catalog</h2>
+
+          <div id="course-container-search" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+           
+           </div>
           <div id="course-container" class="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <?php
-              ?>
+              
+            
           </div>
-          <!-- Pagination -->
           <div class="flex justify-center mt-8">
               <button id="previous" class="px-4 py-2 bg-fuchsia-500 text-white rounded-l hover:bg-fuchsia-600 disabled:opacity-50" disabled>Previous</button>
               <div id="page-numbers" class="flex items-center bg-white border border-gray-300 px-4 py-2">
@@ -63,41 +99,9 @@ if (isset($_GET['ajax']) ) {
       </div>
   </section>  
          
-    
-
   <?php include "components/footer.php" ?>
-<script>
-  let currentPage = 1;
 
-function loadPage(page) {
-    fetch(`index.php?page=${page}&ajax`) 
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById("course-container").innerHTML = data; // Injecte les cours dans le conteneur
-            currentPage = page;
-
-            // Gérer les boutons Previous/Next
-            document.getElementById("previous").disabled = currentPage === 1;
-            document.getElementById("next").disabled = data.trim() === ""; // Désactiver "Next" si aucune donnée n'est renvoyée
-            document.getElementById("page-numbers").textContent = `Page ${currentPage}`;
-        })
-        .catch(error => console.error("Erreur lors du chargement des cours :", error));
-}
-
-// Charger la première page au démarrage
-loadPage(currentPage);
-
-// Gestion des boutons Previous et Next
-document.getElementById("previous").addEventListener("click", () => {
-    if (currentPage > 1) loadPage(currentPage - 1);
-});
-
-document.getElementById("next").addEventListener("click", () => {
-    loadPage(currentPage + 1);
-});
-
-
-
-</script>
+  <script src="../Views/public/script/search.js"></script>
+  <script src="../Views/public/script/pagination.js"></script>
 </body>
 </html>

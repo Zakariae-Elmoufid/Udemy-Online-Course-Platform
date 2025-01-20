@@ -52,6 +52,10 @@ class CourseController{
         return $this->CourseModel->selecSixCourses($page);
      }
 
+     public function searchCourses($query){
+         return $this->CourseModel->search($query);
+     }
+
 }
 
 

@@ -9,8 +9,7 @@ if (isset($_POST['submit'])) {
         $action = $_POST["action"];
         $courseId = $_POST["id"];
        $admin->courseManager($courseId,$action);
-      
-}      
+}     
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -86,6 +85,9 @@ if (isset($_POST['submit'])) {
         </table>
     </div>
 </section>
+
+
+
 </main>
 </div>
 
