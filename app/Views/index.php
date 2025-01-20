@@ -1,3 +1,53 @@
+<?php
+require_once __DIR__."/../../vendor/autoload.php";
+
+use App\Controllers\CourseController;
+
+$courseController = new CourseController();
+
+if (isset($_GET['query']) && !empty($_GET['query'])) {
+    $query = $_GET['query'];
+    $searchResults = $courseController->searchCourses($query);
+    foreach ($searchResults as $course) {
+        if ($course['deleted_at'] == null) {
+            echo '
+            <div class="bg-white rounded-lg shadow p-4">
+                <h3 class="text-xl font-semibold text-gray-800">' . htmlspecialchars($course['title']) . '</h3>
+                <p class="text-gray-600 mt-2">' . htmlspecialchars($course['description']) . '</p>
+                <p class="text-sm text-gray-500 mt-2">Category: <span class="font-medium">' . htmlspecialchars($course['category_title']) . '</span></p>
+            </div>';
+        }
+    }
+    exit;
+   
+}
+
+
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+if (isset($_GET['ajax'])) {
+    $courses = $courseController->fetchSixCourses($page);
+    foreach ($courses as $course) {
+        if ($course['deleted_at'] == null) { ?>
+              <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-bold text-gray-800"><?= htmlspecialchars($course['title']) ?></h3>
+                    <p class="text-gray-600 mt-2"><?= htmlspecialchars($course['description']) ?></p>
+                    <p class="text-sm text-gray-500 mt-2">Category: <span class="font-medium"><?= htmlspecialchars($course['category_title']) ?></span></p>
+                    <p class="text-sm text-gray-500 flex flex-wrap gap-1">Tags: 
+                        <?php 
+                            $tags = explode(",", $course["tags"]);
+                            foreach ($tags as $tag): 
+                        ?>
+                            <span class="w-fit bg-green-100 text-green-800 text-xs px-2 rounded-full">#<?= htmlspecialchars($tag) ?></span>
+                        <?php endforeach; ?>
+                    </p>
+                </div>
+        <?php }
+    }
+    exit; 
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,94 +69,39 @@
             <p class="text-lg text-gray-700 mb-8">Explore thousands of online courses tailored to your needs.</p>
             <a href="#courses" class="bg-fuchsia-800 text-white py-3 px-6 rounded hover:bg-fuchsia-600">Browse Courses</a>
             <a href="#courses" class="bg-fuchsia-800 text-white py-3 px-6 rounded hover:bg-fuchsia-600">Sing Up</a>
-          </div>
+          <div class="relative mt-5">
+            <input type="text" id="search-input" placeholder="Search courses..." 
+                class="w-full md:w-1/2 px-4 py-2 rounded-md text-gray-800 border border-gray-300 focus:ring-2 focus:ring-fuchsia-400 focus:outline-none">
+           
+         </div>
+        </div>
    </section>
          
 
    <section id="catalog" class="py-16 bg-gray-100">
       <div class="container mx-auto px-4">
           <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Course Catalog</h2>
+
+          <div id="course-container-search" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+           
+           </div>
           <div id="course-container" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              
+            
           </div>
-          <!-- Pagination -->
           <div class="flex justify-center mt-8">
-              <button id="prev-btn" class="px-4 py-2 bg-fuchsia-500 text-white rounded-l hover:bg-fuchsia-600 disabled:opacity-50" disabled>Previous</button>
+              <button id="previous" class="px-4 py-2 bg-fuchsia-500 text-white rounded-l hover:bg-fuchsia-600 disabled:opacity-50" disabled>Previous</button>
               <div id="page-numbers" class="flex items-center bg-white border border-gray-300 px-4 py-2">
                   Page 1
               </div>
-              <button id="next-btn" class="px-4 py-2 bg-fuchsia-500 text-white rounded-r hover:bg-fuchsia-600">Next</button>
+              <button id="next" class="px-4 py-2 bg-fuchsia-500 text-white rounded-r hover:bg-fuchsia-600">Next</button>
           </div>
       </div>
   </section>  
          
-    
-
   <?php include "components/footer.php" ?>
 
-  <!-- <script>
-        function toggleMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        }
-
-        const courses = [
-    { title: "Course 1", description: "Learn about topic 1." },
-    { title: "Course 2", description: "Learn about topic 2." },
-    { title: "Course 3", description: "Learn about topic 3." },
-    { title: "Course 4", description: "Learn about topic 4." },
-    { title: "Course 5", description: "Learn about topic 5." },
-    { title: "Course 6", description: "Learn about topic 6." },
-    { title: "Course 7", description: "Learn about topic 7." },
-    { title: "Course 8", description: "Learn about topic 8." },
-    { title: "Course 9", description: "Learn about topic 9." },
-]; // Exemple de données
-
-const coursesPerPage = 3;
-let currentPage = 1;
-
-function renderCourses(page) {
-    const start = (page - 1) * coursesPerPage;
-    const end = start + coursesPerPage;
-    const currentCourses = courses.slice(start, end);
-
-    const courseContainer = document.getElementById("course-container");
-    courseContainer.innerHTML = "";
-
-    currentCourses.forEach(course => {
-        const courseCard = `
-            <div class="bg-white shadow rounded-lg overflow-hidden">
-                <div class="p-4">
-                    <h3 class="text-xl font-bold mb-2">${course.title}</h3>
-                    <p class="text-gray-700">${course.description}</p>
-                </div>
-            </div>`;
-        courseContainer.innerHTML += courseCard;
-    });
-
-    // Update pagination info
-    document.getElementById("page-numbers").textContent = `Page ${page}`;
-    document.getElementById("prev-btn").disabled = page === 1;
-    document.getElementById("next-btn").disabled = page === Math.ceil(courses.length / coursesPerPage);
-}
-
-document.getElementById("prev-btn").addEventListener("click", () => {
-    if (currentPage > 1) {
-        currentPage--;
-        renderCourses(currentPage);
-    }
-});
-
-document.getElementById("next-btn").addEventListener("click", () => {
-    if (currentPage < Math.ceil(courses.length / coursesPerPage)) {
-        currentPage++;
-        renderCourses(currentPage);
-    }
-});
-
-// Initial render
-renderCourses(currentPage);
-
-</script> -->
-
+  <script src="../Views/public/script/search.js"></script>
+  <script src="../Views/public/script/pagination.js"></script>
 </body>
 </html>

@@ -48,6 +48,14 @@ class CourseController{
         return $this->CourseModel->top1course();
      }
 
+     public function fetchSixCourses($page){
+        return $this->CourseModel->selecSixCourses($page);
+     }
+
+     public function searchCourses($query){
+         return $this->CourseModel->search($query);
+     }
+
      public function courseManager($courseId,$action){
       $this->CourseModel->editStatusCourse($courseId,$action);  
   }

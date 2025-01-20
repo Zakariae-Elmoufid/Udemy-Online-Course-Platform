@@ -5,19 +5,64 @@
    header("Location: ../auth/login.php");
      exit();
    }
+   
 
 $student_id = $_SESSION['id'];
 
 use App\Controllers\CourseController;
 use App\classes\Enrollment;
 
-$fechCourse = new CourseController();
-$courses = $fechCourse->getAllCourses();
+$courseController = new CourseController();
 if(isset($_POST['submit'])){
+    $courses = $courseController->getAllCourses();
     $course_id = $_POST['course'];
     $Enrollment = new Enrollment();
     $Enrollment->enrolleCourse($student_id,$course_id);
 }
+
+
+if (isset($_GET['query']) && !empty($_GET['query'])) {
+    $query = $_GET['query'];
+    $searchResults = $courseController->searchCourses($query);
+    foreach ($searchResults as $course) {
+        if ($course['deleted_at'] == null) {
+            echo '
+            <div class="bg-white rounded-lg shadow p-4">
+                <h3 class="text-xl font-semibold text-gray-800">' . htmlspecialchars($course['title']) . '</h3>
+                <p class="text-gray-600 mt-2">' . htmlspecialchars($course['description']) . '</p>
+                <p class="text-sm text-gray-500 mt-2">Category: <span class="font-medium">' . htmlspecialchars($course['category_title']) . '</span></p>
+            </div>';
+        }
+    }
+    exit;
+   
+}
+
+
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+if (isset($_GET['ajax'])) {
+    $courses = $courseController->fetchSixCourses($page);
+    foreach ($courses as $course) {
+        if ($course['deleted_at'] == null) { ?>
+              <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-bold text-gray-800"><?= htmlspecialchars($course['title']) ?></h3>
+                    <p class="text-gray-600 mt-2"><?= htmlspecialchars($course['description']) ?></p>
+                    <p class="text-sm text-gray-500 mt-2">Category: <span class="font-medium"><?= htmlspecialchars($course['category_title']) ?></span></p>
+                    <p class="text-sm text-gray-500 flex flex-wrap gap-1">Tags: 
+                        <?php 
+                            $tags = explode(",", $course["tags"]);
+                            foreach ($tags as $tag): 
+                        ?>
+                            <span class="w-fit bg-green-100 text-green-800 text-xs px-2 rounded-full">#<?= htmlspecialchars($tag) ?></span>
+                        <?php endforeach; ?>
+                    </p>
+                </div>
+        <?php }
+    }
+    exit; 
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +80,6 @@ if(isset($_POST['submit'])){
 
 
    <section class="relative bg-center bg-cover h-96 flex items-center" >
-    <!-- Background Image with Opacity -->
     <div class="absolute inset-0" style="background-image: url('../public/images/backgroundStudent.jpg'); background-size: cover; background-position: center; opacity: 0.5;"></div>
     
     <!-- Content -->
@@ -44,56 +88,44 @@ if(isset($_POST['submit'])){
         <p class="mb-4 ">Find and enroll in the best courses tailored for you!</p>
         <!-- Search Bar -->
         <div class="relative">
-            <input type="text" placeholder="Search courses..." 
+            <input type="text" id="search-input" placeholder="Search courses..." 
                 class="w-full md:w-1/2 px-4 py-2 rounded-md text-gray-800 border border-gray-300 focus:ring-2 focus:ring-fuchsia-400 focus:outline-none">
-            <button class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-fuchsia-600 text-white px-4 py-2 rounded hover:bg-fuchsia-700">
+            <button id="search-btn" class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-fuchsia-600 text-white px-4 py-2 rounded hover:bg-fuchsia-700">
                 Search
             </button>
         </div>
     </div>
 </section>
 
+<section id="catalog" class="py-16 bg-gray-100">
+      <div class="container mx-auto px-4">
+          <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Course Catalog</h2>
+        
+          <div id="course-container-search" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+           
+          </div>
 
-<section class="p-4">
-    <h2 class="text-3xl font-bold text-center text-fuchsia-800 mb-6">Course List</h2>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-        <?php  foreach ($courses as $course):?> 
-        <?php if($course['deleted_at'] == null): ?>  
-        <div class="bg-white rounded-lg shadow p-4">
-            <h3 class="text-xl font-semibold text-gray-800"><?= $course['title'] ?></h3>
-            <p class="text-gray-600 mt-2"><?= $course['description'] ?></p>
-            <p class="text-sm text-gray-500 mt-2">Category: <span class="font-medium"><?= $course['category_title'] ?></span></p>
-            <p class="text-sm text-gray-500 flex flex-wrap gap-1 ">Tags:
-             <?php   $tags = explode(",", $course["tags"]); ?>
-            <?php foreach ($tags as $tag):?>
-        <span class=" w-fit bg-green-100 text-green-800 text-xs px-2 rounded-full">#<?php echo $tag ?></span>
-        <?php endforeach; ?> 
-    </p>
+          <div id="course-container" class="grid grid-cols-1 md:grid-cols-3 gap-8">
  
-    <div class="flex justify-center gap-5 mt-4">
-
-
-            <form action="" method="POST">
-                <input type="hidden" name="user" value="<?= $student_id?>"> 
-                <input type="hidden" name="course" value="<?= $course['id']?>"> 
-                <button type="submit" name="submit"
-                class="px-4 py-2 text-white bg-fuchsia-500 rounded hover:bg-fuchsia-600 mt-">
-                    Enrollment
-                </button>
-            </form>
 
             
+          </div>
+          <div class="flex justify-center mt-8">
+              <button id="previous" class="px-4 py-2 bg-fuchsia-500 text-white rounded-l hover:bg-fuchsia-600 disabled:opacity-50" disabled>Previous</button>
+              <div id="page-numbers" class="flex items-center bg-white border border-gray-300 px-4 py-2">
+                  Page 1
+              </div>
+              <button id="next" class="px-4 py-2 bg-fuchsia-500 text-white rounded-r hover:bg-fuchsia-600">Next</button>
+          </div>
+      </div>
+  </section>  
 
-           
 
-    </div>
-</div>
-<?php endif ?>
-<?php endforeach; ?>
 
-</section>
 
 <?php include "../components/footer.php" ?>
 
+<script src="../public/script/search.js"></script>
+<script src="../public/script/pagination.js"></script>
 </body>
 </html>
