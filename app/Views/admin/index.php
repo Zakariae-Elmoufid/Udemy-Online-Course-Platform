@@ -6,6 +6,7 @@ session_start();
         exit();
       }
 
+
 use App\Controllers\CourseController;
 use App\Controllers\CategoryController;
 use App\Controllers\TagController;

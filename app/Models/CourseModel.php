@@ -303,7 +303,43 @@ class CourseModel{
     public function selecSixCourses($page){
         $itemsPerPage = 6;
         $offset = ($page - 1) * $itemsPerPage;
-        $query = "SELECT * FROM courses LIMIT :limit OFFSET :offset";
+        $query = "SELECT 
+            courses.id,
+            courses.title, 
+            courses.description, 
+            courses.deleted_at,
+            courses.created_at,
+            courses.content, 
+            courses.status,
+            users.username, 
+            GROUP_CONCAT(tags.title) AS tags, 
+            categorys.title AS category_title
+        FROM 
+            courses
+        INNER JOIN 
+            teachers ON teachers.id = courses.teacher_id
+        INNER JOIN 
+            users ON users.id = teachers.user_id  
+        INNER JOIN 
+            categorys ON categorys.id = courses.category_id
+        LEFT JOIN 
+            Course_Tag ON Course_Tag.course_id = courses.id
+        LEFT JOIN 
+            tags ON tags.id = Course_Tag.tag_id
+        WHERE 
+            courses.status = 'Active'
+        GROUP BY 
+            courses.id,
+            courses.title, 
+            courses.description, 
+            courses.content, 
+            courses.status,
+            users.username,   
+            courses.deleted_at,
+            courses.created_at,
+            categorys.title
+        LIMIT :limit OFFSET :offset;
+";
         $stmt = $this->conn->prepare($query);
         $stmt->bindValue(':limit', $itemsPerPage, PDO::PARAM_INT);
         $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
@@ -326,6 +362,46 @@ class CourseModel{
         $stmt->execute();
         header("Location: ./index.php");
     }
+
+    public function search($query) {
+        
+        $sql = "SELECT 
+                   courses.id,
+            courses.title, 
+            courses.description, 
+            courses.deleted_at,
+            courses.created_at,
+            courses.content, 
+            courses.status,
+            categorys.title as category_title,
+            users.username                 
+                FROM courses
+            INNER JOIN 
+            teachers ON teachers.id = courses.teacher_id
+              INNER JOIN 
+            users ON users.id = teachers.user_id  
+              INNER JOIN 
+            categorys ON categorys.id = courses.category_id    
+                WHERE courses.title LIKE :query
+                AND courses.deleted_at IS NULL
+            Group by    
+             courses.id,
+            courses.title, 
+            courses.description, 
+            courses.content, 
+            courses.status,
+            users.username,   
+            courses.deleted_at,
+            courses.created_at,
+            categorys.title    ";
+    
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':query', '%' . $query . '%', PDO::PARAM_STR);
+        $stmt->execute();
+    
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
 
 
 }
