@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../../../vendor/autoload.php';
 use App\Controllers\TagController;
 use App\Controllers\CategoryController;
-use App\classes\Course;
+use App\controllers\CourseController;
 use App\services\Validation;
 
 session_start();
@@ -30,7 +30,7 @@ if(isset($_POST['submit'])){
 
     move_uploaded_file($fileTmpName, $filePath);
     if(empty($errors)){
-    $course = new Course();
+    $course = new CourseController();
     $course->addCourse($id,$title,$description,$filePath,$tags,$category);
     }
 

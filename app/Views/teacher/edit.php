@@ -18,17 +18,26 @@ if(isset($_GET['submit'])){
 if(isset($_POST['submit'])){
     $title = $_POST['title'];
     $description = $_POST['description'];
-    $content = $_POST['content'];
     $tags = isset($_POST['tags']) ? $_POST['tags'] : [];
     $category = $_POST['category'];
     $validateInput  = new validation;
     $validateInput->setTitle($title );
     $validateInput->setDescription($description);
-    $validateInput->setContent($content);
+
+    $_FILES['content'];
+    print_r($_FILES['content']);
+    $uploadDir = 'uploads\\'; 
+    $fileName = $_FILES['content']['name'];
+    $fileTmpName = $_FILES['content']['tmp_name'];
+    $filePath = $uploadDir . $fileName;
+    $validateInput->setContent($fileName);
+
+    $errors = $validateInput->getErrors();
+
+    move_uploaded_file($fileTmpName, $filePath);
     $errors = $validateInput->getErrors();
     if(empty($errors)){
-    $course = new Course();
-    $course->updateCourse($id,$title,$description,$content,$tags,$category);
+    $Course->updateCourse($id,$title,$description,$filePath ,$tags,$category);
     }
 } 
 ?>
@@ -56,7 +65,7 @@ if(isset($_POST['submit'])){
     <section id="add-course" class="p-6 bg-gray-100">
     <h2 class="text-2xl font-bold text-gray-800 mb-4">Edit a Course</h2>
     
-    <form class="bg-white shadow-md rounded-lg p-6" action="" method="POST">
+    <form class="bg-white shadow-md rounded-lg p-6" action="" method="POST" enctype="multipart/form-data">
         
         <div class="mb-4">
             <label for="title" class="block text-gray-700 font-medium mb-2">Course Title</label>
@@ -78,7 +87,7 @@ if(isset($_POST['submit'])){
 
         <div class="mb-4">
             <label for="content" class="block text-gray-700 font-medium mb-2">Content (Video or Document)</label>
-            <input type="file" id="content" name="content" 
+            <input  type="file" id="content" name="content" 
                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-fuchsia-400 focus:outline-none"
                  required >
                  <small class="text-red-500"><?php echo $errors['content'] ?? '' ; ?></small>

@@ -60,6 +60,23 @@ class CourseController{
       $this->CourseModel->editStatusCourse($courseId,$action);  
   }
 
+  public function  isUserEnrolled($userId, $courseId) {
+     return  $this->CourseModel->UserEnrolled($userId, $courseId);
+   }
+
+   public function studentEnrollment($id){
+       return $this->CourseModel->countEnrollment($id);
+   }
+
+   public function numberCourses($id){
+      return $this->CourseModel->counteCourses($id);
+   }
+
+   public function courseActif($id){
+      return $this->CourseModel->statusActive($id);
+   }
+
+
 }
 
 

@@ -37,14 +37,16 @@ $courses =  $Enrollment->getMyCourses($student_id);
         </div>
     </section>
 
-    <!-- My Courses Section -->
                 <section class="container mx-auto px-6 py-8">
                     <h2 class="text-2xl font-semibold mb-6">Enrolled Courses</h2>
 
-                    <!-- Course Cards --><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <?php  foreach ($courses as $course):?> 
                     <?php if($course['deleted_at'] == null): ?>  
                     <div class="bg-white rounded-lg shadow p-4">
+                    <div>
+                         <img src="../public/images/udemy-logo-share.png" alt="">
+                      </div>
                         <div class="flex justify-between">
                             <h3 class="text-xl font-semibold text-gray-800"><?= $course['title'] ?></h3>
                             <p class="text-gray-600 mt-2"><?= $course['created_at'] ?></p>

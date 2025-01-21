@@ -39,6 +39,9 @@ $courses = $fechCourse->getAllCoursesById($id);
         <?php  foreach ($courses as $course):?> 
         <?php if($course['deleted_at'] == null): ?>  
         <div class="bg-white rounded-lg shadow p-4">
+            <div>
+                <img src="../public/images/udemy-logo-share.png" alt="">
+            </div>
             <div class="flex justify-between">
                 <h3 class="text-xl font-semibold text-gray-800"><?= $course['title'] ?></h3>
                 <p class="text-gray-600 mt-2"><?= $course['status'] ?></p>

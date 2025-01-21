@@ -1,4 +1,4 @@
-        <aside class="w-full md:min-w-28 md:max-w-72 bg-blue-900 text-white flex flex-col">
+<aside class="w-full md:min-w-28 md:max-w-72 bg-blue-900 text-white flex flex-col">
             <div class="p-4 text-center font-bold text-xl border-b border-blue-700">
                 Admin Dashboard
             </div>
@@ -34,7 +34,7 @@
 
             <div class="p-4 text-center">
                 <form action="../auth/logout.php" method="POST"> 
-                    <button class="w-full bg-fuchsia-700 py-2 rounded hover:bg-fuchsia-800" type="submit" name="submit">
+                    <button class="w-full bg-blue-700 py-2 rounded hover:bg-blue-800" type="submit" name="submit">
                         Logout
                     </button>
                 </form>

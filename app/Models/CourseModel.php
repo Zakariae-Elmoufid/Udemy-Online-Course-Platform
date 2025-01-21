@@ -88,8 +88,8 @@ class CourseModel{
                 courses.id,
                 courses.title, 
                 courses.description, 
-                 courses.deleted_at,
-                 courses.created_at,
+                courses.deleted_at,
+                courses.created_at,
                 courses.content, 
                 courses.status,
                 users.username, 
@@ -384,6 +384,44 @@ class CourseModel{
         $stmt->execute();
     
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function UserEnrolled($userId, $courseId) {
+        $query = "SELECT * FROM enrollment WHERE student_id = :userId AND course_id = :courseId";
+        $statement = $this->conn->prepare($query);
+        $statement->execute([
+            ':userId' => $userId,
+            ':courseId' => $courseId
+        ]);
+        return $statement->rowCount() > 0; 
+    }
+    
+    public function  countEnrollment($id){
+        $query = "SELECT count(enrollment.course_id) FROM courses
+         inner join enrollment on enrollment.course_id = courses.id 
+         where teacher_id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id',$id);
+        $stmt->execute();
+        return $stmt->fetchColumn(); 
+    }
+    
+    public function counteCourses($id){
+        $query = "SELECT count(*) FROM courses
+         where teacher_id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id',$id);
+        $stmt->execute();
+        return $stmt->fetchColumn();
+    }
+
+    public function statusActive($id){
+        $query = "SELECT count(*) FROM courses
+        where teacher_id = :id and status = 'Active' ";
+       $stmt = $this->conn->prepare($query);
+       $stmt->bindParam(':id',$id);
+       $stmt->execute();
+       return $stmt->fetchColumn();
     }
     
 

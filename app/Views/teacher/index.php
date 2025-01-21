@@ -12,8 +12,12 @@ $id = $_SESSION['id'];
 use App\Controllers\CourseController;
 
 
-$fechCourse = new CourseController();
-$courses = $fechCourse->getAllCourses();
+$CourseController = new CourseController();
+$courses = $CourseController->getAllCourses();
+$studentEnrollment = $CourseController->studentEnrollment($id);
+$numberCourses = $CourseController->numberCourses($id);
+$courseActif = $CourseController->courseActif($id);
+
 
 
 
@@ -40,7 +44,7 @@ $courses = $fechCourse->getAllCourses();
 
        <div class="bg-fuchsia-200 w-[95%] my-6 h-40 mx-auto flex justify-between items-center relative">
        <div class="pl-10">
-        <h2>Welcome back teacher!👋</h2>
+        <h2>Welcome back <?php echo $_SESSION['username']?>!👋</h2>
        </div>
         <img
         class="w-50 h-40  absolute  right-12 bottom-7"
@@ -59,7 +63,7 @@ $courses = $fechCourse->getAllCourses();
             </div>
             <div class="ml-4">
                 <p class="text-gray-600">Étudiants inscrits</p>
-                <h3 class="text-2xl font-bold" id="student-count">120</h3>
+                <h3 class="text-2xl font-bold" id="student-count"><?php echo $studentEnrollment ?></h3>
             </div>
         </div>
 
@@ -72,7 +76,7 @@ $courses = $fechCourse->getAllCourses();
             </div>
             <div class="ml-4">
                 <p class="text-gray-600">Nombre de cours</p>
-                <h3 class="text-2xl font-bold" id="course-count">35</h3>
+                <h3 class="text-2xl font-bold" id="course-count"><?php echo $numberCourses ?></h3>
             </div>
         </div>
 
@@ -85,7 +89,7 @@ $courses = $fechCourse->getAllCourses();
             </div>
             <div class="ml-4">
                 <p class="text-gray-600">Cours actifs</p>
-                <h3 class="text-2xl font-bold" id="active-course-count">20</h3>
+                <h3 class="text-2xl font-bold" id="active-course-count"><?php echo $courseActif ?></h3>
             </div>
         </div>
     </div>

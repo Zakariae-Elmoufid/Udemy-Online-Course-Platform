@@ -30,6 +30,7 @@ class EnrolleModel{
         courses.deleted_at,
         courses.description,
         courses.content,
+        enrollment.student_id,
         courses.created_at,
         categorys.title as category_title,
         GROUP_CONCAT(tags.title) AS tags
@@ -52,6 +53,7 @@ class EnrolleModel{
         courses.deleted_at,
         courses.content,
         courses.created_at,
+        enrollment.student_id,
         categorys.title";
          $stmt = $this->conn->prepare($query);
          $stmt->bindParam(":id",$id);

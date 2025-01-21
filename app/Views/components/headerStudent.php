@@ -15,7 +15,7 @@
                     <img class="w-10 h-10 rounded-full border-2 border-gray-300" 
                          src="https://intranet.youcode.ma/storage/users/profile/thumbnail/1130-1727859974.JPG" 
                          alt="Profile Image">
-                    <span class="font-medium text-white">Teacher</span>
+                    <span class="font-medium text-black">Teacher</span>
                     <i class='bx bx-chevron-down'></i>
                 </div>
 
