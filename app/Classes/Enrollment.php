@@ -22,6 +22,10 @@ class enrollment {
     public function getMyCourses($id){
       return  $this->enrolleModel->selectMyCourse($id);
     }
+
+    public function cancleEnrollment($student_id,$course_id){
+        return $this->enrolleModel->cancle($student_id,$course_id);
+    }
      
 
 }

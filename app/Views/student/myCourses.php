@@ -9,11 +9,17 @@
    }
 
  $student_id = $_SESSION['id'];
-
+echo  $student_id;
  use App\classes\Enrollment;
 
 $Enrollment = new Enrollment();
 $courses =  $Enrollment->getMyCourses($student_id);
+
+if(isset($_POST['cancle'])){
+    $course_id = $_POST['id'];
+    $Enrollment->cancleEnrollment($student_id,$course_id);
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -60,7 +66,7 @@ $courses =  $Enrollment->getMyCourses($student_id);
                 </p>
                 <p class="text-sm text-gray-500 mt-2">Teacher: <span class="font-medium"><?= $course['username'] ?></span></p>
                 
-                <div class="mt-4">
+                <div class="mt-4 flex justify-between">
                     <form action="detailsCourse.php" method="POST">
                                 <input type="hidden" name="title" value="<?= $course['title']?>"> 
                                 <input type="hidden" name="description" value="<?= $course['description']?>"> 
@@ -69,6 +75,13 @@ $courses =  $Enrollment->getMyCourses($student_id);
                                     class=" px-4 py-2 text-white bg-fuchsia-500 rounded hover:bg-fuchsia-600">
                                     Views Content
                                 </button>
+                    </form>
+                    <form method="POST" >
+                        <input type="hidden" name="id" value="<?= $course['course_id']?>">
+                        <button type="submit" name="cancle"
+                        class=" px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600">
+                          Cancle
+                        </button>
                     </form>
                 </div>
             </div>

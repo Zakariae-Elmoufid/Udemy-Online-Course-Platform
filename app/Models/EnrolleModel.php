@@ -30,6 +30,7 @@ class EnrolleModel{
         courses.deleted_at,
         courses.description,
         courses.content,
+        enrollment.course_id,
         enrollment.student_id,
         courses.created_at,
         categorys.title as category_title,
@@ -49,6 +50,7 @@ class EnrolleModel{
         GROUP by courses.title,
         users.username,
         courses.id,
+        enrollment.course_id,
         courses.description,
         courses.deleted_at,
         courses.content,
@@ -59,6 +61,16 @@ class EnrolleModel{
          $stmt->bindParam(":id",$id);
          $stmt->execute();
          return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function cancle($student_id,$course_id){
+        $query = "DELETE FROM enrollment
+         where course_id = :course_id and student_id = :student_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":course_id",$course_id);
+        $stmt->bindParam(":student_id",$student_id);
+        $stmt->execute();
+        header("location:./myCourses.php");
     }
    
 }
