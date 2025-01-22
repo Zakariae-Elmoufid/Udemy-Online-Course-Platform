@@ -5,12 +5,11 @@ session_start();
     if ((!isset($_SESSION["id"]) && $_SESSION["role"] != "Admin")) {
       header("Location: ../../auth/login.php");
         exit();
-    }
+}
 
 $Course = new CourseController();
 $courses = $Course->getAllCourses();
 $topThree = $Course->topThreeTeacher();
-print_r($topThree)
 ?>
 <!DOCTYPE html>
 <html lang="en">

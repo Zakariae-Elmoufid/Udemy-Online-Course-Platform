@@ -8,8 +8,7 @@ class User {
     protected $email;
     protected $password;
     protected $role;
-    protected $created_at;
-    protected $deleted_at;
+
 
 
 
@@ -41,12 +40,7 @@ class User {
     {
          return $this->password; 
     }
-    public function getCreatedAt(){ 
-        return $this->created_at; 
-    }
-    public function getDeletedAt() { 
-        return $this->deleted_at; 
-    }
+
 
 
    

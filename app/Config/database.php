@@ -42,5 +42,5 @@ class Database
     }
 }
 
-Database::getConnection();
+// Database::getConnection();
 ?>

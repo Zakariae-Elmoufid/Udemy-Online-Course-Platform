@@ -2,6 +2,10 @@
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
 session_start();
+    if ((!isset($_SESSION["id"]) && $_SESSION["role"] != "Teacher")) {
+      header("Location: ../auth/login.php");
+        exit();
+      }
 $id = $_SESSION['id'];
 
 use App\Controllers\CourseController;

@@ -86,7 +86,7 @@ $topCourses  = $Course->topCourse();
                     <p class="text-3xl font-bold text-blue-900"><?= $topCourses ?></p>
                 </div>
                 <div class="bg-white shadow p-6 rounded-lg text-center">
-                    <h3 class="text-lg font-semibold text-gray-600">Top Teachers</h3>
+                    <h3 class="text-lg font-semibold text-gray-600">Tag</h3>
                     <p class="text-xl font-bold text-blue-900"><?= $totalTag ?></p>
                 </div>
             </section>

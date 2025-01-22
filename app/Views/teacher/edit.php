@@ -7,7 +7,10 @@ use App\Controllers\CourseController;
 use App\services\Validation;
 
 session_start();
-
+    if ((!isset($_SESSION["id"]) && $_SESSION["role"] != "Teacher")) {
+      header("Location: ../auth/login.php");
+        exit();
+    }
 if(isset($_GET['submit'])){
     $id = $_GET['id'];
     $Course = new CourseController();
@@ -122,7 +125,7 @@ if(isset($_POST['submit'])){
                     if ($category['title'] == $course['category_title']) {
                         echo "<option selected value='{$category['id']}'>{$course['category_title']}</option>";
                     } else {
-                        echo "<option value='{$category['id']}'>{$category['namecategory']}</option>";
+                        echo "<option value='{$category['id']}'>{$category['title']}</option>";
                     }
                 }
                 ?>    

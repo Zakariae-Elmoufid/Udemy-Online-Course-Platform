@@ -9,7 +9,6 @@
    }
 
  $student_id = $_SESSION['id'];
-echo  $student_id;
  use App\classes\Enrollment;
 
 $Enrollment = new Enrollment();

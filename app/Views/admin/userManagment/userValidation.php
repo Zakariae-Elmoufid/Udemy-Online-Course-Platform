@@ -9,8 +9,6 @@ $admin = new AdminController();
 $users = $admin->getAllStudent();
 
 if (isset($_POST['submit'])) {
-   
-       
         $action = $_POST["action"];
         $userId = $_POST["user_id"];
        $admin->usersManager($userId,$action);

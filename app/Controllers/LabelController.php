@@ -31,7 +31,6 @@ abstract class LabelController{
      }
  
     abstract public function addLabel($title);
-
      public function deleteLabel($id){
          $this->LabelModel->deleted($this->table,$id);
      }

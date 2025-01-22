@@ -7,6 +7,10 @@ use App\controllers\CourseController;
 use App\services\Validation;
 
 session_start();
+    if ((!isset($_SESSION["id"]) && $_SESSION["role"] != "Teacher")) {
+      header("Location: ../auth/login.php");
+        exit();
+      }
                 
 
 if(isset($_POST['submit'])){

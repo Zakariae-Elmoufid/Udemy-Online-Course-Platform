@@ -58,7 +58,7 @@ class CourseController{
 
      public function courseManager($courseId,$action){
       $this->CourseModel->editStatusCourse($courseId,$action);  
-  }
+      }
 
   public function  isUserEnrolled($userId, $courseId) {
      return  $this->CourseModel->UserEnrolled($userId, $courseId);

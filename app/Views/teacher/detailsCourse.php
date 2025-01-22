@@ -1,4 +1,10 @@
 <?php
+session_start();
+if ((!isset($_SESSION["id"]) && $_SESSION["role"] != "Teacher")) {
+  header("Location: ../auth/login.php");
+    exit();
+  }
+
 if(isset($_POST['submit'])){
     $title = $_POST['title'];
     $description = $_POST['description'];

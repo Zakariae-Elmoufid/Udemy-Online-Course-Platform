@@ -4,6 +4,13 @@ use App\Controllers\CourseController;
 use App\Controllers\CourseAdminController;
 $Course = new CourseController();
 $CourseAdmine = new CourseAdminController;
+
+session_start();
+    if ((!isset($_SESSION["id"]) && $_SESSION["role"] != "Teacher")) {
+      header("Location: ../auth/login.php");
+        exit();
+      }
+
 if(isset($_POST['submit'])){
    $id = $_POST['id'];
    $Course->deleteCourse($id);  

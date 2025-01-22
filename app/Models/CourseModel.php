@@ -310,12 +310,12 @@ class CourseModel{
             COUNT(DISTINCT courses.id) AS total_course
         FROM 
             teachers
-        LEFT JOIN 
+        left JOIN 
             courses ON teachers.id = courses.teacher_id
         INNER JOIN 
             users ON teachers.user_id = users.id
-        LEFT JOIN 
-            enrollment ON enrollment.course_id = courses.id
+        left JOIN 
+            enrollment ON  courses.id  = enrollment.course_id 
         GROUP BY 
             users.username ,users.email
         ORDER BY 
@@ -385,6 +385,23 @@ class CourseModel{
     
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function editStatusCourse($courseId,$action){
+        if ($action === 'suspension') {
+            $query = "UPDATE courses SET `status` = 'Suspended'  WHERE id = :id";
+        } elseif ($action === 'suppression') {
+            $query = "UPDATE courses SET deleted_at = CURRENT_DATE WHERE id = :id";
+        } elseif ($action === 'Activation') {
+            $query = "UPDATE courses SET `status` = 'Active' WHERE id = :id";
+        } 
+
+        $stmt = $this->conn->prepare( query: $query);
+        $stmt->bindParam(param: ":id" ,var: $courseId);
+        
+        $stmt->execute();
+        header("Location: ./index.php");
+    }
+
 
     public function UserEnrolled($userId, $courseId) {
         $query = "SELECT * FROM enrollment WHERE student_id = :userId AND course_id = :courseId";

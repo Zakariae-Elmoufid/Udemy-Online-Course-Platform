@@ -32,9 +32,15 @@ class   Authcontroller{
                 $_SESSION['id'] = $user->getId();
                 $_SESSION['username'] =  $user->getUsername();
                 $_SESSION['role'] = $user->getRole();
+                if($user->getStatus() == 'suspension'){
+                    header("Location:../pending.php");
+                }else if ($user->getStatus() == 'Activation'){
+                    header("location:../student/index.php");
+                }else if ($user->getStatus() == 'suppression'){
+                    header("location:../auth/login");
+                }
 
                 
-              header("Location:../student/index.php");
             }
             else if($user->getRole() == "Teacher")
             {
@@ -46,11 +52,11 @@ class   Authcontroller{
                 $_SESSION['role'] = $user->getRole();
 
                 if($user->getStatus() == 'suspension'){
-                    header("Location:../teacher/pending.php");
+                    header("Location:..pending.php");
                 }else if ($user->getStatus() == 'Activation'){
                     header("location:../teacher/index.php");
                 }else if ($user->getStatus() == 'suppression'){
-                    header("location:../teacher/suppression.php");
+                    header("location:../auth/login.php");
                 }
             }
             
@@ -68,6 +74,7 @@ class   Authcontroller{
             $_SESSION['role'] = $user->getRole();
 
 
+
           header("Location:../student/index.php");
         }else if($user->getRole() == "Teacher"){
             session_start();
@@ -77,11 +84,9 @@ class   Authcontroller{
                 $_SESSION['role'] = $user->getRole();
 
                 if($user->getStatus() == 'suspension'){
-                    header("Location:../teacher/pending.php");
+                    header("Location:../pending.php");
                 }else if ($user->getStatus() == 'Activation'){
                     header("location:../teacher/index.php");
-                }else if ($user->getStatus() == 'suppression'){
-                    header("location:../teacher/suppression.php");
                 }
                         
         }
