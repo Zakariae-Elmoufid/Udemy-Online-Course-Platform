@@ -56,6 +56,7 @@ if(isset($_POST['cancle'])){
                             <h3 class="text-xl font-semibold text-gray-800"><?= $course['title'] ?></h3>
                             <p class="text-gray-600 mt-2"><?= $course['created_at'] ?></p>
                         </div>
+                        <p class="text-sm text-gray-500 mt-2">Teacher: <span class="font-medium"><?= $course['username'] ?></span></p>
                         <p class="text-sm text-gray-500 mt-2">Category: <span class="font-medium"><?= $course['category_title'] ?></span></p>
                         <p class="text-sm text-gray-500 flex flex-wrap gap-1 ">Tags:
                         <?php   $tags = explode(",", $course["tags"]); ?>
@@ -63,7 +64,6 @@ if(isset($_POST['cancle'])){
                     <span class=" w-fit bg-green-100 text-green-800 text-xs px-2 rounded-full">#<?php echo $tag ?></span>
                     <?php endforeach; ?> 
                 </p>
-                <p class="text-sm text-gray-500 mt-2">Teacher: <span class="font-medium"><?= $course['username'] ?></span></p>
                 
                 <div class="mt-4 flex justify-between">
                     <form action="detailsCourse.php" method="POST">

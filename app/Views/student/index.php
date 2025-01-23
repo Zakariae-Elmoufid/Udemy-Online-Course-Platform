@@ -73,7 +73,7 @@ if (isset($_GET['ajax'])) {
                         <img src="../public/images/udemy-logo-share.png" alt="">
                     </div>
                        <h3 class="text-2xl font-bold text-gray-800"><?= htmlspecialchars($course['title']) ?></h3>
-                       
+                    <p class="text-sm text-gray-500 mt-2">Teacher: <span class="font-medium"><?= $course['username'] ?></span></p>   
                     <p class="text-gray-600 mt-2"><?= htmlspecialchars($course['description']) ?></p>
                     <p><i class='bx bxs-calendar text-gray-600 mt-2'><?= htmlspecialchars($course['created_at']) ?></i></p>
                     <p class="text-sm text-gray-500 ">Category: <span class="font-medium"><?= htmlspecialchars($course['category_title']) ?></span></p>
@@ -85,10 +85,8 @@ if (isset($_GET['ajax'])) {
                             <span class="w-fit bg-green-100 text-green-800 text-xs px-2 rounded-full">#<?= htmlspecialchars($tag) ?></span>
                             <?php endforeach; ?>
                                 <?php if ($isEnrolled): ?>
-                    <!-- Si l'utilisateur est déjà inscrit -->
                     <p class="mt-5 text-green-600 font-semibold">You are already enrolled in this course.</p>
                 <?php else: ?>
-                    <!-- Si l'utilisateur n'est pas encore inscrit -->
                     <form action="" method="POST">
                         <input type="hidden" name="course" value="<?= $course['id'] ?>">
                         <button type="submit" name="submit"

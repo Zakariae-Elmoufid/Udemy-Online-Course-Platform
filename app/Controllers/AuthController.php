@@ -8,10 +8,10 @@ class   Authcontroller{
 
     public function login($email, $password){
         $userModel = new UserModel();
-        $user =  $userModel->findUserByEmailAndPassword($email, $password);
+        $user =  $userModel->findUserByEmailAndPassword($email,$password);
         if($user == null)
         {
-            echo "user not found please check ..." . $user;
+            echo "user not found please check manaule ..." . $user;
         }
         else{
             if($user->getRole()== "Admin"){ 

@@ -1,9 +1,16 @@
 <?php
+ session_start();
+ if ((!isset($_SESSION["id"]) && $_SESSION["role"] != "Student")) {
+   header("Location: ../auth/login.php");
+     exit();
+   }
+
 if(isset($_POST['submit'])){
     $title = $_POST['title'];
     $description = $_POST['description'];
     $content = $_POST['content'];
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -31,20 +38,23 @@ if(isset($_POST['submit'])){
             
             <?php if (preg_match('/\.(pdf|doc|docx|ppt|pptx|xls|xlsx)$/', $content)): ?>
                 <div class="border border-gray-300 rounded-lg overflow-hidden shadow-md p-4 bg-gray-100">
-                    <embed src="<?= $content ?>" type="application/pdf" width="100%" height="600px" class="rounded-lg">
+                    <embed src="../teacher/<?= $content ?>" type="application/pdf" width="100%" height="600px" class="rounded-lg">
                 </div>
-            <?php elseif (preg_match('/\.(mp4|mov|avi|mkv)$/', $content)): ?>
-                <div class="aspect-w-16 aspect-h-9">
-                    <iframe width="100%" height="400" src="<?= $content ?>" frameborder="0" class="rounded-lg shadow"></iframe>
-                </div>
-            <?php else: ?>
+                <?php elseif (preg_match('/\.(mp4|mov|avi|mkv)$/', $content)): ?>
+                    <div class="aspect-w-16 aspect-h-9">
+                        <video controls width="100%" height="400"class="rounded-lg shadow">
+                            <source src="../teacher/<?= $content ?>" type="video/mp4">
+                        </video>
+  
+
+                    </div>
+                <?php else: ?>
                 <div class="bg-yellow-100 text-yellow-800 p-4 rounded-lg border border-yellow-300">
                     <p>No valid content available for this course.</p>
                 </div>
             <?php endif; ?>
         </div>
 
-        <!-- Back to Courses Button -->
         <div class="mt-8 text-center">
             <a href="index.php" 
                class="px-6 py-3 bg-fuchsia-600 text-white text-lg font-medium rounded-lg shadow hover:bg-fuchsia-700">

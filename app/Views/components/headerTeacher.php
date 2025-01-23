@@ -59,8 +59,7 @@
             <div class="relative group z-10">
                 <div class="flex items-center gap-2 cursor-pointer">
                     <img class="w-10 h-10 rounded-full border-2 border-gray-300" 
-                         src="https://intranet.youcode.ma/storage/users/profile/thumbnail/1130-1727859974.JPG" 
-                         alt="Profile Image">
+                    src="../public/images/profil.jpg"                          alt="Profile Image">
                     <span class="font-medium text-white"><?php echo $_SESSION['username']?></span>
                     <i class='bx bx-chevron-down'></i>
                 </div>
@@ -92,10 +91,9 @@
         </div>
     </div>
 
-    <!-- Mobile Sidebar -->
     <div id="mobile-menu" class="lg:hidden absolute top-0 left-0 w-full h-screen bg-fuchia-700 text-white transform -translate-x-full transition-transform">
         <div class="flex justify-between items-center py-4 px-6">
-            <a href="#" class="text-2xl font-bold">CareerLink</a>
+            <a href="#" class="text-2xl font-bold">Udemy</a>
             <button id="close-mobile-menu" class="text-white">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />

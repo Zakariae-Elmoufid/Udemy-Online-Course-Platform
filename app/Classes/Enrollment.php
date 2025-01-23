@@ -27,7 +27,6 @@ class enrollment {
         return $this->enrolleModel->cancle($student_id,$course_id);
     }
      
-
 }
 
 ?>

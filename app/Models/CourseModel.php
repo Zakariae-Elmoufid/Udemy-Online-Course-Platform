@@ -350,7 +350,7 @@ class CourseModel{
     public function search($query) {
         
         $sql = "SELECT 
-                   courses.id,
+            courses.id,
             courses.title, 
             courses.description, 
             courses.deleted_at,
