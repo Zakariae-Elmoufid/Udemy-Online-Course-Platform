@@ -1,4 +1,4 @@
-<div class="w-full md:w-64 bg-fuchsia-800 text-white flex flex-col">
+<div class="w-full md:min-w-28 md:max-w-72 bg-fuchsia-800 text-white flex flex-col">
 
             <!-- Logo Section -->
 
@@ -9,27 +9,27 @@
             <nav class="flex-grow">
             <ul>
                   <li class="p-4 hover:bg-blue-700">
-                    <a href="teacher/index.php"class="flex items-center space-x-2">
+                    <a href="../teacher/index.php"class="flex items-center space-x-2">
                         <span>🏠</span>
                         <span>Home</span>
                     </a>
                 </li>
                 <li class="p-4 hover:bg-blue-700">
-                    <a href="teacher/course.php" class="flex items-center space-x-2">
+                    <a href="../teacher/courses.php" class="flex items-center space-x-2">
                         <span>📚</span>
                         <span>My Courses</span>
                     </a>
                 </li>
                     <li class="p-4 hover:bg-blue-700">
-                        <a href="teacher/add.php" class="flex items-center space-x-2">
+                        <a href="../teacher/add.php" class="flex items-center space-x-2">
                             <span>📝</span>
                             <span>Add New Course</span>
                         </a>
                     </li>
                     <li class="p-4 hover:bg-blue-700">
-                        <a href="userManagment/userValidation.php" class="flex items-center space-x-2">
-                            <span>👤</span>
-                            <span>User Management</span>
+                        <a href="../teacher/delete.php" class="flex items-center space-x-2">
+                            <span>⚙️</span>
+                            <span>sitenge</span>
                         </a>
                     </li>
                     
@@ -38,9 +38,11 @@
             </nav>
 
             <div class="p-4 text-center">
-                <button class="w-full bg-fuchsia-700 py-2 rounded hover:bg-fuchsia-800">
-                    Logout
-                </button>
+                <form action="../auth/logout.php" method="POST">
+                    <button class="w-full bg-fuchsia-700 py-2 rounded hover:bg-fuchsia-800" type="submit" name="submit">
+                        Logout
+                    </button>
+                </form>
             </div>
             
             <div class="mt-auto text-center">

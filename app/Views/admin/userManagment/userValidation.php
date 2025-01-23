@@ -1,3 +1,23 @@
+<?php 
+require_once __DIR__ . '/../../../../vendor/autoload.php';
+
+
+use App\Controllers\AdminController;
+
+
+$admin = new AdminController();
+$users = $admin->getAllStudent();
+
+if (isset($_POST['submit'])) {
+        $action = $_POST["action"];
+        $userId = $_POST["user_id"];
+       $admin->usersManager($userId,$action);
+      
+}        
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,31 +40,50 @@
                   <tr class="bg-gray-200">
                       <th class="p-4 border border-gray-300">Name</th>
                       <th class="p-4 border border-gray-300">Email</th>
-                      <th class="p-4 border border-gray-300">Role</th>
                       <th class="p-4 border border-gray-300">Status</th>
                       <th class="p-4 border border-gray-300">Actions</th>
                   </tr>
               </thead>
               <tbody>
-                  <tr>
-                      <td class="p-4 border border-gray-300">John Doe</td>
-                      <td class="p-4 border border-gray-300">john.doe@example.com</td>
-                      <td class="p-4 border border-gray-300">Teacher</td>
-                      <td class="p-4 border border-gray-300">suspension</td>
-                      <td class="p-4 border border-gray-300 flex space-x-2">
-                          <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
-                              Approve
-                          </button>
-                          <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
-                              Reject
-                          </button>
-                      </td>
-                  </tr>
-                  <!-- More rows can be added -->
+                  
+                  <?php foreach ($users as $user): ?>
+                             <?php if($user['deleted_at'] == null): ?>  
+                            <tr>
+                                <td class="p-4 border border-gray-300"><?= $user['username']?></td>
+                                <td class="p-4 border border-gray-300"><?= $user['email'] ?></td>
+                                <td class="p-4 border border-gray-300"><?= $user['status'] ?></td>
+                                <td class="p-4 border border-gray-300 flex space-x-2">
+
+                                    <form method="POST" action="">
+                                        <input type="hidden" name="action" value="Activation">
+                                        <input type="hidden" name="user_id" value="<?= $user['user_id']?>">
+                                        <button type="submit" name="submit" class="text-white bg-green-600 hover:bg-green-700 px-4 py-2 rounded">Active</button>
+                                    </form>
+
+                                    <form method="POST" action="">
+                                        <input type="hidden" name="action" value="suspension">
+                                        <input type="hidden" name="user_id" value="<?= $user['user_id']?>">
+                                        <button type="submit" name="submit" class="text-white bg-orange-600 hover:bg-orange-700 px-4 py-2 rounded">Suspended</button>
+                                    </form>
+
+                                    <form method="POST" action="">
+                                        <input type="hidden" name="action" value="suppression">
+                                        <input type="hidden" name="user_id" value="<?= $user['user_id']?>">
+                                        <button type="submit" name="submit" class="text-white bg-red-600 hover:bg-red-700 px-4 py-2 rounded">Delete</button>
+                                    </form>
+
+                                </td>
+                            </tr>
+                            <?php endif ?>
+                            <?php endforeach; ?>
+                    
               </tbody>
           </table>
       </div>
   </section>
+
+
+
   </main>
 
   </div>

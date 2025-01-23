@@ -1,3 +1,27 @@
+<?php
+require_once __DIR__ . '/../../../vendor/autoload.php';
+session_start();
+    if ((!isset($_SESSION["id"]) && $_SESSION["role"] != "admin")) {
+      header("Location: ../auth/login.php");
+        exit();
+      }
+
+
+use App\Controllers\CourseController;
+use App\Controllers\CategoryController;
+use App\Controllers\TagController;
+
+$Course = new CourseController();
+$Category = new CategoryController("categorys");
+$Tag = new TagController("tags");
+
+$topThree = $Course->topThreeTeacher();
+$totalCourses = $Course->totalCourses();
+$totalTag = $Tag->totalLable();
+$totalCategory = $Category->totalLable();
+$topCourses  = $Course->topCourse();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,32 +53,17 @@
                 </tr>
             </thead>
             <tbody>
+                <?php foreach($topThree as $teacher):?>
                 <tr>
-                    <td class="p-4 border border-gray-300">Alice Johnson</td>
-                    <td class="p-4 border border-gray-300">alice.johnson@example.com</td>
-                    <td class="p-4 border border-gray-300">8</td>
-                    <td class="p-4 border border-gray-300">350</td>
+                    <td class="p-4 border border-gray-300"><?=$teacher['username']?></td>
+                    <td class="p-4 border border-gray-300"><?=$teacher['email']?></td>
+                    <td class="p-4 border border-gray-300"><?=$teacher['total_course']?></td>
+                    <td class="p-4 border border-gray-300"><?=$teacher['total_student']?></td>
                     <td class="p-4 border border-gray-300 flex space-x-2">
                         <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">View Profile</button>
                     </td>
                 </tr>
-                <tr>
-                    <td class="p-4 border border-gray-300">Bob Smith</td>
-                    <td class="p-4 border border-gray-300">bob.smith@example.com</td>
-                    <td class="p-4 border border-gray-300">6</td>
-                    <td class="p-4 border border-gray-300">280</td>
-                    <td class="p-4 border border-gray-300 flex space-x-2">
-                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">View Profile</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="p-4 border border-gray-300">Charlie Brown</td>
-                    <td class="p-4 border border-gray-300">charlie.brown@example.com</td>
-                    <td class="p-4 border border-gray-300">5</td>
-                    <td class="p-4 border border-gray-300">210</td>
-                    <td class="p-4 border border-gray-300 flex space-x-2">
-                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">View Profile</button>
-                    </td>
+               <?php endforeach ?>
                             </tr>
                         </tbody>
                     </table>
@@ -66,19 +75,19 @@
             <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div class="bg-white shadow p-6 rounded-lg text-center">
                     <h3 class="text-lg font-semibold text-gray-600">Total Courses</h3>
-                    <p class="text-3xl font-bold text-blue-900">123</p>
+                    <p class="text-3xl font-bold text-blue-900"><?= $totalCourses ?></p>
                 </div>
                 <div class="bg-white shadow p-6 rounded-lg text-center">
-                    <h3 class="text-lg font-semibold text-gray-600">Categories</h3>
-                    <p class="text-3xl font-bold text-blue-900">8</p>
+                    <h3 class="text-lg font-semibold text-gray-600">Categorys</h3>
+                    <p class="text-3xl font-bold text-blue-900"><?= $totalCategory ?></p>
                 </div>
                 <div class="bg-white shadow p-6 rounded-lg text-center">
                     <h3 class="text-lg font-semibold text-gray-600">Top Course</h3>
-                    <p class="text-3xl font-bold text-blue-900">40 students</p>
+                    <p class="text-3xl font-bold text-blue-900"><?= $topCourses ?></p>
                 </div>
                 <div class="bg-white shadow p-6 rounded-lg text-center">
-                    <h3 class="text-lg font-semibold text-gray-600">Top 3 Teachers</h3>
-                    <p class="text-xl font-bold text-blue-900">Alice, Bob, Charlie</p>
+                    <h3 class="text-lg font-semibold text-gray-600">Tag</h3>
+                    <p class="text-xl font-bold text-blue-900"><?= $totalTag ?></p>
                 </div>
             </section>
         </main>
