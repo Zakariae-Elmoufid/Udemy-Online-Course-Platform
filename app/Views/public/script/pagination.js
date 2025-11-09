@@ -4,6 +4,7 @@ function loadPage(page) {
     fetch(`index.php?page=${page}&ajax`)
         .then(response => response.text())
         .then(data => {
+
             document.getElementById("course-container").innerHTML = data; 
             currentPage = page;
 
