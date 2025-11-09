@@ -1,0 +1,7 @@
+RewriteEngine On
+
+# Exemple : rediriger /nouvelle-page vers /ancienne-page
+
+RewriteRule ^$ app/Views/index.php
+RewriteRule ^fr/login$ app/Views/auth/login.php
+RewriteRule ^fr/register$ app/Views/auth/register.php
