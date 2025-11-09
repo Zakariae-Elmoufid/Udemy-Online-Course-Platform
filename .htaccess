@@ -1,7 +1,7 @@
+Options +FollowSymLinks
 RewriteEngine On
+RewriteBase /myproject/
 
-# Exemple : rediriger /nouvelle-page vers /ancienne-page
-
-RewriteRule ^$ app/Views/index.php
-RewriteRule ^fr/login$ app/Views/auth/login.php
-RewriteRule ^fr/register$ app/Views/auth/register.php
+RewriteRule ^$ app/Views/index.php [L]
+RewriteRule ^login$ app/Views/auth/login.php [L]
+RewriteRule ^register$ app/Views/auth/register.php [L]
