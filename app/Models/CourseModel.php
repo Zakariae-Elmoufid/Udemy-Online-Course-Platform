@@ -254,7 +254,7 @@ class CourseModel{
             courses.created_at,
             categorys.title
         LIMIT :limit OFFSET :offset;
-";
+        ";
         $stmt = $this->conn->prepare($query);
         $stmt->bindValue(':limit', $itemsPerPage, PDO::PARAM_INT);
         $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
